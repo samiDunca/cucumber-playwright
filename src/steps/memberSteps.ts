@@ -1,0 +1,61 @@
+import { Given, When, Then } from "@cucumber/cucumber";
+
+import { MemberPage } from "../pages/memberPage";
+import { CustomWorldBeforeSetup } from "../world/custom-world";
+import { StringUtils, memberData } from "../utils/stringUtils";
+
+let memberPage: MemberPage;
+let memberData: memberData;
+
+
+Given('the user clicks on the "Members" page button', async function (this: CustomWorldBeforeSetup) {
+  memberData = StringUtils.generateRandomUserData();
+  memberPage = this.pagesObj.memberPage;
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await memberPage.clickMembersPageButton();
+});
+
+When("user clicks on + button", async function () {
+  await memberPage.clickAddMemberButton();
+});
+
+Given(
+  "user insert personal data",
+  async function () {
+    await memberPage.insertPersonalData(memberData.firstName, memberData.lastName, memberData.email, memberData.phoneNumber);
+  }
+);
+
+When("the user clicks on {string} button", async function (string) {
+  await memberPage.clickSaveButton();
+});
+
+Then("the member should be created", async function () {
+  await memberPage.clickTotalMembers();
+});
+
+
+// --------Edit Member Steps
+
+When("the user clicks on an existing Member", async function () {
+  await memberPage.clickAnExistingMember();
+});
+
+When("the user click on the account tab", async function () {
+  await memberPage.clickAccountTab();
+});
+
+When(
+  "the user is edited with the following data",
+  async function () {
+    await memberPage.updateMemberData(memberData.newFirstName, memberData.newLastName, memberData.newPhoneNumber);
+  }
+);
+
+Then(
+  "the member should be updated",
+  async function () {
+    await memberPage.verifyMemberUpdate(memberData.newFirstName, memberData.newLastName, memberData.newPhoneNumber);
+  }
+);
+// comment
