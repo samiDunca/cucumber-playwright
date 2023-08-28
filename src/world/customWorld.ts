@@ -1,25 +1,24 @@
 import { BrowserContext, Page } from "@playwright/test";
-import { AllPages } from "../pages/allPages";
 import { IWorldOptions, World, setWorldConstructor } from "@cucumber/cucumber";
-import { EnvironmentHandler } from "../env/models/EnvironmentHandler";
 
-export interface CustomWorldBeforeSetup extends World {
+import { AppPages } from "../pages/appPages";
+import { EnvironmentHandler } from "../env/models/environmentHandler";
+
+export interface ICustomWorld extends World {
   context?: BrowserContext;
   page?: Page;
-  pagesObj: AllPages;
+  pagesObj: AppPages;
 
   env: EnvironmentHandler;
 }
 
-export class CustomWorld extends World implements CustomWorldBeforeSetup {
+export class CustomWorld extends World implements ICustomWorld {
   constructor(options: IWorldOptions) {
     super(options);
   }
 
   env: EnvironmentHandler = new EnvironmentHandler();
-  pagesObj: AllPages = {} as AllPages;
+  pagesObj: AppPages = {} as AppPages;
 }
 
 setWorldConstructor(CustomWorld);
-
-// comment

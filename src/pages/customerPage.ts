@@ -1,5 +1,3 @@
-import { BrowserContext, Page } from "@playwright/test";
-
 import { BasePage } from "./basePage";
 
 export class CustomerPage extends BasePage {
@@ -38,7 +36,6 @@ export class CustomerPage extends BasePage {
     lastName: string,
     phone: number
   ): Promise<void> {
-    console.log("Customer data is updated.");
+    return
   }
 }
-// comment

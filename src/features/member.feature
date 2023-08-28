@@ -3,7 +3,7 @@ Feature: Add Member
 Background:
     Given User navigates to the application
 
-Scenario Outline: Add Member
+Scenario: Verify that the admin user can Add Member
     And User enter the username 
     And User enter the password 
     When User click on the signIn button
@@ -16,16 +16,7 @@ Scenario Outline: Add Member
 
     And the user clicks on an existing Member
     And the user click on the account tab
-    And the user is edited with the following data
+    And the user is edited 
     When the user clicks on "save" button
     Then the member should be updated 
-    # 
-
-
-
-    Examples: 
-    | username                |   password    |   firstName | lastName    |         email      |      phone       |   newFirstName  |  newLastName  |  newPhone  |
-    | samueldunca@yahoo.com   |   Frodo123    |   Sabin     | Negru       |    sabin23@nibas.io  |      456789      |   Sabin1        |  Negru1       |   2323     |   
-    # | samueldunca@yahoo.com |   Frodo123    |   David     | Negru       |    david23@divad.io  |      487358023   |   David1        |  Negru1       |   8765     |   
-    # | samueldunca@yahoo.com |   Frodo123    |   Elida     | Negru       |    elida23@adile.io  |      222222222   |   Elida1        |  Negru1       |   0000     |   
     

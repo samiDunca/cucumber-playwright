@@ -1,10 +1,6 @@
-import { Page, Locator, BrowserContext } from "@playwright/test";
 import { BasePage } from "./basePage";
 
-
 export class MemberPage extends BasePage {
-
-
   async clickMembersPageButton(): Promise<void> {
     await this.page.waitForSelector(
       "(//div[@class='menu-items-container']//div)[3]"
@@ -22,13 +18,19 @@ export class MemberPage extends BasePage {
     email: string,
     phone: number
   ): Promise<void> {
-      await this.page.getByRole('textbox').first().fill(firstName);
-      await this.page.getByText('Last Name').click();
-      await this.page.getByRole('textbox').nth(1).fill(lastName);
-      await this.page.locator('[id="headlessui-dialog-\\:r0\\:"]').getByText('Email').click();
-      await this.page.locator('input[type="email"]').fill(email);
-      await this.page.locator('[id="headlessui-dialog-\\:r0\\:"]').getByText('Phone').click();
-      await this.page.getByRole('spinbutton').fill(phone.toString());
+    await this.page.getByRole("textbox").first().fill(firstName);
+    await this.page.getByText("Last Name").click();
+    await this.page.getByRole("textbox").nth(1).fill(lastName);
+    await this.page
+      .locator('[id="headlessui-dialog-\\:r0\\:"]')
+      .getByText("Email")
+      .click();
+    await this.page.locator('input[type="email"]').fill(email);
+    await this.page
+      .locator('[id="headlessui-dialog-\\:r0\\:"]')
+      .getByText("Phone")
+      .click();
+    await this.page.getByRole("spinbutton").fill(phone.toString());
   }
 
   async clickSaveButton(): Promise<void> {
@@ -41,8 +43,8 @@ export class MemberPage extends BasePage {
 
   async clickAnExistingMember(): Promise<void> {
     await this.page
-    .locator("//table[@class='styled-table members-table']/tbody/tr[1]")
-    .click();
+      .locator("//table[@class='styled-table members-table']/tbody/tr[1]")
+      .click();
   }
 
   async clickAccountTab(): Promise<void> {
@@ -81,4 +83,3 @@ export class MemberPage extends BasePage {
     }
   }
 }
-// comment

@@ -3,7 +3,7 @@ Feature: Add Customer
 Background:
     Given User navigates to the application
 
-Scenario Outline: Add Customer
+Scenario: Verify that the admin user can Add Customer
     And User enter the username 
     And User enter the password 
     When User click on the signIn button

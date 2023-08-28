@@ -1,4 +1,5 @@
-import { Page, Locator, BrowserContext } from "@playwright/test";
+import { Locator } from "@playwright/test";
+
 import { BasePage } from "./basePage";
 
 export class LoginPage extends BasePage {
@@ -28,5 +29,5 @@ export class LoginPage extends BasePage {
     const text = await this.paragraphUserName.textContent();
     return text;
   }
+
 }
-// comment
