@@ -1,15 +1,6 @@
+import { IBookingGroupData } from "../types/bookingEngine.type";
+import { memberData } from "../types/member.type";
 import { GenerateRandomStrings } from "./generateRandomStrings";
-
-export type memberData = {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: number,
-    newFirstName: string,
-    newLastName: string,
-    newEmail: string,
-    newPhoneNumber: number,
-}
 
 export class StringUtils {
     static generateRandomUserData(): memberData {
@@ -51,14 +42,21 @@ export class StringUtils {
         return `${baseUrl}-${randomSuffix}`;
     }
 
-    static generateRandomBookingGroupData () {
+    static generateRandomBookingGroupData (): IBookingGroupData {
         const groupName = GenerateRandomStrings.generateRandomName()
         const daysInAdvance = Math.floor(Math.random() * 9) + 1;
-        const maxConcurrentBookings = Math.floor(Math.random() * 90) + 10;
-        const maxConcurrentlyBookedHours = Math.floor(Math.random() * 90) + 10;
-        const maxHoursPerDay = Math.floor(Math.random() * 90) + 10;
+        const maxConcurrentBookings = Math.floor(Math.random() * 9) + 1;
+        const maxConcurrentlyBookedHours = Math.floor(Math.random() * 9) + 1;
+        const maxHoursPerDay = Math.floor(Math.random() * 9) + 1;
         const maxHoursPerMonth = Math.floor(Math.random() * 90) + 10;
-        let randomTwoDigitNumber = Math.floor(Math.random() * 90) + 10;
+        return {
+            groupName,
+            daysInAdvance,
+            maxConcurrentBookings,
+            maxConcurrentlyBookedHours,
+            maxHoursPerDay,
+            maxHoursPerMonth,
+        }
     }
 }
 

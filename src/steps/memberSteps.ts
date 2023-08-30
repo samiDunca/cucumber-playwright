@@ -2,7 +2,8 @@ import { Given, When, Then } from "@cucumber/cucumber";
 
 import { MemberPage } from "../pages/memberPage";
 import { ICustomWorld } from "../world/customWorld";
-import { StringUtils, memberData } from "../utils/stringUtils";
+import { StringUtils } from "../suport/utils/stringUtils";
+import { memberData } from "../suport/types/member.type";
 
 let memberPage: MemberPage;
 let memberData: memberData;

@@ -1,19 +1,27 @@
 import { Given, When, Then } from "@cucumber/cucumber";
-import { Locator } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 import { BookingEnginePage } from "../pages/bookingEnginePage";
 import { ICustomWorld } from "../world/customWorld";
-import { StringUtils } from "../utils/stringUtils";
+import { StringUtils } from "../suport/utils/stringUtils";
+import {
+  BookingRulesCheckboxes,
+  BookingRulesInputs,
+} from "../suport/enums/bookingEngine.enum";
+import { IBookingGroupData } from "../suport/types/bookingEngine.type";
 
 let bookingEnginePage: BookingEnginePage;
-let url: string;
+let bookingGroupUrl: string;
+let newGroupData: IBookingGroupData;
+let updateGroupData: IBookingGroupData;
 
 Given(
   "that the user is on the Booking Engine page",
   async function (this: ICustomWorld) {
-    url = StringUtils.generateRandomBookingUrl();
+    bookingGroupUrl = StringUtils.generateRandomBookingUrl();
     bookingEnginePage = this.pagesObj.bookingEnginePage;
+    newGroupData = StringUtils.generateRandomBookingGroupData();
+    updateGroupData = StringUtils.generateRandomBookingGroupData();
 
     await bookingEnginePage.userNavigatesToSettingsPage();
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -23,7 +31,7 @@ Given(
 
 When("the user adds or changes the Url link", async function () {
   await new Promise((resolve) => setTimeout(resolve, 500));
-  await bookingEnginePage.userInsertsBookingUrl(url);
+  await bookingEnginePage.userInsertsBookingUrl(bookingGroupUrl);
 });
 
 When("the user saves the changes", async function () {
@@ -31,7 +39,7 @@ When("the user saves the changes", async function () {
 });
 
 Then("the Url should be saved successfully", async function () {
-  await bookingEnginePage.checkIfTheSaveWasSuccessfull(url);
+  await bookingEnginePage.checkIfTheSaveWasSuccessfull(bookingGroupUrl);
 });
 
 //////////////////////////////////////////
@@ -39,109 +47,114 @@ Then("the Url should be saved successfully", async function () {
 // Add, Edit, Delete a booking group
 
 When(
-  "the user clicks on {string} button in the top-right side above the table", async function (string) {
+  "the user clicks on {string} button in the top-right side above the table",
+  async function (string) {
     await bookingEnginePage.openNewBookingGroupModal();
   }
 );
 
 When("the user inserts “name” input", async function () {
-  await bookingEnginePage.enterBookingGroupName('Sara Fenesan')
+  await bookingEnginePage.enterBookingGroupName(newGroupData.groupName);
 });
 
 When("the user inserts number for “days in advance”", async function () {
-  await bookingEnginePage.enterDaysInAdvance('3');
+  await bookingEnginePage.enterDaysInAdvance(
+    newGroupData.daysInAdvance.toString()
+  );
 });
 
 When("the user selects time", async function () {
-  await bookingEnginePage.enterTime('9:33 AM')
+  await bookingEnginePage.enterTime();
 });
 
 When(
-  "the user check the following check-boxes: “Limit Concurrent Bookings”, “Limit Concurrent Hours”, “Limit Daily Play”, “Limit Monthly Play”",
-  async function () {
-    await bookingEnginePage.limitConcurentBookings()
-    await bookingEnginePage.limitConcurentHours()
-    await bookingEnginePage.limitDailyPlay()
-    await bookingEnginePage.limitMonthlyPlay()
+  "the user checks the following check-box: {string}",
+  async function (string: BookingRulesCheckboxes) {
+    await bookingEnginePage.checkTheCheckbox(string);
   }
 );
 
 When(
-  "the user inserts number for “Max Concurrent Bookings”",
-  async function () {
-    await expect(bookingEnginePage.concurrentBookingsCheckbox).toBeChecked() 
-    await bookingEnginePage.setConcurentBookings('3')
+  "the user inserts number for: {string}",
+  async function (string: BookingRulesInputs) {
+    await bookingEnginePage.fillInputBookingRules(string, newGroupData);
   }
 );
-
-When(
-  "the user inserts number for “Max Concurrently Booked hours”",
-  async function () {
-    await expect(bookingEnginePage.concurrentHoursCheckbox).toBeChecked() 
-    await bookingEnginePage.setConcurentBookedHours('3')
-  }
-);
-
-When("the user inserts number for “Max Hours per Day”", async function () {
-  await expect(bookingEnginePage.dailyPlayCheckbox).toBeChecked() 
-  await bookingEnginePage.setMaxHoursPerDay('3')
-});
-
-When("the user inserts number for “Max Hours per Month”", async function () {
-  await expect(bookingEnginePage.monthlyPlayCheckbox).toBeChecked() 
-  await bookingEnginePage.setMaxHoursPerMonth('20')
-});
 
 When("the user selects booking rate from Rates dropdown", async function () {
   await bookingEnginePage.selectPublicRate();
 });
 
 When("the user clicks the {string} button", async function (string) {
-  await bookingEnginePage.clickOnSave()
+  await bookingEnginePage.clickOnSave();
 });
 
-When('the user clicks the save button for modal', async function(string){
-  await bookingEnginePage.saveModal()
-})
-
-Then("the booking should be successfully created", async function () {
-  
+When("the user clicks the save button for modal", async function () {
+  await bookingEnginePage.saveModal();
 });
 
+Then("the booking should be successfully created", async function () {});
+
+// --------Edit
 When(
-  "the user clicks on the {int} dots of the newly created booking group",
-  async function (int) {
-    return "pending";
+  "the user clicks on the three dots button of the newly created booking group",
+  async function () {
+    await bookingEnginePage.clickThreeDotsButton(newGroupData.groupName);
   }
 );
 
-When("the user press on {string}", async function (string) {
-
+When("the user press on edit button", async function () {
+  await bookingEnginePage.clickEditButton()
 });
 
-When("the user modifies the “newName” input", async function () {});
+When("the user modifies the “newName” input", async function () {
+  await bookingEnginePage.enterBookingGroupName(updateGroupData.groupName);
+});
 
-When("the user modifies the “days in advance” input", async function () {});
+When("the user modifies the “days in advance” input", async function () {
+  await bookingEnginePage.enterDaysInAdvance(
+    updateGroupData.daysInAdvance.toString()
+  );
+});
 
-When("the user selects another time", async function () {});
+When("the user selects another time", async function () {
+  await bookingEnginePage.enterTime();
+});
+
+When(
+  "the user clicks the save button for modal after update",
+  async function () {
+    await bookingEnginePage.saveModal();
+  }
+);
 
 Then(
   "the current booking group should be successfully updated",
-  async function () {}
-);
-
-When(
-  "the user clicks on the {int} dots of the current updated booking group",
-  async function (int) {
-    return "pending";
+  async function () {
+    await bookingEnginePage.checkGroupIsUpdated(updateGroupData.groupName);
   }
 );
 
-When("the user click on {string} button", async function (string) {});
+// --------Delete
 
 When(
-  "the user clicks on  {string} on the confirmation modal",
-  async function (string) {}
+  "the user clicks on the three dots button of the current updated booking group",
+  async function () {
+    await bookingEnginePage.clickThreeDotsButton(updateGroupData.groupName);
+  }
 );
 
-Then("the booking group should be successfully deleted", async function () {});
+When("the user click on delete button", async function () {
+  await bookingEnginePage.clickDeleteButton()
+});
+
+When(
+  "the user clicks on Continue button on the confirmation modal",
+  async function () {
+    await bookingEnginePage.clickConfirmGroupDelete();
+  }
+);
+
+Then("the booking group should be successfully deleted", async function () {
+  await bookingEnginePage.checkGroupIsDeleted(updateGroupData.groupName);
+});

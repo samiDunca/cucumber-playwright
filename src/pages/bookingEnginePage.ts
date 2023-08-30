@@ -1,34 +1,79 @@
-import { Locator } from "@playwright/test";
+import { Locator, expect } from "@playwright/test";
 
 import { BasePage } from "./basePage";
+import { IBookingGroupData } from "../suport/types/bookingEngine.type";
+import {
+  BookingRulesCheckboxes,
+  BookingRulesInputs,
+} from "../suport/enums/bookingEngine.enum";
 
 export class BookingEnginePage extends BasePage {
-  private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
-  private bookingEngineButton: Locator = this.page.locator(".settings-menu button:nth-of-type(3)");
-  private bookingUrlInput: Locator = this.page.locator('.input-container .flex .input');
+  private generalSettingsButton: Locator = this.page.locator(
+    ".menu-items-container > div:last-of-type"
+  );
+  private bookingEngineButton: Locator = this.page.locator(
+    ".settings-menu button:nth-of-type(3)"
+  );
+  private bookingUrlInput: Locator = this.page.locator(
+    ".input-container .flex .input"
+  );
   private saveButton: Locator = this.page.locator(".save-button button");
-  private saveModalButton: Locator = this.page.locator(".title-container > .standard-button");
+  private saveModalButton: Locator = this.page.locator(
+    ".title-container button"
+  );
+  private editGroupButton: Locator = this.page.locator(
+    ".dropdown-menu li:nth-child(2)"
+  );
+  private deleteGroupButton: Locator = this.page.locator(
+    ".dropdown-menu li:nth-child(3)"
+  );
+  private confirmDeleteButton = this.page.locator(
+    ".buttons-row button:first-child"
+  );
 
-  private plusButton: Locator = this.page.locator('.plus-sign > .svg-inline--fa');
-  private groupNameInput: Locator = this.page.locator('.name-container:last-child input');
-  private daysInAdvanceInput: Locator = this.page.locator('.rates-modal-section-container:nth-child(2) .input-container:first-child input');
+  private plusButton: Locator = this.page.locator(
+    ".plus-sign > .svg-inline--fa"
+  );
+  private groupNameInput: Locator = this.page.locator(
+    ".name-container:last-child input.input"
+  );
+  private daysInAdvanceInput: Locator = this.page.locator(
+    ".rates-modal-section-container:nth-child(2) .input-container:first-child input"
+  );
 
-  private timePickerHours: Locator = this.page.locator('.rc-time-picker-panel-select:first-child ul li:nth-child(2)');
-  private timePicker: Locator = this.page.locator('input[placeholder="Select Time"]');
+  private hoursTimePicker: Locator = this.page.locator(
+    ".rc-time-picker-panel-select:first-child ul li:nth-child(2)"
+  );
+  private timePicker: Locator = this.page.locator(
+    'input[placeholder="Select Time"]'
+  );
 
-  public concurrentBookingsCheckbox: Locator = this.page.locator('.rules-container:nth-child(1) .checkbox-input');
-  public concurrentHoursCheckbox: Locator = this.page.locator('.rules-container:nth-child(2) .checkbox-input');
-  public dailyPlayCheckbox: Locator = this.page.locator('.rules-container:nth-child(3) .checkbox-input');
-  public monthlyPlayCheckbox: Locator = this.page.locator('.rules-container:nth-child(4) .checkbox-input');
+  public concurrentBookingsCheckbox: Locator = this.page.locator(
+    ".rules-container:nth-child(1) .checkbox-input"
+  );
+  public concurrentHoursCheckbox: Locator = this.page.locator(
+    ".rules-container:nth-child(2) .checkbox-input"
+  );
+  public dailyPlayCheckbox: Locator = this.page.locator(
+    ".rules-container:nth-child(3) .checkbox-input"
+  );
+  public monthlyPlayCheckbox: Locator = this.page.locator(
+    ".rules-container:nth-child(4) .checkbox-input"
+  );
 
-  private concurrentBookingsInput: Locator = this.page.locator('.rules-container:nth-child(1) .input');
-  private concurrentHoursInput: Locator = this.page.locator('.rules-container:nth-child(2) .input');
-  private dailyPlayInput: Locator = this.page.locator('.rules-container:nth-child(3) .input');
-  private monthlyPlayInput: Locator = this.page.locator('.rules-container:nth-child(4) .input');
-  private publicRate: Locator = this.page.locator('.text-displayFive input');
-
-
-
+  private concurrentBookingsInput: Locator = this.page.locator(
+    ".rules-container:nth-child(1) .input"
+  );
+  private concurrentHoursInput: Locator = this.page.locator(
+    ".rules-container:nth-child(2) .input"
+  );
+  private dailyPlayInput: Locator = this.page.locator(
+    ".rules-container:nth-child(3) .input"
+  );
+  private monthlyPlayInput: Locator = this.page.locator(
+    ".rules-container:nth-child(4) .input"
+  );
+  private publicRate: Locator = this.page.locator(".text-displayFive input");
 
   async userNavigatesToSettingsPage(): Promise<void> {
     await this.generalSettingsButton.click();
@@ -53,8 +98,8 @@ export class BookingEnginePage extends BasePage {
 
   async checkIfTheSaveWasSuccessfull(url: string): Promise<void> {
     if ((await this.bookingUrlInput.inputValue()) === url) {
-        console.log('salvat cu success')
-      return
+      console.log("salvat cu success");
+      return;
     } else {
       throw new Error("The url have not been saved");
     }
@@ -71,62 +116,152 @@ export class BookingEnginePage extends BasePage {
     await this.groupNameInput.fill(name);
   }
 
-
-   ////////////////
-   // booking window
+  ////////////////
+  // booking window
 
   async enterDaysInAdvance(daysInAdvance: string): Promise<void> {
-    await this.daysInAdvanceInput.fill(daysInAdvance)
+    await this.daysInAdvanceInput.fill(daysInAdvance);
   }
 
-  async enterTime(value: string): Promise<void> {
-    // await this.timePicker.click()
+  async enterTime(): Promise<void> {
     await this.timePicker.click();
-    await this.timePickerHours.click();
+    await this.hoursTimePicker.click();
   }
-
 
   /////////////////
   // booking rules
+  async checkTheCheckbox(checkboxName: BookingRulesCheckboxes) {
+    switch (checkboxName) {
+      case BookingRulesCheckboxes.LIMIT_CONCURRENT_BOOKINGS:
+        await this.limitConcurentBookings();
+        break;
+      case BookingRulesCheckboxes.LIMIT_CONCURRENT_HOURS:
+        await this.limitConcurentHours();
+        break;
+      case BookingRulesCheckboxes.LIMIT_DAILY_PLAY:
+        await this.limitDailyPlay();
+        break;
+      case BookingRulesCheckboxes.LIMIT_MONTHLY_PLAY:
+        await this.limitMonthlyPlay();
+        break;
+      default:
+        break;
+    }
+  }
+
+  async fillInputBookingRules(
+    inputName: BookingRulesInputs,
+    newGroupData: IBookingGroupData
+  ) {
+    let checkTheCheckbox;
+    switch (inputName) {
+      case BookingRulesInputs.MAX_CONCURRENT_BOOKINGS:
+        checkTheCheckbox = await this.concurrentBookingsCheckbox.isChecked();
+        checkTheCheckbox
+          ? await this.setConcurentBookings(
+              newGroupData.maxConcurrentBookings.toString()
+            )
+          : null;
+        break;
+      case BookingRulesInputs.MAX_CONCURRENTLY_BOOKED_HOURS:
+        checkTheCheckbox = await this.concurrentHoursCheckbox.isChecked();
+        checkTheCheckbox
+          ? await this.setConcurentBookedHours(
+              newGroupData.maxConcurrentlyBookedHours.toString()
+            )
+          : null;
+        break;
+      case BookingRulesInputs.MAX_HOURS_PER_DAY:
+        checkTheCheckbox = await this.dailyPlayCheckbox.isChecked();
+        checkTheCheckbox
+          ? await this.setMaxHoursPerDay(newGroupData.maxHoursPerDay.toString())
+          : null;
+        break;
+      case BookingRulesInputs.MAX_HOURS_PER_MONTH:
+        checkTheCheckbox = await this.monthlyPlayCheckbox.isChecked();
+        checkTheCheckbox
+          ? await this.setMaxHoursPerMonth(
+              newGroupData.maxHoursPerMonth.toString()
+            )
+          : null;
+        break;
+      default:
+        break;
+    }
+  }
 
   async limitConcurentBookings() {
     await this.concurrentBookingsCheckbox.click();
   }
 
-  async limitConcurentHours(){
+  async limitConcurentHours() {
     await this.concurrentHoursCheckbox.click();
   }
 
-  async limitDailyPlay(){
+  async limitDailyPlay() {
     await this.dailyPlayCheckbox.click();
   }
 
-  async limitMonthlyPlay(){
+  async limitMonthlyPlay() {
     await this.monthlyPlayCheckbox.click();
   }
 
   async setConcurentBookings(nrConcurrentBookings: string) {
-    await this.concurrentBookingsInput.fill(nrConcurrentBookings)
-  } 
-  
+    await this.concurrentBookingsInput.fill(nrConcurrentBookings);
+  }
+
   async setConcurentBookedHours(concurrentHours: string) {
-    await this.concurrentHoursInput.fill(concurrentHours)
+    await this.concurrentHoursInput.fill(concurrentHours);
   }
 
   async setMaxHoursPerDay(hours: string) {
-    await this.dailyPlayInput.fill(hours)
+    await this.dailyPlayInput.fill(hours);
   }
 
   async setMaxHoursPerMonth(hours: string) {
-    await this.monthlyPlayInput.fill(hours)
+    await this.monthlyPlayInput.fill(hours);
   }
-  
 
   /////////////////
   // booking rates
 
   async selectPublicRate() {
-    await this.publicRate.click()
-    await this.publicRate.press('Enter')
+    await this.publicRate.click();
+    await this.publicRate.press("Enter");
+  }
+
+  async checkGroupIsUpdated(updateGroupName: string) {
+    const userEmail = await this.page
+      .locator(`//table/tbody/tr/td[text()='${updateGroupName}']`)
+      .textContent();
+
+    if (userEmail !== updateGroupName) {
+      throw new Error("the update has not been done");
+    }
+  }
+
+  async clickThreeDotsButton(updateGroupName: string) {
+    await this.page
+      .getByRole("row", { name: `${updateGroupName}` })
+      .locator("svg")
+      .click();
+  }
+
+  async clickEditButton() {
+    await this.editGroupButton.click();
+  }
+
+  async clickDeleteButton() {
+    await this.deleteGroupButton.click();
+  }
+
+  async clickConfirmGroupDelete() {
+    await this.confirmDeleteButton.click();
+  }
+
+  async checkGroupIsDeleted(updateGroupName: string) {
+    await expect(
+      this.page.locator(`//table/tbody/tr/td[text()='${updateGroupName}']`)
+    ).toHaveCount(0);
   }
 }

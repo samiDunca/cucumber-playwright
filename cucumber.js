@@ -7,7 +7,7 @@ module.exports = {
     dryRun: false,
     require: [
       "src/steps/*.ts",
-      "src/setup/hooks.ts",
+      "./hooks.ts",
       "src/world/customWorld.ts",
       "/playwright.config.ts"
     ],
