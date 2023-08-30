@@ -8,71 +8,31 @@ import {
 } from "../suport/enums/bookingEngine.enum";
 
 export class BookingEnginePage extends BasePage {
-  private generalSettingsButton: Locator = this.page.locator(
-    ".menu-items-container > div:last-of-type"
-  );
-  private bookingEngineButton: Locator = this.page.locator(
-    ".settings-menu button:nth-of-type(3)"
-  );
-  private bookingUrlInput: Locator = this.page.locator(
-    ".input-container .flex .input"
-  );
+  private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
+  private bookingEngineButton: Locator = this.page.locator(".settings-menu button:nth-of-type(3)");
+  private bookingUrlInput: Locator = this.page.locator(".input-container .flex .input");
   private saveButton: Locator = this.page.locator(".save-button button");
-  private saveModalButton: Locator = this.page.locator(
-    ".title-container button"
-  );
-  private editGroupButton: Locator = this.page.locator(
-    ".dropdown-menu li:nth-child(2)"
-  );
-  private deleteGroupButton: Locator = this.page.locator(
-    ".dropdown-menu li:nth-child(3)"
-  );
-  private confirmDeleteButton = this.page.locator(
-    ".buttons-row button:first-child"
-  );
+  private saveModalButton: Locator = this.page.locator(".title-container button");
+  private editGroupButton: Locator = this.page.locator(".dropdown-menu li:nth-child(2)");
+  private deleteGroupButton: Locator = this.page.locator(".dropdown-menu li:nth-child(3)");
+  private confirmDeleteButton = this.page.locator(".buttons-row button:first-child");
 
-  private plusButton: Locator = this.page.locator(
-    ".plus-sign > .svg-inline--fa"
-  );
-  private groupNameInput: Locator = this.page.locator(
-    ".name-container:last-child input.input"
-  );
-  private daysInAdvanceInput: Locator = this.page.locator(
-    ".rates-modal-section-container:nth-child(2) .input-container:first-child input"
-  );
+  private plusButton: Locator = this.page.locator(".plus-sign > .svg-inline--fa");
+  private groupNameInput: Locator = this.page.locator(".name-container:last-child input.input");
+  private daysInAdvanceInput: Locator = this.page.locator(".rates-modal-section-container:nth-child(2) .input-container:first-child input");
 
-  private hoursTimePicker: Locator = this.page.locator(
-    ".rc-time-picker-panel-select:first-child ul li:nth-child(2)"
-  );
-  private timePicker: Locator = this.page.locator(
-    'input[placeholder="Select Time"]'
-  );
+  private hoursTimePicker: Locator = this.page.locator(".rc-time-picker-panel-select:first-child ul li:nth-child(2)");
+  private timePicker: Locator = this.page.locator('input[placeholder="Select Time"]');
 
-  public concurrentBookingsCheckbox: Locator = this.page.locator(
-    ".rules-container:nth-child(1) .checkbox-input"
-  );
-  public concurrentHoursCheckbox: Locator = this.page.locator(
-    ".rules-container:nth-child(2) .checkbox-input"
-  );
-  public dailyPlayCheckbox: Locator = this.page.locator(
-    ".rules-container:nth-child(3) .checkbox-input"
-  );
-  public monthlyPlayCheckbox: Locator = this.page.locator(
-    ".rules-container:nth-child(4) .checkbox-input"
-  );
+  public concurrentBookingsCheckbox: Locator = this.page.locator(".rules-container:nth-child(1) .checkbox-input");
+  public concurrentHoursCheckbox: Locator = this.page.locator(".rules-container:nth-child(2) .checkbox-input");
+  public dailyPlayCheckbox: Locator = this.page.locator(".rules-container:nth-child(3) .checkbox-input");
+  public monthlyPlayCheckbox: Locator = this.page.locator(".rules-container:nth-child(4) .checkbox-input");
 
-  private concurrentBookingsInput: Locator = this.page.locator(
-    ".rules-container:nth-child(1) .input"
-  );
-  private concurrentHoursInput: Locator = this.page.locator(
-    ".rules-container:nth-child(2) .input"
-  );
-  private dailyPlayInput: Locator = this.page.locator(
-    ".rules-container:nth-child(3) .input"
-  );
-  private monthlyPlayInput: Locator = this.page.locator(
-    ".rules-container:nth-child(4) .input"
-  );
+  private concurrentBookingsInput: Locator = this.page.locator(".rules-container:nth-child(1) .input");
+  private concurrentHoursInput: Locator = this.page.locator(".rules-container:nth-child(2) .input");
+  private dailyPlayInput: Locator = this.page.locator(".rules-container:nth-child(3) .input");
+  private monthlyPlayInput: Locator = this.page.locator(".rules-container:nth-child(4) .input");
   private publicRate: Locator = this.page.locator(".text-displayFive input");
 
   async userNavigatesToSettingsPage(): Promise<void> {
