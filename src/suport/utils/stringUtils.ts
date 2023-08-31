@@ -1,10 +1,11 @@
 import { IBookingGroupData } from "../types/bookingEngine.type";
 import { memberData } from "../types/member.type";
-import { GenerateRandomStrings } from "./generateRandomStrings";
+import { scheduleData, startAndEndDate } from "../types/reservation.type";
+import { GenerateRandomStrings, extractHoursWithIndexAndValueConstraint } from "./generateRandomStrings";
 
 export class StringUtils {
     static generateRandomUserData(): memberData {
-        const firstNameList: string[] = ['Petru', "Ioana", "Ana", "Iulia", "Vektor"];
+        const firstNameList: string[] = ['Petru', "Ioana", "Ana", "Iulia", "Vektor"]
         const lastNameList: string[] = ['Lutenco', 'Puscac', 'Dorca', 'Cusnir', 'Glavan'] 
         const emailList: string[] = ['petru@tech23.io', 'Ioana@tech.io23', 'ana@tech23.io', 'vektor@tech23.io', 'petru@tech23.io', 'Ioana@tech23.io', 'ana@tech23.io', 'vektor@tech23.io']
 
@@ -57,6 +58,24 @@ export class StringUtils {
             maxHoursPerDay,
             maxHoursPerMonth,
         }
+    }
+
+    static generateRandomReservationData(): scheduleData {
+        const randomTwoDigitNumber = Math.floor(Math.random() * 60) + 1;
+        const scheduleName = GenerateRandomStrings.generateRandomName()
+        const firstArray = ['12:30a','1:00a','1:30a','2:00a','2:30a','3:00a','3:30a','4:00a','4:30a','5:00a','5:30a','6:00a','6:30a','7:00a','7:30a','8:00a','8:30a','9:00a','9:30a','10:00a','10:30a','11:00a','11:30a','12:00p','12:30p','1:00p','1:30p','2:00p','2:30p','3:00p','3:30p','4:00p','4:30p','5:00p','5:30p','6:00p','6:30p','7:00p','7:30p','8:00p','8:30p','9:00p','9:30p','10:00p','10:30p'];
+        const secondArray = ['12:30a','1:00a','1:30a','2:00a','2:30a','3:00a','3:30a','4:00a','4:30a','5:00a','5:30a','6:00a','6:30a','7:00a','7:30a','8:00a','8:30a','9:00a','9:30a','10:00a','10:30a','11:00a','11:30a','12:00p','12:30p','1:00p','1:30p','2:00p','2:30p','3:00p','3:30p','4:00p','4:30p','5:00p','5:30p','6:00p','6:30p','7:00p','7:30p','8:00p','8:30p','9:00p','9:30p','10:00p','10:30p'];
+          
+        const {hourFromFirstArray, hourFromSecondArray}: startAndEndDate | any = extractHoursWithIndexAndValueConstraint(firstArray, secondArray);
+
+        const lastNameList: string[] = [] 
+        const emailList: string[] = []
+        return {
+            randomTwoDigitNumber,
+            scheduleName,
+            hourFromFirstArray,
+            hourFromSecondArray
+        } 
     }
 }
 

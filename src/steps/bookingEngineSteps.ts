@@ -1,5 +1,4 @@
 import { Given, When, Then } from "@cucumber/cucumber";
-import { expect } from "@playwright/test";
 
 import { BookingEnginePage } from "../pages/bookingEnginePage";
 import { ICustomWorld } from "../world/customWorld";
@@ -68,16 +67,22 @@ When("the user selects time", async function () {
 });
 
 When(
-  "the user checks the following check-box: {string}",
-  async function (string: BookingRulesCheckboxes) {
-    await bookingEnginePage.checkTheCheckbox(string);
+  "the user checks the following check-box:",
+  async function (table) {
+    const hashes = table.hashes()
+    for (let index = 0; index < hashes.length; index++) {
+      await bookingEnginePage.checkTheCheckbox(hashes[index].checkbox);
+    }
   }
 );
 
 When(
-  "the user inserts number for: {string}",
-  async function (string: BookingRulesInputs) {
-    await bookingEnginePage.fillInputBookingRules(string, newGroupData);
+  "the user inserts number for the following inputs:",
+  async function (table) {
+    const hashes = table.hashes()
+    for (let index = 0; index < hashes.length; index++) {
+      await bookingEnginePage.fillInputBookingRules(hashes[index].input, newGroupData);
+    }
   }
 );
 

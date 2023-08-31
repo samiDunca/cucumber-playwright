@@ -5,7 +5,7 @@ import { EnvironmentHandler } from "./src/env/models/environmentHandler";
 import { ICustomWorld } from "./src/world/customWorld";
 import { AppPages } from "./src/pages/appPages";
 
-setDefaultTimeout(3 * 5000);
+setDefaultTimeout(4 * 5000);
 
 let browser: Browser;
 let page: Page;

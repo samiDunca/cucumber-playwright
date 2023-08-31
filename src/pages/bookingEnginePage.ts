@@ -93,15 +93,19 @@ export class BookingEnginePage extends BasePage {
   async checkTheCheckbox(checkboxName: BookingRulesCheckboxes) {
     switch (checkboxName) {
       case BookingRulesCheckboxes.LIMIT_CONCURRENT_BOOKINGS:
+        console.log(checkboxName)
         await this.limitConcurentBookings();
         break;
       case BookingRulesCheckboxes.LIMIT_CONCURRENT_HOURS:
+        console.log(checkboxName)
         await this.limitConcurentHours();
         break;
       case BookingRulesCheckboxes.LIMIT_DAILY_PLAY:
+        console.log(checkboxName)
         await this.limitDailyPlay();
         break;
       case BookingRulesCheckboxes.LIMIT_MONTHLY_PLAY:
+        console.log(checkboxName)
         await this.limitMonthlyPlay();
         break;
       default:
@@ -113,33 +117,33 @@ export class BookingEnginePage extends BasePage {
     inputName: BookingRulesInputs,
     newGroupData: IBookingGroupData
   ) {
-    let checkTheCheckbox;
+    let isChecked;
     switch (inputName) {
       case BookingRulesInputs.MAX_CONCURRENT_BOOKINGS:
-        checkTheCheckbox = await this.concurrentBookingsCheckbox.isChecked();
-        checkTheCheckbox
+        isChecked = await this.concurrentBookingsCheckbox.isChecked();
+        isChecked
           ? await this.setConcurentBookings(
               newGroupData.maxConcurrentBookings.toString()
             )
           : null;
         break;
       case BookingRulesInputs.MAX_CONCURRENTLY_BOOKED_HOURS:
-        checkTheCheckbox = await this.concurrentHoursCheckbox.isChecked();
-        checkTheCheckbox
+        isChecked = await this.concurrentHoursCheckbox.isChecked();
+        isChecked
           ? await this.setConcurentBookedHours(
               newGroupData.maxConcurrentlyBookedHours.toString()
             )
           : null;
         break;
       case BookingRulesInputs.MAX_HOURS_PER_DAY:
-        checkTheCheckbox = await this.dailyPlayCheckbox.isChecked();
-        checkTheCheckbox
+        isChecked = await this.dailyPlayCheckbox.isChecked();
+        isChecked
           ? await this.setMaxHoursPerDay(newGroupData.maxHoursPerDay.toString())
           : null;
         break;
       case BookingRulesInputs.MAX_HOURS_PER_MONTH:
-        checkTheCheckbox = await this.monthlyPlayCheckbox.isChecked();
-        checkTheCheckbox
+        isChecked = await this.monthlyPlayCheckbox.isChecked();
+        isChecked
           ? await this.setMaxHoursPerMonth(
               newGroupData.maxHoursPerMonth.toString()
             )
