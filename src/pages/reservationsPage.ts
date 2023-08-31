@@ -1,16 +1,17 @@
 import { Locator } from "@playwright/test";
 import { BasePage } from "./basePage";
 import { ScheduleStartEndCheckbox, ScheduleWeekDays } from "../suport/enums/reservations.enum";
+import { rateOverrideData } from "../suport/types/reservation.type";
 
 export class ReservationsPage extends BasePage {
   private isChecked: boolean = false;
   private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
   private reservationsPageButton: Locator = this.page.locator(".settings-menu button:nth-child(2)");
   private saveButtonContainer: Locator = this.page.locator("div.save-button-container button");
-  private saveModalChangesButton: Locator = this.page.locator('.title-container button');
+  private saveModalChangesButton: Locator = this.page.locator(".title-container button[type='submit']");
   
   private noShowCheckBox: Locator = this.page.locator('input[name="markNoShows"]');
-  private noShowInput: Locator = this.page.locator("label", {hasText: "No-Show Offset (minutes)",});
+  private noShowInput: Locator = this.page.locator("label", {hasText: "No-Show Offset (minutes)"});
   private offsetMinutesInput: Locator = this.page.locator('div.section-container:nth-child(3) .input-container input')
 
   private newScheduleModal: Locator = this.page.locator('.plus-sign svg');
@@ -30,9 +31,17 @@ export class ReservationsPage extends BasePage {
   private endTimeArrowButton: Locator = this.page.locator('div').filter({ hasText: /^End TimeSelect\.\.\.$/ }).locator('svg')
   private repeatArrowButton: Locator = this.page.locator('div').filter({ hasText: /^RepeatSelect\.\.\.$/ }).locator('svg')
   private repeatOptionsInput: Locator = this.page.locator('.schedules-modal-section-container:nth-child(2) > .flex >.flex:nth-child(4) input')
-  public repeatInputValue: string = '';
+  public repeatInputValue: string = ''
 
+  private newOverrideButton: Locator = this.page.locator('.schedules-modal-section-container > .divider-container > .group > .plus-sign > .svg-inline--fa')
+  private overrideNameInput: Locator = this.page.locator('.name-rate-group input.input')
+  private overideSelectInput: Locator = this.page.locator('.name-rate-group [aria-autocomplete="list"]')
+  private overrideAmountInput: Locator = this.page.locator(".rate-override-container input[type='number']")
+  private rateOverrideContainerList: Locator = this.page.locator(".schedules-modal-section-container .gap-7 ")
 
+  private allScheduleTitles: Locator = this.page.locator('table [role="row"] td .event-title');
+
+  
   async navigateToSettingsPage(): Promise<void> {
     await this.generalSettingsButton.click();
   }
@@ -59,10 +68,6 @@ export class ReservationsPage extends BasePage {
       default:
         break;
     }
-    // await new Promise((resolve) => setTimeout(resolve, 2000));
-    // this.isChecked = await this.noShowCheckBox.isChecked()
-    // this.startCourseCheckboxIsChecked = await this.startCourseCheckbox.isChecked()
-    // this.endCourseCheckboxIsChecked = await this.endCourseCheckbox.isChecked()
   }
 
   async insertsNoShowOffsetMinutes(minutes: string): Promise<void> {
@@ -127,6 +132,7 @@ export class ReservationsPage extends BasePage {
   async selectRepeatOption(repeatOption: string): Promise <void> {
     await this.repeatArrowButton.click();
     await this.repeatOptionsInput.fill(repeatOption);
+    await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
     this.repeatInputValue = repeatOption
   }
@@ -159,8 +165,82 @@ export class ReservationsPage extends BasePage {
     } 
   }
 
-  async saveModalChanges(): Promise<void>{
-    this.saveModalChangesButton.click()
+  async saveModalChanges(){
+    await this.saveModalChangesButton.click()
+  }
+
+  async clickNewlyCreatedSchedule(schedulName: string): Promise<void>{
+    const elements = await this.allScheduleTitles.all();
+    for(const element of elements){
+      if(await element.textContent() === schedulName){
+        await element.click()
+        return;
+      }
+    }
+    throw new Error("schedule not found");
+  } 
+
+  async openOverideModal(): Promise<void> {
+    this.newOverrideButton.click()
+  }
+
+  async insertOverrideName({overrideName, amount}: rateOverrideData): Promise<void> {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const elements = await this.page.locator('.schedules-modal-section-container .gap-7').all()
+  let overrideNameInputValue 
+  for(const override of elements){
+    overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
+        if(overrideNameInputValue === ""){
+          console.log('insertOverideNAME')
+          await override.locator(".name-rate-group input.input").fill(overrideName)
+        }
+  }
+    if(await this.rateOverrideContainerList.count() === 0){
+      console.log('aici crapa la linia 208')
+      this.overrideNameInput.fill(overrideName);
+    }
+  }
+
+  async selectOverrideRate({overrideName, amount}: rateOverrideData): Promise<void> {
+    const rateOverrideElements = await this.page.locator('.schedules-modal-section-container .gap-7').all() 
+    let overrideNameInputValue    
+      for(const override of rateOverrideElements){
+        overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
+        if(overrideNameInputValue === overrideName || overrideNameInputValue === ""){
+          console.log('insertOverideRATE')
+          await override.locator('.name-rate-group [aria-autocomplete="list"]').click()
+          await override.locator('.name-rate-group [aria-autocomplete="list"]').press("Enter")
+        }
+      }
+    if(await this.rateOverrideContainerList.count() === 0){
+      this.overideSelectInput.click();
+      this.overideSelectInput.press("Enter");
+    }
+  }
+
+  async insertOverrideAmount({overrideName, amount}: rateOverrideData): Promise<void> {
+    const rateOverrideElements = await this.page.locator('.schedules-modal-section-container .gap-7').all() 
+    let overrideNameInputValue    
+      for(const override of rateOverrideElements){
+        overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
+        if(overrideNameInputValue === overrideName || overrideNameInputValue === ""){
+          console.log('insertOverideAMOUNT')
+          await override.locator("input[type='number']").type(amount.toString())
+        }
+      }
+    if(await this.rateOverrideContainerList.count() === 0){
+      this.overrideAmountInput.type(amount.toString())
+    }
+  }
+
+  async deleteRateOverrideByName(overrideName: string): Promise<void> {
+    const rateOverrideElements = await this.rateOverrideContainerList.all() 
+    let overrideNameInputValue    
+      for(const override of rateOverrideElements){
+        overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
+        if(overrideNameInputValue === overrideName){
+          await override.locator('.delete-button-container').click()
+        }
+      }
   }
 }
-// IMPLEMENT CHECKBOX!!!!

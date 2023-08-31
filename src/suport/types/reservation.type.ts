@@ -8,4 +8,11 @@ export type scheduleData = {
   scheduleName: string;
   hourFromFirstArray: number;
   hourFromSecondArray: number;
+  overrideName: string;
+  overrideAmount: number;
+};
+
+export type rateOverrideData = {
+  overrideName: string;
+  amount: number;
 };

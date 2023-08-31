@@ -3,11 +3,13 @@ import { Given, When, Then } from "@cucumber/cucumber";
 import { ICustomWorld } from "../world/customWorld";
 import { ReservationsPage } from "../pages/reservationsPage";
 import { StringUtils } from "../suport/utils/stringUtils";
-import { scheduleData } from "../suport/types/reservation.type";
+import { rateOverrideData, scheduleData } from "../suport/types/reservation.type";
+import { expect } from "@playwright/test";
 
 let reservationsPage: ReservationsPage;
 let minutes: number;
 let newScheduleData: scheduleData;
+let rateOverideObj: rateOverrideData
 
 // ----- edit No-Shoes Section
 Given(
@@ -16,6 +18,7 @@ Given(
     reservationsPage = await this.pagesObj.reservationsPage;
     minutes = Math.floor(Math.random() * 60) + 1;
     newScheduleData = StringUtils.generateRandomReservationData();
+    rateOverideObj = {overrideName: newScheduleData.overrideName, amount: newScheduleData.overrideAmount}
 
     await reservationsPage.navigateToSettingsPage();
     await reservationsPage.navigateToReservationsPage();
@@ -91,9 +94,51 @@ When('the user selects the calendar End Date', async function () {
 });
 
 When("the user clicks the Save button for Schedule Modal", async function () {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await reservationsPage.saveModalChanges();
 });
 
 Then("the schedule should be successfully created", async function () {});
 
-Given("the user clicks on the newly created schedule", async function () {});
+
+// --------Edit
+
+Given("the user clicks on the newly created schedule", async function () {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await reservationsPage.clickNewlyCreatedSchedule(newScheduleData.scheduleName)
+
+});
+
+When('the user clicks on the {string} button in the {string} section', async function (string, string2) {
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
+  await reservationsPage.openOverideModal()
+});
+
+   
+
+Given('the user inserts the Override Name', async function () {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await reservationsPage.insertOverrideName(rateOverideObj)
+});
+Given('the user inserts the Override Amount', async function () {
+  await reservationsPage.insertOverrideAmount(rateOverideObj);
+});
+   
+Given('the user selects “Rate” from dropdown', async function () {
+
+  await reservationsPage.selectOverrideRate(rateOverideObj);
+});
+   
+When('the user removes override by name', async function () {
+  // remove timer if not nedeed, oke?
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await reservationsPage.deleteRateOverrideByName('Samuel Dunca')
+});
+
+   
+Given('the user click on save button tri', async function () {
+      await reservationsPage.saveModalChanges()
+    })
+
+
+// --------Delete
