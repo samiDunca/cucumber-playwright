@@ -4,16 +4,19 @@ import { ScheduleRepeatOptions, ScheduleStartEndCheckbox, ScheduleWeekDays } fro
 import { rateOverrideData } from "../suport/types/reservation.type";
 
 export class ReservationsPage extends BasePage {
+
   private isChecked: boolean = false;
   private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
   private reservationsPageButton: Locator = this.page.locator(".settings-menu button:nth-child(2)");
   private saveButtonContainer: Locator = this.page.locator("div.save-button-container button");
   private saveModalChangesButton: Locator = this.page.locator(".title-container button[type='submit']");
   
+  // --- No-Show Section
   private noShowCheckBox: Locator = this.page.locator('input[name="markNoShows"]');
   private noShowInput: Locator = this.page.locator("label", {hasText: "No-Show Offset (minutes)"});
   private offsetMinutesInput: Locator = this.page.locator('div.section-container:nth-child(3) .input-container input')
 
+  // --- Timeframe Section
   private newScheduleModal: Locator = this.page.locator('.plus-sign svg');
   private scheduleNameInput: Locator = this.page.locator('.name-container input');
   private startDateIcon: Locator = this.page.locator('.input-container > .svg-inline--fa').first();
@@ -33,12 +36,18 @@ export class ReservationsPage extends BasePage {
   private repeatOptionsInput: Locator = this.page.locator('.schedules-modal-section-container:nth-child(2) > .flex >.flex:nth-child(4) input')
   public repeatInputValue: string = ''
 
+  // --- Rate Override Section
   private newOverrideButton: Locator = this.page.locator('.schedules-modal-section-container > .divider-container > .group > .plus-sign > .svg-inline--fa')
   private overrideNameInput: Locator = this.page.locator('.name-rate-group input.input')
   private overideSelectInput: Locator = this.page.locator('.name-rate-group [aria-autocomplete="list"]')
   private overrideAmountInput: Locator = this.page.locator(".rate-override-container input[type='number']")
   private rateOverrideContainerList: Locator = this.page.locator(".schedules-modal-section-container .gap-7 ")
 
+  // --- Bays and Booking Groups Section
+  private allBays: Locator = this.page.locator('form .schedules-modal-container > div:nth-child(4) table tbody tr')
+  private allBookingGroups: Locator = this.page.locator('form .schedules-modal-container > div:nth-child(5) table tbody tr')
+
+  // --- All Schedules Calendar Section
   private allScheduleTitles: Locator = this.page.locator('table [role="row"] td .event-title');
 
   
@@ -189,7 +198,7 @@ export class ReservationsPage extends BasePage {
     }
   } 
 
-  async openOverideModal(): Promise<void> {
+  async openOverideSection(): Promise<void> {
     this.newOverrideButton.click()
   }
 
@@ -251,5 +260,19 @@ export class ReservationsPage extends BasePage {
           await override.locator('.delete-button-container').click()
         }
       }
+  }
+
+  async checkBays(){
+    const bays = await this.allBays.all()
+    for(const bay of bays){
+      await bay.locator('[type="checkbox"]').click()
+    }
+  }
+  
+  async checkBookingGroups(){
+    const groups = await this.allBookingGroups.all()
+    for(const group of groups){
+      await group.locator('[type="checkbox"]').click()
+    }
   }
 }

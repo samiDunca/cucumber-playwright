@@ -100,7 +100,7 @@ When("the user clicks the Save button for Schedule Modal", async function () {
 Then("the schedule should be successfully created", async function () {});
 
 
-// --------Edit
+// --------Edit Schedule
 
 Given("the user clicks on the newly created schedule", async function () {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -108,16 +108,17 @@ Given("the user clicks on the newly created schedule", async function () {
 
 });
 
-When('the user clicks on the {string} button in the {string} section', async function (string, string2) {
-  await reservationsPage.openOverideModal()
-});
 
-   
+// -------- Add & Delete Rate Override Section
+
+When('the user clicks on the {string} button in the {string} section', async function (string, string2) {
+  await reservationsPage.openOverideSection()
+});
 
 Given('the user inserts the Override Name', async function () {
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
   await reservationsPage.insertOverrideName(rateOverideObj)
 });
+
 Given('the user inserts the Override Amount', async function () {
   await reservationsPage.insertOverrideAmount(rateOverideObj);
 });
@@ -131,6 +132,16 @@ When('the user removes override by name', async function () {
   // remove timer if not nedeed, oke?
     await new Promise((resolve) => setTimeout(resolve, 2000));
     await reservationsPage.deleteRateOverrideByName('Samuel Dunca')
+});
+
+// --------Edit bays Section
+
+Then('the user checks one or more checkboxes from bays section', async function () {
+  await reservationsPage.checkBays()
+});
+
+Then('the user checks one or more checkboxes from the Booking Group Section', async function () {
+  await reservationsPage.checkBookingGroups()
 });
 
 

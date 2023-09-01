@@ -23,19 +23,21 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Booking
     And the user selects the "End Time"
     And the user and selects an option from the repeat dropdown
         |   repeatOption         |
-        # |   Daily              |
-        # |   Weekly             |
+        # |   Daily                |
+        # |   Weekly               |
         |   None                 |
     And the user selects one or multiple week days
         |   dayInitialLetter |
-        |   S                |
-        |   M                |
-        |   T                |
-        # |   W                |
-        # |   Th               |
-        # |   F                |
-        # |   Sa               |
+        # |   S                |
+        # |   M                |
+        # |   T                |
+        |   W                |
+        |   Th               |
+        |   F                |
+        |   Sa               |
     And the user selects the calendar End Date
+    And the user checks one or more checkboxes from bays section
+    And the user checks one or more checkboxes from the Booking Group Section
     And the user clicks the Save button for Schedule Modal
     Then the schedule should be successfully created
 
@@ -56,11 +58,13 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Booking
     And the user inserts the Override Name
     And the user inserts the Override Amount
     And the user selects “Rate” from dropdown
-    # And the user removes override by name
+    And the user removes override by name
+    And the user clicks on the "+" button in the "rate override" section
+    And the user inserts the Override Name
+    And the user inserts the Override Amount
+    And the user selects “Rate” from dropdown
     And the user clicks the Save button for Schedule Modal
-    # And the user checks one or more checkboxes from bays section
-    # And the user checks one or more checkboxes from the Booking Group Section
-    # Then the current schedule should be successfully updated
+    Then the current schedule should be successfully updated
     # And the user clicks on the newly edited schedule
     # And the user clicks the 'Delete' button
     # And the user confirms deletion by clicking 'Continue' on the confirmation pop-up
