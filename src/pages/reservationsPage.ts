@@ -1,6 +1,6 @@
 import { Locator } from "@playwright/test";
 import { BasePage } from "./basePage";
-import { ScheduleStartEndCheckbox, ScheduleWeekDays } from "../suport/enums/reservations.enum";
+import { ScheduleRepeatOptions, ScheduleStartEndCheckbox, ScheduleWeekDays } from "../suport/enums/reservations.enum";
 import { rateOverrideData } from "../suport/types/reservation.type";
 
 export class ReservationsPage extends BasePage {
@@ -24,12 +24,12 @@ export class ReservationsPage extends BasePage {
 
   private startCourseCheckbox: Locator =  this.page.locator('div').filter({ hasText: /^Start when course opensEnd when course closes$/ }).getByRole('checkbox').first()
   private endCourseCheckbox: Locator =  this.page.locator('div').filter({ hasText: /^Start when course opensEnd when course closes$/ }).getByRole('checkbox').nth(1)
-  public startCourseCheckboxIsChecked: boolean = false;
-  public endCourseCheckboxIsChecked: boolean = false;
+  public startCourseCheckboxIsChecked: boolean = true;
+  public endCourseCheckboxIsChecked: boolean = true;
 
   private startTimeArrowButton: Locator = this.page.locator('.dropdown-arrow > svg').first()
   private endTimeArrowButton: Locator = this.page.locator('div').filter({ hasText: /^End TimeSelect\.\.\.$/ }).locator('svg')
-  private repeatArrowButton: Locator = this.page.locator('div').filter({ hasText: /^RepeatSelect\.\.\.$/ }).locator('svg')
+  private repeatArrowButton: Locator = this.page.locator('.schedules-modal-section-container:nth-child(2) .items-center:nth-child(4) .dropdown-arrow')
   private repeatOptionsInput: Locator = this.page.locator('.schedules-modal-section-container:nth-child(2) > .flex >.flex:nth-child(4) input')
   public repeatInputValue: string = ''
 
@@ -54,15 +54,17 @@ export class ReservationsPage extends BasePage {
     switch (checkboxName) {
       case ScheduleStartEndCheckbox.START_WHEN_COURSE_OPENS:
         await this.startCourseCheckbox.click()
-        this.isChecked = await this.noShowCheckBox.isChecked()
+        this.startCourseCheckboxIsChecked = await this.startCourseCheckbox.isChecked()
+        
         break;
       case ScheduleStartEndCheckbox.END_WHEN_COURSE_CLOSES:
         await this.endCourseCheckbox.click()
-        this.startCourseCheckboxIsChecked = await this.startCourseCheckbox.isChecked()
+        this.endCourseCheckboxIsChecked = await this.endCourseCheckbox.isChecked()
+        
         break;
       case ScheduleStartEndCheckbox.AUTOMATICALLY_MARK_NO_SHOW:
         await this.noShowCheckBox.click();
-        this.endCourseCheckboxIsChecked = await this.endCourseCheckbox.isChecked()
+        this.isChecked = await this.noShowCheckBox.isChecked()
         break;
     
       default:
@@ -108,13 +110,17 @@ export class ReservationsPage extends BasePage {
   }
 
   async selectEndDate(): Promise <void> {
-    await this.endDateIcon.click();
-    await this.nextMonthButton.click();
-    await this.endDate.click();
+    console.log(this.repeatInputValue)
+    if(this.repeatInputValue === ScheduleRepeatOptions.DAILY || this.repeatInputValue === ScheduleRepeatOptions.WEEKLY ){
+      console.log('first time')
+      await this.endDateIcon.click();
+      await this.nextMonthButton.click();
+      await this.endDate.click();
+    }
   }
 
   async insertStartTime(startTime: string): Promise <void> {
-    if(!this.startCourseCheckboxIsChecked){
+    if(!this.startCourseCheckboxIsChecked){   
       await this.startTimeArrowButton.click()
       await this.page.getByText(`${startTime}`, { exact: true }).click();
     }
@@ -132,13 +138,12 @@ export class ReservationsPage extends BasePage {
   async selectRepeatOption(repeatOption: string): Promise <void> {
     await this.repeatArrowButton.click();
     await this.repeatOptionsInput.fill(repeatOption);
-    await this.page.keyboard.press('ArrowDown');
     await this.page.keyboard.press('Enter');
     this.repeatInputValue = repeatOption
   }
 
   async selectDaysToRepeat(dayToRepeat: ScheduleWeekDays): Promise <void> {
-    if(this.repeatInputValue === 'Weekly'){
+    if(this.repeatInputValue === ScheduleRepeatOptions.WEEKLY){
       switch (dayToRepeat) {
         case ScheduleWeekDays.S:
           await this.page.getByRole('button', { name: `${dayToRepeat}`, exact: true }).click()
@@ -171,13 +176,17 @@ export class ReservationsPage extends BasePage {
 
   async clickNewlyCreatedSchedule(schedulName: string): Promise<void>{
     const elements = await this.allScheduleTitles.all();
-    for(const element of elements){
-      if(await element.textContent() === schedulName){
-        await element.click()
-        return;
+    if(await this.allScheduleTitles.count() !== 0){
+
+      for(const element of elements){
+        if(await element.textContent() === schedulName){
+          await element.click()
+          return;
+        }
       }
+    }else {
+      throw new Error("schedule not found");
     }
-    throw new Error("schedule not found");
   } 
 
   async openOverideModal(): Promise<void> {

@@ -84,7 +84,6 @@ When(
 When("the user selects one or multiple week days", async function (table) {
   const day = table.hashes();
   for (let index = 0; index < day.length; index++) {
-    console.log(day[index].dayInitialLetter)
     await reservationsPage.selectDaysToRepeat(day[index].dayInitialLetter);
   }
 });
@@ -104,20 +103,19 @@ Then("the schedule should be successfully created", async function () {});
 // --------Edit
 
 Given("the user clicks on the newly created schedule", async function () {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   await reservationsPage.clickNewlyCreatedSchedule(newScheduleData.scheduleName)
 
 });
 
 When('the user clicks on the {string} button in the {string} section', async function (string, string2) {
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
   await reservationsPage.openOverideModal()
 });
 
    
 
 Given('the user inserts the Override Name', async function () {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   await reservationsPage.insertOverrideName(rateOverideObj)
 });
 Given('the user inserts the Override Amount', async function () {
@@ -134,11 +132,6 @@ When('the user removes override by name', async function () {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     await reservationsPage.deleteRateOverrideByName('Samuel Dunca')
 });
-
-   
-Given('the user click on save button tri', async function () {
-      await reservationsPage.saveModalChanges()
-    })
 
 
 // --------Delete

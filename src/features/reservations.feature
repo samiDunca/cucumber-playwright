@@ -24,8 +24,8 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Booking
     And the user and selects an option from the repeat dropdown
         |   repeatOption         |
         # |   Daily              |
-        |   Weekly               |
-        # |   None               |
+        # |   Weekly             |
+        |   None                 |
     And the user selects one or multiple week days
         |   dayInitialLetter |
         |   S                |
@@ -48,17 +48,16 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Booking
     And the user selects the "End Time"
     And the user and selects an option from the repeat dropdown
         |   repeatOption       |
-        # |   Daily              |
+        |   Daily              |
         # |   Weekly             |
-        |   None               |
+        # |   None               |
     And the user selects the calendar End Date
     And the user clicks on the "+" button in the "rate override" section
     And the user inserts the Override Name
     And the user inserts the Override Amount
     And the user selects “Rate” from dropdown
     # And the user removes override by name
-    And the user click on save button tri
-    # And the user clicks the Save button for Schedule Modal
+    And the user clicks the Save button for Schedule Modal
     # And the user checks one or more checkboxes from bays section
     # And the user checks one or more checkboxes from the Booking Group Section
     # Then the current schedule should be successfully updated
