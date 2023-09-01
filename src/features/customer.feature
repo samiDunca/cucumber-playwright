@@ -4,7 +4,7 @@ Background:
     Given User navigates to the application
 
 Scenario: Verify that the admin user can Add Customer
-    And User enter the username 
+    When User enter the username 
     And User enter the password 
     When User click on the signIn button
     Then Login should be success

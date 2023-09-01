@@ -31,9 +31,9 @@ Given("user insert personal data", async function () {
   );
 });
 
-When("the user clicks on {string} button", async function (string) {
-  await memberPage.clickSaveButton();
-});
+// When("the user clicks on {string} button", async function (string) {
+//   await memberPage.clickSaveButton();
+// });
 
 Then("the member should be created", async function () {
   await memberPage.clickTotalMembers();

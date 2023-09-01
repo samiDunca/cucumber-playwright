@@ -31,7 +31,7 @@ Scenario: Verify that the admin user can add, edit, and delete a Booking Group
     And the user selects booking rate from Rates dropdown 
     And the user clicks the save button for modal
     Then the booking should be successfully created
-        # Update Group
+        # Edit Group
     When the user clicks on the three dots button of the newly created booking group
     And the user press on edit button
     And the user modifies the “newName” input

@@ -8,7 +8,6 @@ export class ReservationsPage extends BasePage {
   private isChecked: boolean = false;
   private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
   private reservationsPageButton: Locator = this.page.locator(".settings-menu button:nth-child(2)");
-  private saveButtonContainer: Locator = this.page.locator("div.save-button-container button");
   private saveModalChangesButton: Locator = this.page.locator(".title-container button[type='submit']");
   
   // --- No-Show Section
@@ -91,10 +90,6 @@ export class ReservationsPage extends BasePage {
     }
   }
 
-  async savePageModifications(): Promise<void> {
-    await this.saveButtonContainer.click()
-  }
-
   async checkIfInputUpdated(noShowOffsetMinutes: string): Promise<void> {
     if(this.isChecked){
         const minutes = await this.offsetMinutesInput.inputValue()
@@ -119,9 +114,7 @@ export class ReservationsPage extends BasePage {
   }
 
   async selectEndDate(): Promise <void> {
-    console.log(this.repeatInputValue)
     if(this.repeatInputValue === ScheduleRepeatOptions.DAILY || this.repeatInputValue === ScheduleRepeatOptions.WEEKLY ){
-      console.log('first time')
       await this.endDateIcon.click();
       await this.nextMonthButton.click();
       await this.endDate.click();
@@ -209,7 +202,6 @@ export class ReservationsPage extends BasePage {
   for(const override of elements){
     overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
         if(overrideNameInputValue === ""){
-          console.log('insertOverideNAME')
           await override.locator(".name-rate-group input.input").fill(overrideName)
         }
   }
@@ -225,7 +217,6 @@ export class ReservationsPage extends BasePage {
       for(const override of rateOverrideElements){
         overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
         if(overrideNameInputValue === overrideName || overrideNameInputValue === ""){
-          console.log('insertOverideRATE')
           await override.locator('.name-rate-group [aria-autocomplete="list"]').click()
           await override.locator('.name-rate-group [aria-autocomplete="list"]').press("Enter")
         }
@@ -242,7 +233,6 @@ export class ReservationsPage extends BasePage {
       for(const override of rateOverrideElements){
         overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
         if(overrideNameInputValue === overrideName || overrideNameInputValue === ""){
-          console.log('insertOverideAMOUNT')
           await override.locator("input[type='number']").type(amount.toString())
         }
       }

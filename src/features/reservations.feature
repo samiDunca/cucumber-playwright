@@ -8,15 +8,17 @@ Background:
 #     Given that the user is on the reservation page
 #     When the user clicks on the "Automatically Mark No-Show" checkbox
 #     And the user adjusts the time duration in the checkbox
-#     And the user clicks the Save button for page modifications
+#     And the user clicks on 'Save' button
 #     Then the modified data should be saved 
 
-Scenario Outline: Verify that the admin user can add, edit, and delete a Booking Group
-    # Adding
+
+Scenario Outline: Verify that the admin user can add, edit, and delete a Schedule
+        # Add Schedule
     Given that the user is on the reservation page
     Then the user clicks on the "+" button within the "Schedule" section
     When the user fills in the required “Name” input
     And the user selects the calendar Start Date
+    And the user selects the calendar End Date
     And the user clicks on the "Start when course opens" checkbox
     And the user clicks on the "End when course closes" checkbox
     And the user selects the "Start Time"
@@ -28,19 +30,19 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Booking
         |   None                 |
     And the user selects one or multiple week days
         |   dayInitialLetter |
-        # |   S                |
-        # |   M                |
-        # |   T                |
+        |   S                |
+        |   M                |
+        |   T                |
         |   W                |
         |   Th               |
         |   F                |
         |   Sa               |
-    And the user selects the calendar End Date
-    And the user checks one or more checkboxes from bays section
-    And the user checks one or more checkboxes from the Booking Group Section
+    And the user checks all checkboxes from bays section
+    And the user checks all checkboxes from the Booking Group Section
     And the user clicks the Save button for Schedule Modal
-    Then the schedule should be successfully created
+    Then the schedule is successfully created
 
+        # Edit Schedule
     Given the user clicks on the newly created schedule
     When the user fills in the required “Name” input
     And the user selects the calendar Start Date
@@ -64,8 +66,10 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Booking
     And the user inserts the Override Amount
     And the user selects “Rate” from dropdown
     And the user clicks the Save button for Schedule Modal
-    Then the current schedule should be successfully updated
+    Then the current schedule is successfully updated
+
+        # Delete Schedule
     # And the user clicks on the newly edited schedule
-    # And the user clicks the 'Delete' button
-    # And the user confirms deletion by clicking 'Continue' on the confirmation pop-up
-    # Then the schedule should be successfully deleted
+    # And the user clicks on 'Delete' button
+    # And the user clicks on 'Continue' button
+    # Then the schedule is successfully deleted

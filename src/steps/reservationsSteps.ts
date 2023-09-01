@@ -8,7 +8,8 @@ import { expect } from "@playwright/test";
 
 let reservationsPage: ReservationsPage;
 let minutes: number;
-let newScheduleData: scheduleData;
+let scheduleData1: scheduleData;
+let scheduleData2: scheduleData;
 let rateOverideObj: rateOverrideData
 
 // ----- edit No-Shoes Section
@@ -17,8 +18,9 @@ Given(
   async function (this: ICustomWorld) {
     reservationsPage = await this.pagesObj.reservationsPage;
     minutes = Math.floor(Math.random() * 60) + 1;
-    newScheduleData = StringUtils.generateRandomReservationData();
-    rateOverideObj = {overrideName: newScheduleData.overrideName, amount: newScheduleData.overrideAmount}
+    scheduleData1 = StringUtils.generateRandomReservationData();
+    scheduleData2 = StringUtils.generateRandomReservationData()
+    rateOverideObj = {overrideName: scheduleData1.overrideName, amount: scheduleData1.overrideAmount}
 
     await reservationsPage.navigateToSettingsPage();
     await reservationsPage.navigateToReservationsPage();
@@ -33,15 +35,8 @@ When("the user adjusts the time duration in the checkbox", async function () {
   await reservationsPage.insertsNoShowOffsetMinutes(minutes.toString());
 });
 
-When(
-  "the user clicks the Save button for page modifications",
-  async function () {
-    await reservationsPage.savePageModifications();
-  }
-);
-
 Then("the modified data should be saved", async function () {
-  await reservationsPage.checkIfInputUpdated(newScheduleData.randomTwoDigitNumber.toString());
+  await reservationsPage.checkIfInputUpdated(scheduleData1.randomTwoDigitNumber.toString());
 });
 
 //////////////////////////////////////////
@@ -56,7 +51,7 @@ Then(
 );
 
 When("the user fills in the required “Name” input", async function () {
-  await reservationsPage.insertScheduleName(newScheduleData.scheduleName);
+  await reservationsPage.insertScheduleName(scheduleData1.scheduleName);
 });
 
 When('the user selects the calendar Start Date', async function () {
@@ -65,9 +60,9 @@ When('the user selects the calendar Start Date', async function () {
 
 When('the user selects the {string}', async function (string) {
   if(string === "Start Time"){
-    await reservationsPage.insertStartTime(newScheduleData.hourFromFirstArray.toString());
+    await reservationsPage.insertStartTime(scheduleData1.hourFromFirstArray.toString());
   } else if(string === "End Time"){
-    await reservationsPage.insertEndTime(newScheduleData.hourFromSecondArray.toString());
+    await reservationsPage.insertEndTime(scheduleData1.hourFromSecondArray.toString());
   }
 });
 
@@ -95,17 +90,37 @@ When('the user selects the calendar End Date', async function () {
 When("the user clicks the Save button for Schedule Modal", async function () {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   await reservationsPage.saveModalChanges();
+  await reservationsPage.page.getByRole('button', {name: 'month'}).click()
+  await reservationsPage.page.getByRole('button', {name: 'week'}).click()
 });
 
-Then("the schedule should be successfully created", async function () {});
+Then("the schedule is successfully created", async function () {
+});
 
 
-// --------Edit Schedule
+// -------- Edit Schedule
 
 Given("the user clicks on the newly created schedule", async function () {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  await reservationsPage.clickNewlyCreatedSchedule(newScheduleData.scheduleName)
-
+  const plusOneElements = await reservationsPage.page.locator("table [role='row'] td .fc-timegrid-more-link").all()
+  if(plusOneElements){
+    for(const element of plusOneElements){
+      await element.click();
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      const popUpElements = await reservationsPage.page.locator('.fc-popover-body .event-title').all()
+      if(popUpElements){
+        for(const newEl of popUpElements){
+          if(await newEl.textContent() === scheduleData1.scheduleName){
+            newEl.click()
+            return
+          }
+        }
+      }
+    } 
+    await reservationsPage.clickNewlyCreatedSchedule(scheduleData1.scheduleName)
+  }else {
+    await reservationsPage.clickNewlyCreatedSchedule(scheduleData1.scheduleName)
+  }
 });
 
 
@@ -129,20 +144,55 @@ Given('the user selects “Rate” from dropdown', async function () {
 });
    
 When('the user removes override by name', async function () {
-  // remove timer if not nedeed, oke?
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    await reservationsPage.deleteRateOverrideByName('Samuel Dunca')
+    await reservationsPage.deleteRateOverrideByName(scheduleData1.overrideName)
 });
 
-// --------Edit bays Section
 
-Then('the user checks one or more checkboxes from bays section', async function () {
+// -------- bays and booking groups Section
+
+Then('the user checks all checkboxes from bays section', async function () {
   await reservationsPage.checkBays()
 });
 
-Then('the user checks one or more checkboxes from the Booking Group Section', async function () {
+Then('the user checks all checkboxes from the Booking Group Section', async function () {
   await reservationsPage.checkBookingGroups()
 });
 
+Then('the current schedule is successfully updated', async function () {
 
-// --------Delete
+});
+
+
+// -------- Delete Schedule 
+
+Then('the user clicks on the newly edited schedule', async function () {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  const plusOneElements = await reservationsPage.page.locator("table [role='row'] td .fc-timegrid-more-link").all()
+  if(plusOneElements){
+    for(const element of plusOneElements){
+      await element.click();
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const popUpElements = await reservationsPage.page.locator('.fc-popover-body .event-title').all()
+      if(popUpElements){
+        for(const newEl of popUpElements){
+          if(await newEl.textContent() === scheduleData1.scheduleName){
+            newEl.click()
+            return
+          }
+        }
+      }
+    } 
+    console.log('ajungi aici dupa ce termini cu forurile +1?')
+    await reservationsPage.clickNewlyCreatedSchedule(scheduleData1.scheduleName)
+  }else {
+    await reservationsPage.clickNewlyCreatedSchedule(scheduleData1.scheduleName)
+  }
+});
+
+Given('the user clicks on {string} button', async function (string) {
+  await reservationsPage.page.getByRole('button', { name: `${string}` }).click()
+});
+
+Then('the schedule is successfully deleted', async function () {
+
+});
