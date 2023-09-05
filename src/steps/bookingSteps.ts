@@ -30,6 +30,10 @@ When('the user selects a date two month appart from current date', async functio
 When("the user selects a random slot by given Time and Random Column", async function (this: ICustomWorld) {
     await bookingPage.selectBayByGivenTimeAndRandomColumn()
 });
+
+When('the user selects a random slot by given Column and Random Time', async function () {
+    await bookingPage.selectBayByGivenColumnAndRandomTime('pan')
+});
     
 Then('the user is let to continue based on the slot availability', async function () {
     await expect(bookingPage.page.getByText('New Reservation')).toBeVisible()
@@ -90,7 +94,6 @@ Then('the modification is displayed in the table', async function () {
 
   When('the user clicks on the newly edited reservation', async function () {
     await bookingPage.clickOnNewlyEditedBooking()
-
   });
 
   When('the user click on the trash icon', async function () {

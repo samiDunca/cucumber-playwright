@@ -1,4 +1,5 @@
 import { Locator, expect } from "@playwright/test";
+import { faker } from "@faker-js/faker";
 
 import { BasePage } from "./basePage";
 
@@ -25,8 +26,8 @@ export class BookingPage extends BasePage {
     private endTimeInput = this.page.locator('.form-fields > .select:nth-child(2) input')
 
     public memberName: string = '';
-    public randomColumnIndexAlias: number = 1;
-    public hourIndexAlias: number = 1;
+    public columnIndex: number = 1;
+    public hourIndex: number = 1;
     public newStartTime: any;
 
 
@@ -40,34 +41,51 @@ export class BookingPage extends BasePage {
     }
 
     async selectBayByGivenTimeAndRandomColumn() {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const bayColumnList: Locator[] = await this.page.locator('.bay_column .bay_title').all();
-    let bayColumnNames: any [] = [];
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const bayColumnList: Locator[] = await this.bayColumnList.all();
+        let bayColumnNames: any [] = [];
 
-    for(const el of bayColumnList){
-        bayColumnNames.push(await el.textContent())
+        for(const el of bayColumnList){
+            bayColumnNames.push(await el.textContent())
+        }
+
+        let teeTimeCount = await this.teeTimeItem.count();
+        for (let index = 1; index <= teeTimeCount; index++) {
+            const element = await this.page.locator(`.tee_time_item:nth-child(${index})`).textContent()     
+            if(element === '9:30a'){
+                this.hourIndex = index
+                // const plusCasette =  await this.page.locator(`.bay_column:nth-child(${bayColumnIndex}) > .bay_bookings > div:nth-child(${index})`).click()      
+            }
+        }
+        do {   
+            if(!this.getNewReservationModalTitle) {
+                console.log('if-ul pentru exit button')
+                await this.page.locator('.exit-button').click()
+            }
+            this.columnIndex = Math.floor(Math.random() * bayColumnNames.length + 1)
+            await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
+        } while (!this.getNewReservationModalTitle)
     }
 
-    let hourIndex: number = 1;
-    let teeTimeCount = await this.teeTimeItem.count();
-    for (let index = 1; index <= teeTimeCount; index++) {
-        const element = await this.page.locator(`.tee_time_item:nth-child(${index})`).textContent()     
-        if(element === '9:30a'){
-            hourIndex = index
-            this.hourIndexAlias = index
-            // const plusCasette =  await this.page.locator(`.bay_column:nth-child(${bayColumnIndex}) > .bay_bookings > div:nth-child(${index})`).click()      
+    async selectBayByGivenColumnAndRandomTime(columnName: string) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        let numberOfBays = await this.bayColumnList.count()
+        console.log({numberOfBays})
+        for (let index = 1; index < numberOfBays; index++) {
+            const column = await this.page.locator(`.bay_column:nth-child(${index}) .bay_title`).textContent()
+            console.log({column})
+            if(column === columnName){
+                this.columnIndex = index
+            }
         }
-    }
-    do {   
-        if(!this.getNewReservationModalTitle) {
-            console.log('if-ul pentru exit button')
-            await this.page.locator('.exit-button').click()
-        }
-        const randomColumnIndex = Math.floor(Math.random() * bayColumnNames.length + 1)
-        this.randomColumnIndexAlias = randomColumnIndex
-        const randomColumnName = bayColumnNames[randomColumnIndex]
-        const plusCasette =  await this.page.locator(`.bay_column:nth-child(${randomColumnIndex}) > .bay_bookings > div:nth-child(${hourIndex})`).click()
-    } while (!this.getNewReservationModalTitle)
+        do {
+            this.hourIndex = faker.number.int({min: 1, max: 47})
+            await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
+            if(!this.getNewReservationModalTitle){
+                await this.page.locator('.exit-button').click()
+                console.log('vom incerca din nou sa generam un fake')
+            }
+        }while(!this.getNewReservationModalTitle)
     }
 
     async selectReservationType(tourType: string) {
@@ -94,16 +112,17 @@ export class BookingPage extends BasePage {
 
     async saveMemberName() {
         const consfirmationMessage = await this.page.locator('.notification-container').textContent()
-        this.newStartTime = await this.page.locator(`.tee_time_item:nth-child(${this.hourIndexAlias - 4})`).textContent()  
+        this.newStartTime = await this.page.locator(`.tee_time_item:nth-child(${this.hourIndex - 4})`).textContent()  
         let pattern = /for\s(.*?)\sat/
         const match = consfirmationMessage?.match(pattern)
         if(match){
             this.memberName = match[1].replace(/\s+/g, ', ')
+            console.log(this.memberName)
         }
     }
 
     async clickOnTheNewlyCreatedBooking() {
-        await this.page.locator(`.bay_column:nth-child(${this.randomColumnIndexAlias}) > .bay_bookings > div:nth-child(${this.hourIndexAlias})`).filter({hasText: `${this.memberName}`}).click()
+        await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).filter({hasText: `${this.memberName}`}).click()
     }
 
     async clickOnEditIcon() {
@@ -116,7 +135,7 @@ export class BookingPage extends BasePage {
     }
 
     async changeBookingStatus(statusName: string) {
-        const statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.randomColumnIndexAlias}) > .bay_bookings > div:nth-child(${this.hourIndexAlias - 4}) .booking-status-container svg`)
+        const statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4}) .booking-status-container svg`)
     switch (statusName) {
         case 'Booked':
             await statusLocator.click()
@@ -156,7 +175,7 @@ export class BookingPage extends BasePage {
     }
 
     async assertStatusModification(statusName: string) {
-        const statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.randomColumnIndexAlias}) > .bay_bookings > div:nth-child(${this.hourIndexAlias - 4}) .booking-status-container`)
+        const statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4}) .booking-status-container`)
         switch (statusName) {
             case 'Booked':
                 await statusLocator1.locator('[data-icon="calendar"]').click()
@@ -182,11 +201,12 @@ export class BookingPage extends BasePage {
     }
 
     async asertBookingEdits() {
-        await expect(this.page.locator(`.bay_column:nth-child(${this.randomColumnIndexAlias}) > .bay_bookings > div:nth-child(${this.hourIndexAlias - 4})`)).toHaveText(this.memberName)
+        console.log(this.memberName)
+        await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4})`)).toHaveText(this.memberName)
     }
 
     async clickOnNewlyEditedBooking() {
-        await this.page.locator(`.bay_column:nth-child(${this.randomColumnIndexAlias}) > .bay_bookings > div:nth-child(${this.hourIndexAlias - 4})`).click()
+        await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4})`).click()
     }
 
     async clickTrashIcon() {
@@ -194,6 +214,6 @@ export class BookingPage extends BasePage {
     }
 
     async assertionDeletedBooking() {
-        await expect(this.page.locator(`.bay_column:nth-child(${this.randomColumnIndexAlias}) > .bay_bookings > div:nth-child(${this.hourIndexAlias - 4})`).filter({hasText: '+'})).toBeVisible()
+        await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4})`).filter({hasText: '+'})).toBeVisible()
     }
 }

@@ -11,6 +11,7 @@ Scenario: Verify that the admin user can edit Booking Url
     Then the Url should be saved successfully
 
 Scenario: Verify that the admin user can add, edit, and delete a Booking Group
+        # adding
     Given that the user is on the Booking Engine page
     When the user clicks on "+" button in the top-right side above the table
     And the user inserts “name” input
@@ -31,7 +32,7 @@ Scenario: Verify that the admin user can add, edit, and delete a Booking Group
     And the user selects booking rate from Rates dropdown 
     And the user clicks the save button for modal
     Then the booking should be successfully created
-        # Edit Group
+        # editing
     When the user clicks on the three dots button of the newly created booking group
     And the user press on edit button
     And the user modifies the “newName” input
@@ -45,7 +46,7 @@ Scenario: Verify that the admin user can add, edit, and delete a Booking Group
         |   Limit Monthly Play         |
     And the user clicks the save button for modal after update
     Then the current booking group should be successfully updated
-        # Delete Group
+        # deleting
     When the user clicks on the three dots button of the current updated booking group
     And the user click on delete button
     And the user clicks on Continue button on the confirmation modal
