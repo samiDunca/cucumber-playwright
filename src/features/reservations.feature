@@ -69,7 +69,7 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Schedul
     Then the current schedule is successfully updated
 
         # Delete Schedule
-    # And the user clicks on the newly edited schedule
-    # And the user clicks on 'Delete' button
-    # And the user clicks on 'Continue' button
-    # Then the schedule is successfully deleted
+    And the user clicks on the newly edited schedule
+    And the user clicks on 'Delete' button
+    And the user clicks on 'Continue' button
+    Then the schedule is successfully deleted

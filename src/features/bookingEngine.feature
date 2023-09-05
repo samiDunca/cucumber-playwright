@@ -1,4 +1,4 @@
-Feature: Edit Booking Url
+Feature: Edit Booking Engine Section
 
 Background:
     Given User navigates to the application

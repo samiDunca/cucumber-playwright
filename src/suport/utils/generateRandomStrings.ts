@@ -12,7 +12,15 @@ export class GenerateRandomStrings {
 
     return randomName;
   }
+
+  static generateRandomBays() {
+    const baysNamesList: string[] = ['A', "B", "C", "D"]
+    const baysName = baysNamesList[Math.floor(Math.random() * baysNamesList.length)]
+
+    return baysName;
+  }
 }
+
 
 export function extractRandomValueFromArray(array: any) {
   const randomIndex = Math.floor(Math.random() * array.length);

@@ -3,7 +3,7 @@ module.exports = {
     formatOptions: {
       snippetInterface: "async-await",
     },
-    paths: ["src/features/reservations.feature"],
+    paths: ["src/features/booking.feature"],
     dryRun: false,
     require: [
       "src/steps/*.ts",
@@ -12,10 +12,10 @@ module.exports = {
       "/playwright.config.ts"
     ],
     requireModule: ["ts-node/register"],
-    format: [
-      "progress-bar",
-      "html:./src/test-result/cucumber-report.html",
-    ],
+    // format: [
+    //   "progress-bar",
+    //   "html:./src/test-result/cucumber-report.html",
+    // ],
   },
   globals: {
     "ts-jest": {

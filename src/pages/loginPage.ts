@@ -10,6 +10,7 @@ export class LoginPage extends BasePage {
     "input[placeholder='Password']"
   );
   private loginButton: Locator = this.page.locator("button[type='submit']");
+  // private paragraphUserName = this.page.locator("p:has-text('Dunca')");
   private paragraphUserName = this.page.locator("p:has-text('Dunca')");
   
 

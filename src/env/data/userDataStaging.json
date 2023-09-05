@@ -1,0 +1,17 @@
+{
+    "url": "https://staging.registrygolf.com/",
+    "validUsers": [
+      {
+        "email": "alex.raileanu@techquarter.io",
+        "password": "Adonis!!67"
+      }
+    ],
+    "invalidUsers": [
+      {
+        "email": "koushik",
+        "password": "Passkoushik"
+      }
+    ]
+  }
+  
+  
