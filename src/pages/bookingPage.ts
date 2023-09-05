@@ -23,12 +23,13 @@ export class BookingPage extends BasePage {
     private editIcon = this.page.locator('.reservation-actions svg:first-child')
     private trashIcon = this.page.locator('.reservation-actions svg:last-child')
 
-    private endTimeInput = this.page.locator('.form-fields > .select:nth-child(2) input')
+    private startTimeInput = this.page.locator('.form-fields > .select:nth-child(2) input')
 
     public memberName: string = '';
     public columnIndex: number = 1;
     public hourIndex: number = 1;
     public newStartTime: any;
+    public startTimeIndex: number = 0;
 
 
     async clickCalenderIcon() {
@@ -58,12 +59,12 @@ export class BookingPage extends BasePage {
             }
         }
         do {   
+            this.columnIndex = Math.floor(Math.random() * bayColumnNames.length + 1)
+            await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
             if(!this.getNewReservationModalTitle) {
                 console.log('if-ul pentru exit button')
                 await this.page.locator('.exit-button').click()
             }
-            this.columnIndex = Math.floor(Math.random() * bayColumnNames.length + 1)
-            await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
         } while (!this.getNewReservationModalTitle)
     }
 
@@ -71,14 +72,14 @@ export class BookingPage extends BasePage {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         let numberOfBays = await this.bayColumnList.count()
         console.log({numberOfBays})
-        for (let index = 1; index < numberOfBays; index++) {
+        for (let index = 1; index <= numberOfBays; index++) {
             const column = await this.page.locator(`.bay_column:nth-child(${index}) .bay_title`).textContent()
-            console.log({column})
             if(column === columnName){
                 this.columnIndex = index
             }
         }
         do {
+            console.log('de cate ori intram in while')
             this.hourIndex = faker.number.int({min: 1, max: 47})
             await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
             if(!this.getNewReservationModalTitle){
@@ -95,7 +96,8 @@ export class BookingPage extends BasePage {
 
     async selectMemberFromDropdown() {
         await this.memberInformationInput.click()
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await this.memberInformationInput.press('ArrowDown')
         await this.memberInformationInput.press('ArrowDown')
         await this.page.keyboard.press('Enter');
     }
@@ -111,10 +113,9 @@ export class BookingPage extends BasePage {
     }
 
     async saveMemberName() {
-        const consfirmationMessage = await this.page.locator('.notification-container').textContent()
-        this.newStartTime = await this.page.locator(`.tee_time_item:nth-child(${this.hourIndex - 4})`).textContent()  
-        let pattern = /for\s(.*?)\sat/
-        const match = consfirmationMessage?.match(pattern)
+        const confirmationMessage = await this.page.locator('.notification-container').textContent()
+        let pattern = /for\s(.*?)\sat/  
+        const match = confirmationMessage?.match(pattern)
         if(match){
             this.memberName = match[1].replace(/\s+/g, ', ')
             console.log(this.memberName)
@@ -122,6 +123,8 @@ export class BookingPage extends BasePage {
     }
 
     async clickOnTheNewlyCreatedBooking() {
+        this.startTimeIndex = 4
+        this.newStartTime = await this.page.locator(`.tee_time_item:nth-child(${this.hourIndex - this.startTimeIndex})`).textContent()
         await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).filter({hasText: `${this.memberName}`}).click()
     }
 
@@ -129,13 +132,13 @@ export class BookingPage extends BasePage {
         await this.editIcon.click()
     }
 
-    async changeEndTime() {
-        await this.endTimeInput.fill(this.newStartTime)
+    async changeStartTime() {
+        await this.startTimeInput.fill(this.newStartTime)
         await this.page.keyboard.press('Enter')
     }
 
     async changeBookingStatus(statusName: string) {
-        const statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4}) .booking-status-container svg`)
+        const statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container svg`)
     switch (statusName) {
         case 'Booked':
             await statusLocator.click()
@@ -175,7 +178,7 @@ export class BookingPage extends BasePage {
     }
 
     async assertStatusModification(statusName: string) {
-        const statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4}) .booking-status-container`)
+        const statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container`)
         switch (statusName) {
             case 'Booked':
                 await statusLocator1.locator('[data-icon="calendar"]').click()
@@ -201,12 +204,11 @@ export class BookingPage extends BasePage {
     }
 
     async asertBookingEdits() {
-        console.log(this.memberName)
-        await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4})`)).toHaveText(this.memberName)
+        await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex})`)).toHaveText(this.memberName)
     }
 
     async clickOnNewlyEditedBooking() {
-        await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4})`).click()
+        await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex})`).click()
     }
 
     async clickTrashIcon() {
@@ -214,6 +216,6 @@ export class BookingPage extends BasePage {
     }
 
     async assertionDeletedBooking() {
-        await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - 4})`).filter({hasText: '+'})).toBeVisible()
+        await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex})`).filter({hasText: '+'})).toBeVisible()
     }
 }

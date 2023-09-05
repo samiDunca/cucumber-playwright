@@ -23,7 +23,7 @@ When('the user click on calendar icon', async function () {
     await bookingPage.clickCalenderIcon()
   });
 
-When('the user selects a date two month appart from current date', async function () {
+When('the user selects a date one month appart from current date', async function () {
     await bookingPage.selectData()
   });
 
@@ -32,7 +32,7 @@ When("the user selects a random slot by given Time and Random Column", async fun
 });
 
 When('the user selects a random slot by given Column and Random Time', async function () {
-    await bookingPage.selectBayByGivenColumnAndRandomTime('pan')
+    await bookingPage.selectBayByGivenColumnAndRandomTime('qua')
 });
     
 Then('the user is let to continue based on the slot availability', async function () {
@@ -72,8 +72,8 @@ When('the user clicks on edit icon', async function () {
     await bookingPage.clickOnEditIcon()
  });
 
- When('the user changes End Time', async function () {
-    await bookingPage.changeEndTime()
+ When('the user changes Start Time', async function () {
+    await bookingPage.changeStartTime()
  });
 
 
