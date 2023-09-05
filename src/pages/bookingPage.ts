@@ -62,7 +62,6 @@ export class BookingPage extends BasePage {
             this.columnIndex = Math.floor(Math.random() * bayColumnNames.length + 1)
             await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
             if(!this.getNewReservationModalTitle) {
-                console.log('if-ul pentru exit button')
                 await this.page.locator('.exit-button').click()
             }
         } while (!this.getNewReservationModalTitle)
@@ -71,7 +70,6 @@ export class BookingPage extends BasePage {
     async selectBayByGivenColumnAndRandomTime(columnName: string) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         let numberOfBays = await this.bayColumnList.count()
-        console.log({numberOfBays})
         for (let index = 1; index <= numberOfBays; index++) {
             const column = await this.page.locator(`.bay_column:nth-child(${index}) .bay_title`).textContent()
             if(column === columnName){
@@ -79,12 +77,12 @@ export class BookingPage extends BasePage {
             }
         }
         do {
-            console.log('de cate ori intram in while')
+    
             this.hourIndex = faker.number.int({min: 1, max: 47})
             await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
             if(!this.getNewReservationModalTitle){
                 await this.page.locator('.exit-button').click()
-                console.log('vom incerca din nou sa generam un fake')
+        
             }
         }while(!this.getNewReservationModalTitle)
     }
@@ -118,7 +116,7 @@ export class BookingPage extends BasePage {
         const match = confirmationMessage?.match(pattern)
         if(match){
             this.memberName = match[1].replace(/\s+/g, ', ')
-            console.log(this.memberName)
+    
         }
     }
 

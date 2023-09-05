@@ -191,6 +191,8 @@ export class BookingEnginePage extends BasePage {
 
   async selectPublicRate() {
     await this.publicRate.click();
+    await new Promise((resolve) => setTimeout(resolve, 500)); // nu se incarca elementele din dropdown 
+    await this.publicRate.press('ArrowDown')
     await this.publicRate.press("Enter");
   }
 

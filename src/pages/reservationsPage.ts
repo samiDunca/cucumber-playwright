@@ -1,4 +1,4 @@
-import { Locator } from "@playwright/test";
+import { Locator, expect } from "@playwright/test";
 import { BasePage } from "./basePage";
 import { ScheduleRepeatOptions, ScheduleStartEndCheckbox, ScheduleWeekDays } from "../suport/enums/reservations.enum";
 import { rateOverrideData } from "../suport/types/reservation.type";
@@ -82,7 +82,6 @@ export class ReservationsPage extends BasePage {
 
   async insertsNoShowOffsetMinutes(minutes: string): Promise<void> {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(this.isChecked);
     if(this.isChecked){
         await this.noShowInput.click();
         await this.page.keyboard.press('Control+A');
@@ -179,7 +178,6 @@ export class ReservationsPage extends BasePage {
   async clickNewlyCreatedSchedule(schedulName: string): Promise<void>{
     const elements = await this.allScheduleTitles.all();
     if(await this.allScheduleTitles.count() !== 0){
-
       for(const element of elements){
         if(await element.textContent() === schedulName){
           await element.click()
@@ -264,5 +262,9 @@ export class ReservationsPage extends BasePage {
     for(const group of groups){
       await group.locator('[type="checkbox"]').click()
     }
+  }
+
+  async assertSuccessfullyCreatedSchedule() {
+    await expect(this.page.getByRole('button', {name: 'month'})).toBeVisible()
   }
 }

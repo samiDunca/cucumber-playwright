@@ -4,16 +4,16 @@ Background:
     Given User navigates to the application
     And User logs in
 
-# Scenario:  Editing the "No-Show" Settings
-#     Given that the user is on the reservation page
-#     When the user clicks on the "Automatically Mark No-Show" checkbox
-#     And the user adjusts the time duration in the checkbox
-#     And the user clicks on 'Save' button
-#     Then the modified data should be saved 
+Scenario:  Editing the "No-Shows" Settings
+    Given that the user is on the reservation page
+    When the user clicks on the "Automatically Mark No-Show" checkbox
+    And the user adjusts the time duration in the checkbox
+    And the user clicks on 'Save' button
+    Then the modified data should be saved 
 
 
 Scenario Outline: Verify that the admin user can add, edit, and delete a Schedule
-        # Add Schedule
+        # adding
     Given that the user is on the reservation page
     Then the user clicks on the "+" button within the "Schedule" section
     When the user fills in the required “Name” input
@@ -42,7 +42,7 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Schedul
     And the user clicks the Save button for Schedule Modal
     Then the schedule is successfully created
 
-        # Edit Schedule
+        # editing
     Given the user clicks on the newly created schedule
     When the user fills in the required “Name” input
     And the user selects the calendar Start Date
@@ -68,7 +68,7 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Schedul
     And the user clicks the Save button for Schedule Modal
     Then the current schedule is successfully updated
 
-        # Delete Schedule
+        # deleting
     And the user clicks on the newly edited schedule
     And the user clicks on 'Delete' button
     And the user clicks on 'Continue' button
