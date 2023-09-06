@@ -3,12 +3,10 @@ import { faker } from "@faker-js/faker";
 
 import { BasePage } from "./basePage";
 import { KeyboardCommands } from "../suport/enums/keyboardCommands.enum";
+import { CalendarButtonNames } from "../suport/enums/booking.enum";
 
 export class BookingPage extends BasePage {
-    private calendarIcon: Locator = this.page.locator('.tee-sheet-top .react-datepicker-wrapper')
-    private arrowRight: Locator =  this.page.locator('.react-datepicker__header [data-icon="arrow-right"]')
-    private dateSelected: Locator =  this.page.locator('.react-datepicker__week:nth-child(2)')
-
+    // --- booking page
     private bayArrowRight: Locator = this.page.locator('.bay-arrows > div:last-child')
     private bayArrowLeft: Locator = this.page.locator('.bay-arrows button')
 
@@ -16,20 +14,37 @@ export class BookingPage extends BasePage {
     private firstBayColumn: Locator = this.page.locator('.bay_column:nth-child(1) .bay_title')
     private teeTimeItem: Locator = this.page.locator('.tee_time_item')
 
+    // --- modal
     private exitModalButton: Locator = this.page.locator('.exit-button')
     private getNewReservationModalTitle: Locator = this.page.getByText('New Reservation')
     private popUpConfirmationMessageContainer: Locator =  this.page.locator('.notification-container')
 
+    // --- edit booking
     private reservationTypeSelect: Locator = this.page.locator('.indoor-create-booking-container > div:nth-child(2) > .select')
     private memberInformationInput = this.page.locator('.indoor-create-booking-container > div:nth-child(2) .member-information input')
+    private startTimeInput = this.page.locator('.form-fields > .select:nth-child(2) input')
     private newCostumerButton: Locator = this.page.locator('#react-select-3-listbox #react-select-3-option-0')
     private firstMember: Locator = this.page.locator('#react-select-3-listbox #react-select-3-option-1')
     private incrementTimeButton = this.page.locator('.duration-buttons button:last-child')
     private editIcon = this.page.locator('.reservation-actions svg:first-child')
     private trashIcon = this.page.locator('.reservation-actions svg:last-child')
 
-    private startTimeInput = this.page.locator('.form-fields > .select:nth-child(2) input')
+    // --- calendar buttons
+    private calendarIcon: Locator = this.page.locator('.tee-sheet-top .react-datepicker-wrapper')
+    private arrowRight: Locator =  this.page.locator('.react-datepicker__header [data-icon="arrow-right"]')
+    private dateSelected: Locator =  this.page.locator('.react-datepicker__week:nth-child(2)')
+    private currentDateContainer: Locator = this.page.locator('.selected-date-container p.text-displayTwo')
 
+    private returnToToday: Locator =  this.page.locator('.return-to-today')
+    private tomorrow: Locator =  this.page.locator('.calendar-container button:nth-child(2)')
+    private twoDaysFromToday: Locator = this.page.locator('.calendar-container button:nth-child(3)')
+    private threeDaysFromToday: Locator = this.page.locator('.calendar-container button:nth-child(4)')
+    private fourDaysFromToday: Locator = this.page.locator('.calendar-container button:nth-child(5)')
+    private fiveDaysFromToday: Locator = this.page.locator('.calendar-container button:nth-child(6)')
+    
+
+    // --- global var
+    public currentDate: any;
     public memberName: string = '';
     public columnIndex: number = 1;
     public hourIndex: number = 1;
@@ -42,6 +57,7 @@ export class BookingPage extends BasePage {
     }
 
     async selectData() {
+        await this.page.locator('.sasdf').click()
         await this.arrowRight.click()
         await this.dateSelected.click()
     
@@ -209,5 +225,46 @@ export class BookingPage extends BasePage {
 
     async assertionDeletedBooking() {
         await expect(this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex})`).filter({hasText: '+'})).toBeVisible()
+    }
+
+    async clickCalendarButton(buttonName: CalendarButtonNames): Promise<void> {
+        switch (buttonName) {
+            case CalendarButtonNames.RETURN_TO_TODAY:
+                await this.returnToToday.click()
+                break;
+            case CalendarButtonNames.TOMORROW:
+                this.currentDate = await this.tomorrow.locator('p.text-displayFive').textContent()
+                await this.tomorrow.click()
+                break;
+            case CalendarButtonNames.TWO_DAYS_FROM_TODAY:
+                this.currentDate = await this.twoDaysFromToday.locator('p.text-displayFive').textContent()
+                await this.twoDaysFromToday.click()
+                break;
+            case CalendarButtonNames.THREE_DAYS_FROM_TODAY:
+                this.currentDate = await this.threeDaysFromToday.locator('p.text-displayFive').textContent()
+                await this.threeDaysFromToday.click()
+                break;
+            case CalendarButtonNames.FOUR_DAYS_FROM_TODAY:
+                this.currentDate = await this.fourDaysFromToday.locator('p.text-displayFive').textContent()
+                await this.fourDaysFromToday.click()
+                break;
+            case CalendarButtonNames.FIVE_DAYS_FROM_TODAY:
+                this.currentDate = await this.fiveDaysFromToday.locator('p.text-displayFive').textContent()
+                await this.fiveDaysFromToday.click()
+                break;        
+            default:
+                break;
+        }
+    }
+
+    async assertClickedCalendarButton(buttonName: CalendarButtonNames) {
+        switch (buttonName) {
+            case CalendarButtonNames.TODAY:
+                await expect(this.page.getByText('TODAY')).toBeVisible()
+            break;       
+            default:
+                await expect(this.currentDateContainer).toContainText(`${this.currentDate}`)
+            break;
+        }
     }
 }

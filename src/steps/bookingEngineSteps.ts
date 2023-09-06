@@ -3,10 +3,6 @@ import { Given, When, Then } from "@cucumber/cucumber";
 import { BookingEnginePage } from "../pages/bookingEnginePage";
 import { ICustomWorld } from "../world/customWorld";
 import { StringUtils } from "../suport/utils/stringUtils";
-import {
-  BookingRulesCheckboxes,
-  BookingRulesInputs,
-} from "../suport/enums/bookingEngine.enum";
 import { IBookingGroupData } from "../suport/types/bookingEngine.type";
 
 let bookingEnginePage: BookingEnginePage;

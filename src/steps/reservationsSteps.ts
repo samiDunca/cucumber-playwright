@@ -4,7 +4,6 @@ import { ICustomWorld } from "../world/customWorld";
 import { ReservationsPage } from "../pages/reservationsPage";
 import { StringUtils } from "../suport/utils/stringUtils";
 import { rateOverrideData, scheduleData } from "../suport/types/reservation.type";
-import { expect } from "@playwright/test";
 
 let reservationsPage: ReservationsPage;
 let scheduleData1: scheduleData;
@@ -98,7 +97,8 @@ Then("the schedule is successfully created", async function () {
 
 Given("the user clicks on the newly created schedule", async function () {
   // NOT RESOLVED
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await reservationsPage.page.waitForResponse(/\.*\/schedules\/occurrences\?.*/);
   await reservationsPage.titleTheadFirst.isVisible()
   const plusOneElements = await reservationsPage.plusOneElements.all()
   if(plusOneElements.length > 0){

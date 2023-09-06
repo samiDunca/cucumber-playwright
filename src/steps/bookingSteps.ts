@@ -1,6 +1,5 @@
-import { Given, When, Then } from "@cucumber/cucumber";
-import { Locator, expect } from "@playwright/test";
-import { faker } from '@faker-js/faker';
+import {  When, Then } from "@cucumber/cucumber";
+import {  expect } from "@playwright/test";
 
 import { BookingPage } from "../pages/bookingPage";
 import { ICustomWorld } from "../world/customWorld";
@@ -106,4 +105,14 @@ Then('the reservation disappears from table', async function () {
 });
 
 
+// ------ calendar buttons 
 
+
+When('user clicks on {string} button', async function (string) {
+    bookingPage = this.pagesObj.bookingPage;
+    await bookingPage.clickCalendarButton(string)
+});
+
+Then('the selected date {string} is displayed', async function (string) {
+    await bookingPage.assertClickedCalendarButton(string)
+});

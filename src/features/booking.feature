@@ -4,7 +4,7 @@ Background:
     Given User navigates to the application
     And User logs in
 
-Scenario: Selecting a Random Slot by given Time and Random Column
+Scenario: Create booking selecting a random slot by given Time and Random Column
         # adding
     When the user click on calendar icon
     And the user selects a date one month appart from current date
@@ -31,7 +31,7 @@ Scenario: Selecting a Random Slot by given Time and Random Column
 
 
 
-Scenario: Selecting a Random Slot by given Column and Random Time
+Scenario: Create booking selecting a random slot by given Column and Random Time
         # adding
     When the user click on calendar icon
     And the user selects a date one month appart from current date
@@ -48,6 +48,22 @@ Scenario: Selecting a Random Slot by given Column and Random Time
     And the user click on the trash icon
     And the user clicks on 'Delete' Reservation button
     Then the reservation disappears from table
+
+Scenario: Select calendar available buttons
+	When user clicks on 'tomorrow' button
+    Then the selected date 'tomorrow' is displayed
+	When user clicks on 'two days from today' button
+    Then the selected date 'two days from today' is displayed
+	When user clicks on 'three days from today' button
+    Then the selected date 'three days from today' is displayed
+	When user clicks on 'four days from today' button
+    Then the selected date 'four days from today' is displayed
+	When user clicks on 'five days from today' button
+    Then the selected date 'five days from today' is displayed
+    When user clicks on 'six days from today' button
+    Then the selected date 'six days from today' is displayed
+    When user clicks on 'return to today' button
+    Then the selected date 'today' is displayed
 
 
 

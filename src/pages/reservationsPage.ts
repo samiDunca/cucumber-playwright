@@ -1,4 +1,5 @@
 import { Locator, expect } from "@playwright/test";
+
 import { BasePage } from "./basePage";
 import { ScheduleRepeatOptions, ScheduleStartEndCheckbox, ScheduleWeekDays } from "../suport/enums/reservations.enum";
 import { rateOverrideData } from "../suport/types/reservation.type";

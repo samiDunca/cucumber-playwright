@@ -2,10 +2,7 @@ import { Locator, expect } from "@playwright/test";
 
 import { BasePage } from "./basePage";
 import { IBookingGroupData } from "../suport/types/bookingEngine.type";
-import {
-  BookingRulesCheckboxes,
-  BookingRulesInputs,
-} from "../suport/enums/bookingEngine.enum";
+import {BookingRulesCheckboxes, BookingRulesInputs} from "../suport/enums/bookingEngine.enum";
 
 export class BookingEnginePage extends BasePage {
 
