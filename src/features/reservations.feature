@@ -52,8 +52,8 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Schedul
     And the user selects the "End Time"
     And the user and selects an option from the repeat dropdown
         |   repeatOption       |
-        |   Daily              |
-        # |   Weekly             |
+        # |   Daily              |
+        |   Weekly             |
         # |   None               |
     And the user selects the calendar End Date
     And the user clicks on the "+" button in the "rate override" section

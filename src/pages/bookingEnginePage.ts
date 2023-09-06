@@ -8,6 +8,8 @@ import {
 } from "../suport/enums/bookingEngine.enum";
 
 export class BookingEnginePage extends BasePage {
+
+  private todayLocator: Locator = this.page.getByText('TODAY')
   private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
   private bookingEngineButton: Locator = this.page.locator(".settings-menu button:nth-of-type(3)");
   private bookingUrlInput: Locator = this.page.locator(".input-container .flex .input");
@@ -34,8 +36,13 @@ export class BookingEnginePage extends BasePage {
   private dailyPlayInput: Locator = this.page.locator(".rules-container:nth-child(3) .input");
   private monthlyPlayInput: Locator = this.page.locator(".rules-container:nth-child(4) .input");
   private publicRate: Locator = this.page.locator(".text-displayFive input");
+  private firstPublicRateOption: Locator = this.page.locator("div:nth-child(1) > .user-option:nth-child(1)");
+  
+
+
 
   async userNavigatesToSettingsPage(): Promise<void> {
+    await this.todayLocator.waitFor()
     await this.generalSettingsButton.click();
   }
 
@@ -58,15 +65,14 @@ export class BookingEnginePage extends BasePage {
 
   async checkIfTheSaveWasSuccessfull(url: string): Promise<void> {
     if ((await this.bookingUrlInput.inputValue()) === url) {
-      console.log("salvat cu success");
       return;
     } else {
       throw new Error("The url have not been saved");
     }
   }
 
-  ///////////////////////////
-  // Open modal booking group
+  
+  //--- Open modal booking group
 
   async openNewBookingGroupModal(): Promise<void> {
     await this.plusButton.click();
@@ -76,8 +82,8 @@ export class BookingEnginePage extends BasePage {
     await this.groupNameInput.fill(name);
   }
 
-  ////////////////
-  // booking window
+  
+  //--- booking window
 
   async enterDaysInAdvance(daysInAdvance: string): Promise<void> {
     await this.daysInAdvanceInput.fill(daysInAdvance);
@@ -88,24 +94,21 @@ export class BookingEnginePage extends BasePage {
     await this.hoursTimePicker.click();
   }
 
-  /////////////////
-  // booking rules
+  
+  //--- booking rules
+
   async checkTheCheckbox(checkboxName: BookingRulesCheckboxes) {
     switch (checkboxName) {
       case BookingRulesCheckboxes.LIMIT_CONCURRENT_BOOKINGS:
-        console.log(checkboxName)
         await this.limitConcurentBookings();
         break;
       case BookingRulesCheckboxes.LIMIT_CONCURRENT_HOURS:
-        console.log(checkboxName)
         await this.limitConcurentHours();
         break;
       case BookingRulesCheckboxes.LIMIT_DAILY_PLAY:
-        console.log(checkboxName)
         await this.limitDailyPlay();
         break;
       case BookingRulesCheckboxes.LIMIT_MONTHLY_PLAY:
-        console.log(checkboxName)
         await this.limitMonthlyPlay();
         break;
       default:
@@ -186,21 +189,18 @@ export class BookingEnginePage extends BasePage {
     await this.monthlyPlayInput.fill(hours);
   }
 
-  /////////////////
-  // booking rates
+
+  //--- booking rates
 
   async selectPublicRate() {
     await this.publicRate.click();
-    await new Promise((resolve) => setTimeout(resolve, 500)); // nu se incarca elementele din dropdown 
-    await this.publicRate.press('ArrowDown')
-    await this.publicRate.press("Enter");
+    await this.firstPublicRateOption.click()
   }
 
   async checkGroupIsUpdated(updateGroupName: string) {
     const userEmail = await this.page
       .locator(`//table/tbody/tr/td[text()='${updateGroupName}']`)
       .textContent();
-
     if (userEmail !== updateGroupName) {
       throw new Error("the update has not been done");
     }

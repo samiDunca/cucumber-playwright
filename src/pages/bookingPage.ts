@@ -2,6 +2,7 @@ import { Locator, expect } from "@playwright/test";
 import { faker } from "@faker-js/faker";
 
 import { BasePage } from "./basePage";
+import { KeyboardCommands } from "../suport/enums/keyboardCommands.enum";
 
 export class BookingPage extends BasePage {
     private calendarIcon: Locator = this.page.locator('.tee-sheet-top .react-datepicker-wrapper')
@@ -12,13 +13,17 @@ export class BookingPage extends BasePage {
     private bayArrowLeft: Locator = this.page.locator('.bay-arrows button')
 
     private bayColumnList: Locator= this.page.locator('.bay_column .bay_title')
+    private firstBayColumn: Locator = this.page.locator('.bay_column:nth-child(1) .bay_title')
     private teeTimeItem: Locator = this.page.locator('.tee_time_item')
 
     private exitModalButton: Locator = this.page.locator('.exit-button')
-    private getNewReservationModalTitle = this.page.getByText('New Reservation')
+    private getNewReservationModalTitle: Locator = this.page.getByText('New Reservation')
+    private popUpConfirmationMessageContainer: Locator =  this.page.locator('.notification-container')
 
     private reservationTypeSelect: Locator = this.page.locator('.indoor-create-booking-container > div:nth-child(2) > .select')
     private memberInformationInput = this.page.locator('.indoor-create-booking-container > div:nth-child(2) .member-information input')
+    private newCostumerButton: Locator = this.page.locator('#react-select-3-listbox #react-select-3-option-0')
+    private firstMember: Locator = this.page.locator('#react-select-3-listbox #react-select-3-option-1')
     private incrementTimeButton = this.page.locator('.duration-buttons button:last-child')
     private editIcon = this.page.locator('.reservation-actions svg:first-child')
     private trashIcon = this.page.locator('.reservation-actions svg:last-child')
@@ -39,10 +44,11 @@ export class BookingPage extends BasePage {
     async selectData() {
         await this.arrowRight.click()
         await this.dateSelected.click()
+    
     }
 
     async selectBayByGivenTimeAndRandomColumn() {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await this.firstBayColumn.waitFor()
         const bayColumnList: Locator[] = await this.bayColumnList.all();
         let bayColumnNames: any [] = [];
 
@@ -55,7 +61,6 @@ export class BookingPage extends BasePage {
             const element = await this.page.locator(`.tee_time_item:nth-child(${index})`).textContent()     
             if(element === '9:30a'){
                 this.hourIndex = index
-                // const plusCasette =  await this.page.locator(`.bay_column:nth-child(${bayColumnIndex}) > .bay_bookings > div:nth-child(${index})`).click()      
             }
         }
         do {   
@@ -68,7 +73,7 @@ export class BookingPage extends BasePage {
     }
 
     async selectBayByGivenColumnAndRandomTime(columnName: string) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await this.firstBayColumn.waitFor()
         let numberOfBays = await this.bayColumnList.count()
         for (let index = 1; index <= numberOfBays; index++) {
             const column = await this.page.locator(`.bay_column:nth-child(${index}) .bay_title`).textContent()
@@ -77,7 +82,6 @@ export class BookingPage extends BasePage {
             }
         }
         do {
-    
             this.hourIndex = faker.number.int({min: 1, max: 47})
             await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
             if(!this.getNewReservationModalTitle){
@@ -89,15 +93,13 @@ export class BookingPage extends BasePage {
 
     async selectReservationType(tourType: string) {
         await this.reservationTypeSelect.locator('input').fill(tourType)
-        await this.page.keyboard.press('Enter');
+        await this.page.keyboard.press(KeyboardCommands.ENTER);
     }
 
     async selectMemberFromDropdown() {
         await this.memberInformationInput.click()
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        await this.memberInformationInput.press('ArrowDown')
-        await this.memberInformationInput.press('ArrowDown')
-        await this.page.keyboard.press('Enter');
+        await this.firstMember.waitFor()
+        await this.firstMember.click({timeout: 500})
     }
 
     async incrementDuration() {
@@ -111,7 +113,7 @@ export class BookingPage extends BasePage {
     }
 
     async saveMemberName() {
-        const confirmationMessage = await this.page.locator('.notification-container').textContent()
+        const confirmationMessage = await this.popUpConfirmationMessageContainer.textContent()
         let pattern = /for\s(.*?)\sat/  
         const match = confirmationMessage?.match(pattern)
         if(match){
@@ -132,7 +134,7 @@ export class BookingPage extends BasePage {
 
     async changeStartTime() {
         await this.startTimeInput.fill(this.newStartTime)
-        await this.page.keyboard.press('Enter')
+        await this.page.keyboard.press(KeyboardCommands.ENTER)
     }
 
     async changeBookingStatus(statusName: string) {
@@ -141,34 +143,26 @@ export class BookingPage extends BasePage {
         case 'Booked':
             await statusLocator.click()
             await this.page.getByText('Booked').click();
-            await statusLocator.click()
-            await this.page.getByText('Booked').click();
-            await new Promise((resolve) => setTimeout(resolve, 2000));
             break;
         case 'Paid':
             await statusLocator.click()
             await this.page.getByText('Paid').click();
-            await new Promise((resolve) => setTimeout(resolve, 2000));
             break;
         case 'Checked In':
             await statusLocator.click()
             await this.page.getByText('Checked In').click()
-            await new Promise((resolve) => setTimeout(resolve, 2000));
             break;
         case 'Playing':
             await statusLocator.click()
             await this.page.getByText('Playing').click()
-            await new Promise((resolve) => setTimeout(resolve, 2000));
             break;
         case 'No-Show':
             await statusLocator.click()
             await this.page.getByText('No-Show').click()
-            await new Promise((resolve) => setTimeout(resolve, 2000));
             break;
         case 'Pending':
             await statusLocator.click()
             await this.page.getByText('Pending').click()
-            await new Promise((resolve) => setTimeout(resolve, 2000));
             break;
         default:
             break;

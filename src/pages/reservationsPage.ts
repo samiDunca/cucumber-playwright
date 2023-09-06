@@ -2,6 +2,7 @@ import { Locator, expect } from "@playwright/test";
 import { BasePage } from "./basePage";
 import { ScheduleRepeatOptions, ScheduleStartEndCheckbox, ScheduleWeekDays } from "../suport/enums/reservations.enum";
 import { rateOverrideData } from "../suport/types/reservation.type";
+import { KeyboardCommands } from "../suport/enums/keyboardCommands.enum";
 
 export class ReservationsPage extends BasePage {
 
@@ -48,6 +49,9 @@ export class ReservationsPage extends BasePage {
 
   // --- All Schedules Calendar Section
   private allScheduleTitles: Locator = this.page.locator('table [role="row"] td .event-title');
+  public titleTheadFirst: Locator = this.page.locator('table thead:first-child')
+  public plusOneElements: Locator = this.page.locator("table [role='row'] td .fc-timegrid-more-link")
+  public popUpElements: Locator = this.page.locator('.fc-popover-body .event-title')
 
   
   async navigateToSettingsPage(): Promise<void> {
@@ -81,10 +85,9 @@ export class ReservationsPage extends BasePage {
   }
 
   async insertsNoShowOffsetMinutes(minutes: string): Promise<void> {
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
     if(this.isChecked){
         await this.noShowInput.click();
-        await this.page.keyboard.press('Control+A');
+        await this.page.keyboard.press(KeyboardCommands.CONTROL_A);
         await this.noShowInput.type(minutes)
     }
   }
@@ -92,7 +95,6 @@ export class ReservationsPage extends BasePage {
   async checkIfInputUpdated(noShowOffsetMinutes: string): Promise<void> {
     if(this.isChecked){
         const minutes = await this.offsetMinutesInput.inputValue()
-        console.log(minutes)
         if(minutes !== noShowOffsetMinutes){
             throw new Error("The input has not been updated");
         }
@@ -139,7 +141,7 @@ export class ReservationsPage extends BasePage {
   async selectRepeatOption(repeatOption: string): Promise <void> {
     await this.repeatArrowButton.click();
     await this.repeatOptionsInput.fill(repeatOption);
-    await this.page.keyboard.press('Enter');
+    await this.page.keyboard.press(KeyboardCommands.ENTER);
     this.repeatInputValue = repeatOption
   }
 
@@ -195,7 +197,7 @@ export class ReservationsPage extends BasePage {
 
   async insertOverrideName({overrideName, amount}: rateOverrideData): Promise<void> {
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const elements = await this.page.locator('.schedules-modal-section-container .gap-7').all()
+    const elements = await this.rateOverrideContainerList.all()
   let overrideNameInputValue 
   for(const override of elements){
     overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
@@ -204,29 +206,28 @@ export class ReservationsPage extends BasePage {
         }
   }
     if(await this.rateOverrideContainerList.count() === 0){
-      console.log('aici crapa la linia 208')
       this.overrideNameInput.fill(overrideName);
     }
   }
 
   async selectOverrideRate({overrideName, amount}: rateOverrideData): Promise<void> {
-    const rateOverrideElements = await this.page.locator('.schedules-modal-section-container .gap-7').all() 
+    const rateOverrideElements = await this.rateOverrideContainerList.all() 
     let overrideNameInputValue    
       for(const override of rateOverrideElements){
         overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
         if(overrideNameInputValue === overrideName || overrideNameInputValue === ""){
           await override.locator('.name-rate-group [aria-autocomplete="list"]').click()
-          await override.locator('.name-rate-group [aria-autocomplete="list"]').press("Enter")
+          await override.locator('.name-rate-group [aria-autocomplete="list"]').press(KeyboardCommands.ENTER)
         }
       }
     if(await this.rateOverrideContainerList.count() === 0){
       this.overideSelectInput.click();
-      this.overideSelectInput.press("Enter");
+      this.overideSelectInput.press(KeyboardCommands.ENTER);
     }
   }
 
   async insertOverrideAmount({overrideName, amount}: rateOverrideData): Promise<void> {
-    const rateOverrideElements = await this.page.locator('.schedules-modal-section-container .gap-7').all() 
+    const rateOverrideElements = await this.rateOverrideContainerList.all() 
     let overrideNameInputValue    
       for(const override of rateOverrideElements){
         overrideNameInputValue = await override.locator(".name-rate-group input.input").inputValue()
@@ -265,6 +266,8 @@ export class ReservationsPage extends BasePage {
   }
 
   async assertSuccessfullyCreatedSchedule() {
+    await this.page.getByRole('button', {name: 'month'}).click()
+    await this.page.getByRole('button', {name: 'week'}).click()
     await expect(this.page.getByRole('button', {name: 'month'})).toBeVisible()
   }
 }

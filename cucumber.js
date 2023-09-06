@@ -12,10 +12,6 @@ module.exports = {
       "/playwright.config.ts"
     ],
     requireModule: ["ts-node/register"],
-    // format: [
-    //   "progress-bar",
-    //   "html:./src/test-result/cucumber-report.html",
-    // ],
   },
   globals: {
     "ts-jest": {

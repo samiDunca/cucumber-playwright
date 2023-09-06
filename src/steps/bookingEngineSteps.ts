@@ -23,13 +23,11 @@ Given(
     updateGroupData = StringUtils.generateRandomBookingGroupData();
 
     await bookingEnginePage.userNavigatesToSettingsPage();
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     await bookingEnginePage.userNavigateToBookingEnginePage();
   }
 );
 
 When("the user adds or changes the Url link", async function () {
-  await new Promise((resolve) => setTimeout(resolve, 500));
   await bookingEnginePage.userInsertsBookingUrl(bookingGroupUrl);
 });
 

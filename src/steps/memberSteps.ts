@@ -13,7 +13,6 @@ Given(
   async function (this: ICustomWorld) {
     memberData = StringUtils.generateRandomUserData();
     memberPage = this.pagesObj.memberPage;
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     await memberPage.clickMembersPageButton();
   }
 );

@@ -3,14 +3,9 @@ import { Locator } from "@playwright/test";
 import { BasePage } from "./basePage";
 
 export class LoginPage extends BasePage {
-  private emailInput: Locator = this.page.locator(
-    "input[placeholder='Email Address']"
-  );
-  private passwordInput: Locator = this.page.locator(
-    "input[placeholder='Password']"
-  );
+  private emailInput: Locator = this.page.locator("input[placeholder='Email Address']");
+  private passwordInput: Locator = this.page.locator("input[placeholder='Password']");
   private loginButton: Locator = this.page.locator("button[type='submit']");
-  // private paragraphUserName = this.page.locator("p:has-text('Dunca')");
   private paragraphUserName = this.page.locator("p:has-text('Dunca')");
   
 

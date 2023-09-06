@@ -86,10 +86,7 @@ When('the user selects the calendar End Date', async function () {
 });
 
 When("the user clicks the Save button for Schedule Modal", async function () {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   await reservationsPage.saveModalChanges();
-  await reservationsPage.page.getByRole('button', {name: 'month'}).click()
-  await reservationsPage.page.getByRole('button', {name: 'week'}).click()
 });
 
 Then("the schedule is successfully created", async function () {
@@ -100,13 +97,15 @@ Then("the schedule is successfully created", async function () {
 // -------- Edit Schedule
 
 Given("the user clicks on the newly created schedule", async function () {
+  // NOT RESOLVED
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const plusOneElements = await reservationsPage.page.locator("table [role='row'] td .fc-timegrid-more-link").all()
-  if(plusOneElements){
+  await reservationsPage.titleTheadFirst.isVisible()
+  const plusOneElements = await reservationsPage.plusOneElements.all()
+  if(plusOneElements.length > 0){
     for(const element of plusOneElements){
       await element.click();
       await new Promise((resolve) => setTimeout(resolve, 500));
-      const popUpElements = await reservationsPage.page.locator('.fc-popover-body .event-title').all()
+      const popUpElements = await reservationsPage.popUpElements.all()
       if(popUpElements){
         for(const newEl of popUpElements){
           if(await newEl.textContent() === scheduleData1.scheduleName){
@@ -165,13 +164,13 @@ Then('the current schedule is successfully updated', async function () {
 // -------- Delete Schedule 
 
 Then('the user clicks on the newly edited schedule', async function () {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const plusOneElements = await reservationsPage.page.locator("table [role='row'] td .fc-timegrid-more-link").all()
-  if(plusOneElements){
+  await reservationsPage.titleTheadFirst.isVisible()
+  const plusOneElements = await reservationsPage.plusOneElements.all()
+  if(plusOneElements.length > 0 ){
     for(const element of plusOneElements){
       await element.click();
       await new Promise((resolve) => setTimeout(resolve, 500));
-      const popUpElements = await reservationsPage.page.locator('.fc-popover-body .event-title').all()
+      const popUpElements = await reservationsPage.popUpElements.all()
       if(popUpElements){
         for(const newEl of popUpElements){
           if(await newEl.textContent() === scheduleData1.scheduleName){
