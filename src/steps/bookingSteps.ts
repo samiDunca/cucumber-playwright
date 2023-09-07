@@ -5,10 +5,14 @@ import { BookingPage } from "../pages/bookingPage";
 import { ICustomWorld } from "../world/customWorld";
 import { StringUtils } from "../suport/utils/stringUtils";
 import { IBookingData } from "../suport/types/booking";
+import { CalendarButtonNames } from "../suport/enums/booking.enum";
+import { memberData } from "../suport/types/member.type";
 
 
 let bookingPage: BookingPage;
 let bookingData: IBookingData;
+let accountData: memberData;
+let newCustomer: memberData
 
 
 //////////////////////////////////////////
@@ -18,12 +22,15 @@ let bookingData: IBookingData;
 When('the user click on calendar icon', async function () {
     bookingPage = this.pagesObj.bookingPage;
     bookingData = StringUtils.generateRandomBookingData() 
+    accountData = StringUtils.generateRandomUserData()
+    newCustomer = StringUtils.generateRandomUserData()
+
 
     await bookingPage.clickCalenderIcon()
   });
 
 When('the user selects a date one month appart from current date', async function () {
-    await bookingPage.selectData()
+    await bookingPage.selectDate()
   });
 
 When("the user selects a random slot by given Time and Random Column", async function (this: ICustomWorld) {
@@ -31,7 +38,7 @@ When("the user selects a random slot by given Time and Random Column", async fun
 });
 
 When('the user selects a random slot by given Column and Random Time', async function () {
-    await bookingPage.selectBayByGivenColumnAndRandomTime('qua')
+    await bookingPage.selectBayByGivenColumnAndRandomTime('b')
 });
     
 Then('the user is let to continue based on the slot availability', async function () {
@@ -44,6 +51,10 @@ When("the user selects reservation type", async function () {
 
 When("the user selects a member from the dropdown", async function () {
     await bookingPage.selectMemberFromDropdown()
+});
+
+When('the user inserts in {string} customer input', async function (string) {
+    await bookingPage.insertCustomerData(string, newCustomer)
 });
 
 When("the user selects the duration", async function () {
@@ -71,13 +82,20 @@ When('the user clicks on edit icon', async function () {
     await bookingPage.clickOnEditIcon()
  });
 
+ When('the user selects tomorrow date', async function () {
+    await bookingPage.selectDate2()
+ });
+
+ When('the user changes {string} input', async function (string) {
+    await bookingPage.changeReservationTime(string)
+ });
+
  When('the user changes Start Time', async function () {
     await bookingPage.changeStartTime()
  });
 
-
 Then('the modification is displayed in the table', async function () {
-    await bookingPage.asertBookingEdits()
+    await bookingPage.assertBookingEdits()
  })
 
  When('the user changes to {string} status', async function (string) {
@@ -88,6 +106,7 @@ Then('the modification is displayed in the table', async function () {
         await bookingPage.assertStatusModification(string)
   });
 
+  
 
   // --------Delete
 
@@ -105,7 +124,7 @@ Then('the reservation disappears from table', async function () {
 });
 
 
-// ------ calendar buttons 
+// ------ assert calendar buttons 
 
 
 When('user clicks on {string} button', async function (string) {
@@ -115,4 +134,55 @@ When('user clicks on {string} button', async function (string) {
 
 Then('the selected date {string} is displayed', async function (string) {
     await bookingPage.assertClickedCalendarButton(string)
+});
+
+
+
+// ---- edit reservation data
+
+Then('the edited reservation is visible in the table', async function () {
+    await bookingPage.clickCalendarButton(CalendarButtonNames.TOMORROW)
+    await bookingPage.assertBookingEdits()
+});
+
+
+// ---- edit account data
+
+When('the user clicks on {string} tab button', async function (string) {
+    await bookingPage.clickReservationTabButtons(string)
+  });
+
+When('the user inserts in {string} input', async function (string) {
+    await bookingPage.insertInUserData(string, accountData)
+});
+
+Then('the changes are displayed in the modal', async function () {
+    await bookingPage.assertReservationAccount(accountData)
+});
+
+
+// --- edit membership data
+
+When('the user selects a membership plan from dropdown', async function () {
+    await bookingPage.selectMembershipPlan();
+  });
+
+When('the user selects a start date in the future', async function () {
+    await bookingPage.selectMembershipPlanStartDate()
+});
+
+Then('a message is displayed in the modal', async function () {
+    await bookingPage.assertMembershipModification()
+});
+
+When('the user clicks on Tree Dots button', async function () {
+    await bookingPage.clickOnEditMembershipButton()
+});
+
+When('the user clicks on {string}', async function (string) {
+    await bookingPage.clickReservationTabButtons(string)
+});
+
+Then('the membership is deactivated', async function () {
+    await bookingPage.assertionDeactivateMembership()
 });

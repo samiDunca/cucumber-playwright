@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { IBookingData } from "../types/booking";
 import { IBookingGroupData } from "../types/bookingEngine.type";
 import { memberData } from "../types/member.type";
@@ -16,7 +17,7 @@ export class StringUtils {
         
         const firstName = firstNameList[Math.floor(Math.random() * firstNameList.length)]
         const lastName = lastNameList[Math.floor(Math.random() * lastNameList.length)]
-        const email = emailList[Math.floor(Math.random() * emailList.length)]
+        const email = faker.internet.email()
         const randomNumber = Math.floor(Math.random() * 100000000);
         const phoneNumber = '07' + randomNumber.toString().padStart(8, '0');
 
