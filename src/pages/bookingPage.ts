@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 
 import { BasePage } from "./basePage";
 import { KeyboardCommands } from "../suport/enums/keyboardCommands.enum";
-import { AccountData, CalendarButtonNames, ReservationData, ReservationTabButtons } from "../suport/enums/booking.enum";
+import { AccountData, CalendarButtonNames, CustomerRelated, ReservationData, ReservationStatus, ReservationTabButtons } from "../suport/enums/booking.enum";
 import { memberData } from "../suport/types/member.type";
 
 export class BookingPage extends BasePage {
@@ -156,11 +156,11 @@ export class BookingPage extends BasePage {
 
     async clickReservationButton(buttonName: string) {
         switch (buttonName) {
-            case 'Create New Customer':
+            case CustomerRelated.CREATE_NEW_CUSTOMER:
                 await this.memberInformationInput.click()
                 await this.newCostumerButton.click()
                 break;
-            case 'Save Customer':
+            case CustomerRelated.SAVE_CUSTOMER:
                 await this.newCostumerSaveButton.click()
                 await this.customerEmailInput.waitFor({state: "hidden"})
                 break;
@@ -218,29 +218,29 @@ export class BookingPage extends BasePage {
     async changeBookingStatus(statusName: string) {
     let statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container svg`)
     switch (statusName) {
-        case 'Booked':
+        case ReservationStatus.BOOKED:
             await statusLocator.click()
-            await this.page.getByText('Booked').click();
+            await this.page.getByText(ReservationStatus.BOOKED).click();
             break;
-        case 'Paid':
+        case ReservationStatus.PAID:
             await statusLocator.click()
-            await this.page.getByText('Paid').click();
+            await this.page.getByText(ReservationStatus.PAID).click();
             break;
-        case 'Checked In':
+        case ReservationStatus.CHECKED_IN:
             await statusLocator.click()
-            await this.page.getByText('Checked In').click()
+            await this.page.getByText(ReservationStatus.CHECKED_IN).click()
             break;
-        case 'Playing':
+        case ReservationStatus.PLAYING:
             await statusLocator.click()
-            await this.page.getByText('Playing').click()
+            await this.page.getByText(ReservationStatus.PLAYING).click()
             break;
-        case 'No-Show':
+        case ReservationStatus.NO_SHOW:
             await statusLocator.click()
-            await this.page.getByText('No-Show').click()
+            await this.page.getByText(ReservationStatus.NO_SHOW).click()
             break;
-        case 'Pending':
+        case ReservationStatus.PENDING:
             await statusLocator.click()
-            await this.page.getByText('Pending').click()
+            await this.page.getByText(ReservationStatus.PENDING).click()
             break;
         default:
             break;
@@ -250,22 +250,22 @@ export class BookingPage extends BasePage {
     async assertStatusModification(statusName: string) {
         let statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container`)
         switch (statusName) {
-            case 'Booked':
+            case ReservationStatus.BOOKED:
                 await statusLocator1.locator('[data-icon="calendar"]').click()
                 break;
-            case 'Paid':
+            case ReservationStatus.PAID:
                 await expect(statusLocator1.locator('[data-icon="dollar-sign"]')).toBeVisible()
                 break;
-            case 'Checked In':
+            case ReservationStatus.CHECKED_IN:
                 await expect(statusLocator1.locator('[data-icon="check"]')).toBeVisible()
                 break;
-            case 'Playing':
+            case ReservationStatus.PLAYING:
                 await expect(statusLocator1.locator('[data-icon="flag-pennant"]')).toBeVisible()
                 break;
-            case 'No-Show':
+            case ReservationStatus.NO_SHOW:
                 await expect(statusLocator1.locator('[data-icon="xmark"]')).toBeVisible()
                 break;
-            case 'Pending':
+            case ReservationStatus.PENDING:
                 await expect(statusLocator1.locator('[data-icon="xmark"]')).toBeVisible()
                 break;
             default:

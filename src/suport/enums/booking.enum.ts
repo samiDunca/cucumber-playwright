@@ -26,3 +26,17 @@ export enum AccountData {
     PHONE = 'Phone',
     EMAIL = 'Email'
 }
+
+export enum ReservationStatus {
+    BOOKED = 'Booked',
+    PAID = 'Paid',
+    CHECKED_IN = 'Checked In',
+    PLAYING = 'Playing',
+    NO_SHOW = 'No-Show',
+    PENDING = 'Pending'
+}
+
+export enum CustomerRelated {
+    CREATE_NEW_CUSTOMER = 'Create New Customer',
+    SAVE_CUSTOMER = 'Save Customer'
+}
