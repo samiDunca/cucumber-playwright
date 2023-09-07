@@ -15,17 +15,13 @@ let accountData: memberData;
 let newCustomer: memberData
 
 
-//////////////////////////////////////////
-//
-// Add, Edit, Delete a Booking
+// Add Reservation
 
 When('the user click on calendar icon', async function () {
     bookingPage = this.pagesObj.bookingPage;
     bookingData = StringUtils.generateRandomBookingData() 
     accountData = StringUtils.generateRandomUserData()
     newCustomer = StringUtils.generateRandomUserData()
-
-
     await bookingPage.clickCalenderIcon()
   });
 
@@ -62,17 +58,16 @@ When("the user selects the duration", async function () {
 });
 
 When('the user clicks on {string} Reservation button', async function (string) {
-    await bookingPage.saveBookingButton(string)
+    await bookingPage.clickReservationButton(string)
   });
 
 Then('a confirmation message is displayed', async function () {
     await expect(bookingPage.page.getByText('was created')).toBeVisible()
-    
     await bookingPage.saveMemberName()
   });
 
 
-  // --------Edit Booking
+  // Edit Reservation
 
  When('the user clicks on the newly created reservation', async function () {
     await bookingPage.clickOnTheNewlyCreatedBooking()
@@ -90,25 +85,16 @@ When('the user clicks on edit icon', async function () {
     await bookingPage.changeReservationTime(string)
  });
 
- When('the user changes Start Time', async function () {
-    await bookingPage.changeStartTime()
- });
-
 Then('the modification is displayed in the table', async function () {
     await bookingPage.assertBookingEdits()
  })
 
- When('the user changes to {string} status', async function (string) {
-    await bookingPage.changeBookingStatus(string)
-  });
-
-  Then('the {string} status modification is displayed in the table', async function (string) {
-        await bookingPage.assertStatusModification(string)
+Then('the {string} status modification is displayed in the table', async function (string) {
+    await bookingPage.assertStatusModification(string)
   });
 
   
-
-  // --------Delete
+  // Delete Reservation
 
   When('the user clicks on the newly edited reservation', async function () {
     await bookingPage.clickOnNewlyEditedBooking()
@@ -124,8 +110,7 @@ Then('the reservation disappears from table', async function () {
 });
 
 
-// ------ assert calendar buttons 
-
+// Assert calendar buttons 
 
 When('user clicks on {string} button', async function (string) {
     bookingPage = this.pagesObj.bookingPage;
@@ -137,8 +122,7 @@ Then('the selected date {string} is displayed', async function (string) {
 });
 
 
-
-// ---- edit reservation data
+// Edit reservation 
 
 Then('the edited reservation is visible in the table', async function () {
     await bookingPage.clickCalendarButton(CalendarButtonNames.TOMORROW)
@@ -146,7 +130,7 @@ Then('the edited reservation is visible in the table', async function () {
 });
 
 
-// ---- edit account data
+// Edit account 
 
 When('the user clicks on {string} tab button', async function (string) {
     await bookingPage.clickReservationTabButtons(string)
@@ -161,7 +145,7 @@ Then('the changes are displayed in the modal', async function () {
 });
 
 
-// --- edit membership data
+// Edit membership 
 
 When('the user selects a membership plan from dropdown', async function () {
     await bookingPage.selectMembershipPlan();

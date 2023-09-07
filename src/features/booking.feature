@@ -5,7 +5,7 @@ Background:
     And User logs in
 
 Scenario: Create booking selecting a random slot by given Time and Random Column
-        # adding
+    # adding
     When the user click on calendar icon
     And the user selects a date one month appart from current date
     And the user selects a random slot by given Time and Random Column
@@ -15,23 +15,20 @@ Scenario: Create booking selecting a random slot by given Time and Random Column
     And the user selects the duration
     And the user clicks on 'Save' Reservation button
     Then a confirmation message is displayed
-        # editing
+    # editing
     When the user clicks on the newly created reservation
     And the user clicks on edit icon
-    And the user changes Start Time
+    And the user changes 'Start Time' input
     And the user clicks on 'Save' Reservation button
     Then the modification is displayed in the table
-
-        # deleting
+    # deleting
     When the user clicks on the newly edited reservation 
     And the user click on the trash icon
     And the user clicks on 'Delete' Reservation button
     Then the reservation disappears from table
 
-
-
 Scenario: Create booking selecting a random slot by given Column and Random Time
-        # adding
+    # adding
     When the user click on calendar icon
     And the user selects a date one month appart from current date
     And the user selects a random slot by given Column and Random Time
@@ -41,7 +38,7 @@ Scenario: Create booking selecting a random slot by given Column and Random Time
     And the user selects the duration
     And the user clicks on 'Save' Reservation button
     Then a confirmation message is displayed
-        # deleting
+    # deleting
     When the user clicks on the newly edited reservation 
     And the user click on the trash icon
     And the user clicks on 'Delete' Reservation button
@@ -64,7 +61,7 @@ Scenario: Select calendar available buttons
     Then the selected date 'today' is displayed
 
 Scenario: Add, Edit (reservation, account and membership data) and Delete a Reservation
-        # adding
+    # adding
     When the user click on calendar icon
     And the user selects a date one month appart from current date
     And the user selects a random slot by given Column and Random Time
@@ -79,7 +76,7 @@ Scenario: Add, Edit (reservation, account and membership data) and Delete a Rese
     And the user selects the duration
     And the user clicks on 'Save' Reservation button
     Then a confirmation message is displayed
-        # editing reservation data
+    # editing reservation data
     When the user clicks on the newly created reservation
     And the user clicks on edit icon
     And the user selects tomorrow date
@@ -87,7 +84,7 @@ Scenario: Add, Edit (reservation, account and membership data) and Delete a Rese
     And the user changes 'End Time' input
     And the user clicks on 'Save' Reservation button
     Then the edited reservation is visible in the table
-    	#edit account data
+    #edit account data
     When the user clicks on the newly edited reservation
     And the user clicks on 'Account' tab button
     And the user inserts in 'First Name' input
@@ -95,35 +92,20 @@ Scenario: Add, Edit (reservation, account and membership data) and Delete a Rese
     And the user inserts in 'Phone' input
     And the user clicks on 'Save' Reservation button
     Then the changes are displayed in the modal
-           # editing membership data
+    # editing membership data
     When the user clicks on 'Membership' tab button
     And the user clicks on 'Add a Membership' Reservation button
     And the user selects a membership plan from dropdown
     And the user clicks on 'Save' Reservation button
     Then a message is displayed in the modal
-         # delete membership data
+    # delete membership data
     When the user clicks on Tree Dots button
     And the user clicks on 'Deactivate Membership'  
     And the user clicks on 'Deactivate Membership'
     Then the membership is deactivated 
-        # deleting the reservation
+    # deleting the reservation
     When the user clicks on 'Current Reservation' tab button
     And the user click on the trash icon
     And the user clicks on 'Delete' Reservation button
     Then the reservation disappears from table
 
-
-
-
-
-
-    # When the user changes to 'Booked' status
-    # Then the 'Booked' status modification is displayed in the table
-    # When the user changes to 'Checked In' status
-    # Then the 'Checked In' status modification is displayed in the table
-    # When the user changes to 'Playing' status
-    # Then the 'Playing' status modification is displayed in the table
-    # When the user changes to 'No-Show' status
-    # Then the 'No-Show' status modification is displayed in the table
-    # When the user changes to 'Pending' status
-    # Then the 'Pending' status modification is displayed in the table

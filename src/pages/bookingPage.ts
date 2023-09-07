@@ -7,7 +7,8 @@ import { AccountData, CalendarButtonNames, ReservationData, ReservationTabButton
 import { memberData } from "../suport/types/member.type";
 
 export class BookingPage extends BasePage {
-    // --- booking page
+
+    // Booking page
     private bayArrowRight: Locator = this.page.locator('.bay-arrows > div:last-child')
     private bayArrowLeft: Locator = this.page.locator('.bay-arrows button')
 
@@ -15,12 +16,12 @@ export class BookingPage extends BasePage {
     private firstBayColumn: Locator = this.page.locator('.bay_column:nth-child(1) .bay_title')
     private teeTimeItem: Locator = this.page.locator('.tee_time_item')
 
-    // --- modal
+    // Modal
     private exitModalButton: Locator = this.page.locator('.exit-button')
     private getNewReservationModalTitle: Locator = this.page.getByText('New Reservation')
     private popUpConfirmationMessageContainer: Locator =  this.page.locator('.notification-container')
 
-    // --- edit booking
+    // Edit booking
     private reservationTypeSelect: Locator = this.page.locator('.indoor-create-booking-container > div:nth-child(2) > .select')
     private memberInformationInput: Locator = this.page.locator('.indoor-create-booking-container > div:nth-child(2) .member-information input')
     private startTimeInput: Locator = this.page.locator('.form-fields > .select:nth-child(2) input')
@@ -33,7 +34,7 @@ export class BookingPage extends BasePage {
     private editIcon = this.page.locator('.reservation-actions svg:first-child')
     private trashIcon = this.page.locator('.reservation-actions svg:last-child')
     
-    // --- new customer 
+    // New customer 
     private customerFirstNameInput: Locator = this.page.locator('.rates-modal-accounting-container .input-container:nth-child(1) input')
     private customerLastNameInput: Locator = this.page.locator('.rates-modal-accounting-container .input-container:nth-child(2) input')
     private customerEmailInput: Locator = this.page.locator('.rates-modal-accounting-container .input-container:nth-child(3) input')
@@ -41,21 +42,20 @@ export class BookingPage extends BasePage {
     private newCostumerButton: Locator = this.page.locator('#react-select-3-listbox #react-select-3-option-0')
     private newCostumerSaveButton: Locator = this.page.locator('.title-container button:first-child')
     
-    // --- edit account data
+    // Edit account data
     private firstNameInput: Locator = this.page.locator('.account-container .input-container:nth-child(2) input')
     private lastNameInput: Locator = this.page.locator('.account-container .input-container:nth-child(3) input')
     private phoneInput: Locator = this.page.locator('.account-container .input-container:last-child input')
 
 
-    // --- edit membership data
+    // Edit membership data
     private membershipPlan: Locator = this.page.locator('.form-container .select input');
     private membershipSelectOption: Locator = this.page.locator('#react-select-7-option-2') // #react-select-9-option-2
     private membershipCalendarIcon: Locator = this.page.locator('.form-container .react-datepicker-wrapper svg');
-
     private memberInfo: Locator = this.page.locator('.member-info')
     private treeDotsButton: Locator = this.page.locator('.current-membership .relative svg')
 
-    // --- calendar buttons
+    // Calendar buttons
     private calendarIcon: Locator = this.page.locator('.tee-sheet-top .react-datepicker-wrapper')
     private calendarIconFromModal: Locator = this.page.locator('.form-fields > .react-datepicker-wrapper svg')
     private arrowRight: Locator =  this.page.locator('.react-datepicker__header [data-icon="arrow-right"]')
@@ -70,8 +70,7 @@ export class BookingPage extends BasePage {
     private fourDaysFromToday: Locator = this.page.locator('.calendar-container button:nth-child(5)')
     private fiveDaysFromToday: Locator = this.page.locator('.calendar-container button:nth-child(6)')
     
-
-    // --- global var
+    // Global var
     public currentDate: any;
     public memberName: string = '';
     public columnIndex: number = 1;
@@ -98,16 +97,14 @@ export class BookingPage extends BasePage {
 
     async selectBayByGivenTimeAndRandomColumn() {
         await this.firstBayColumn.waitFor()
-        const bayColumnList: Locator[] = await this.bayColumnList.all();
+        let bayColumnList: Locator[] = await this.bayColumnList.all();
+        let teeTimeCount = await this.teeTimeItem.count();
         let bayColumnNames: any [] = [];
-
-        for(const el of bayColumnList){
+        for(let el of bayColumnList){
             bayColumnNames.push(await el.textContent())
         }
-
-        let teeTimeCount = await this.teeTimeItem.count();
         for (let index = 1; index <= teeTimeCount; index++) {
-            const element = await this.page.locator(`.tee_time_item:nth-child(${index})`).textContent()     
+            let element = await this.page.locator(`.tee_time_item:nth-child(${index})`).textContent()     
             if(element === '9:30a'){
                 this.hourIndex = index
             }
@@ -125,7 +122,7 @@ export class BookingPage extends BasePage {
         await this.firstBayColumn.waitFor()
         let numberOfBays = await this.bayColumnList.count()
         for (let index = 1; index <= numberOfBays; index++) {
-            const column = await this.page.locator(`.bay_column:nth-child(${index}) .bay_title`).textContent()
+            let column = await this.page.locator(`.bay_column:nth-child(${index}) .bay_title`).textContent()
             if(column === columnName){
                 this.columnIndex = index
             }
@@ -157,7 +154,7 @@ export class BookingPage extends BasePage {
         }
     }
 
-    async saveBookingButton(buttonName: string) {
+    async clickReservationButton(buttonName: string) {
         switch (buttonName) {
             case 'Create New Customer':
                 await this.memberInformationInput.click()
@@ -173,10 +170,10 @@ export class BookingPage extends BasePage {
         }
     }
 
-    async saveMemberName() {
-        const confirmationMessage = await this.popUpConfirmationMessageContainer.textContent()
+    async   saveMemberName() {
+        let confirmationMessage = await this.popUpConfirmationMessageContainer.textContent()
         let pattern = /for\s(.*?)\sat/  
-        const match = confirmationMessage?.match(pattern)
+        let match = confirmationMessage?.match(pattern)
         if(match){
             this.memberName = match[1].replace(/\s+/g, ', ')
     
@@ -188,7 +185,6 @@ export class BookingPage extends BasePage {
         this.endTimeIndex = 2
         this.newStartTime = await this.page.locator(`.tee_time_item:nth-child(${this.hourIndex - this.startTimeIndex})`).textContent()
         this.newEndTime = await this.page.locator(`.tee_time_item:nth-child(${this.hourIndex + this.endTimeIndex})`).textContent()
-        // await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).filter({hasText: `${this.memberName}`}).click()
         await this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex})`).click()
     }
 
@@ -220,7 +216,7 @@ export class BookingPage extends BasePage {
     }
 
     async changeBookingStatus(statusName: string) {
-        const statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container svg`)
+    let statusLocator: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container svg`)
     switch (statusName) {
         case 'Booked':
             await statusLocator.click()
@@ -252,7 +248,7 @@ export class BookingPage extends BasePage {
     }
 
     async assertStatusModification(statusName: string) {
-        const statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container`)
+        let statusLocator1: Locator = this.page.locator(`.bay_column:nth-child(${this.columnIndex}) > .bay_bookings > div:nth-child(${this.hourIndex - this.startTimeIndex}) .booking-status-container`)
         switch (statusName) {
             case 'Booked':
                 await statusLocator1.locator('[data-icon="calendar"]').click()
@@ -339,9 +335,8 @@ export class BookingPage extends BasePage {
         await this.page.getByText(`${buttonName}`).click()
     }
 
-    
 
-    // ---- edit account data
+    // Edit account 
 
     async insertInUserData(inputName: AccountData, userData: memberData) {
         switch (inputName) {
@@ -363,7 +358,7 @@ export class BookingPage extends BasePage {
     }
 
 
-    // ---- edit membership data
+    // Edit membership 
 
     async selectMembershipPlan() {
         await this.membershipPlan.click()
@@ -389,7 +384,7 @@ export class BookingPage extends BasePage {
         await expect(this.page.getByText('Add a Membership')).toBeVisible()
     }
 
-    // --- create Customer from booking modal
+    // Create Customer from booking modal
 
     async insertCustomerData(inputName: string, userData: memberData) {
         switch (inputName) {

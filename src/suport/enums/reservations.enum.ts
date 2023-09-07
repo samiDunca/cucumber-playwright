@@ -10,6 +10,12 @@ export enum ScheduleRepeatOptions {
   NONE = "None",
 }
 
+export enum ScheduleDate {
+    START_DATE = "Start Date",
+    END_DATE = "End Date"
+}
+
+
 export enum ScheduleWeekDays {
   S = "S",
   M = "M",

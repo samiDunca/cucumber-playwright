@@ -13,21 +13,17 @@ Scenario:  Editing the "No-Shows" Settings
 
 
 Scenario Outline: Verify that the admin user can add, edit, and delete a Schedule
-        # adding
+    # adding
     Given that the user is on the reservation page
-    Then the user clicks on the "+" button within the "Schedule" section
-    When the user fills in the required “Name” input
-    And the user selects the calendar Start Date
-    And the user selects the calendar End Date
+    Then the user clicks on the Plus button within the Schedule section
+    When the user fills in the required Name input
+    And the user selects the calendar 'Start Date'
+    And the user selects the calendar 'End Date'
     And the user clicks on the "Start when course opens" checkbox
     And the user clicks on the "End when course closes" checkbox
     And the user selects the "Start Time"
     And the user selects the "End Time"
-    And the user and selects an option from the repeat dropdown
-        |   repeatOption         |
-        # |   Daily                |
-        # |   Weekly               |
-        |   None                 |
+    And the user and selects 'None' from the repeat dropdown
     And the user selects one or multiple week days
         |   dayInitialLetter |
         |   S                |
@@ -41,34 +37,28 @@ Scenario Outline: Verify that the admin user can add, edit, and delete a Schedul
     And the user checks all checkboxes from the Booking Group Section
     And the user clicks the Save button for Schedule Modal
     Then the schedule is successfully created
-
-        # editing
+    # editing
     Given the user clicks on the newly created schedule
-    When the user fills in the required “Name” input
-    And the user selects the calendar Start Date
+    When the user fills in the required Name input
+    And the user selects the calendar 'Start Date'
     And the user clicks on the "Start when course opens" checkbox
     And the user clicks on the "End when course closes" checkbox
     And the user selects the "Start Time"
     And the user selects the "End Time"
-    And the user and selects an option from the repeat dropdown
-        |   repeatOption       |
-        # |   Daily              |
-        |   Weekly             |
-        # |   None               |
-    And the user selects the calendar End Date
-    And the user clicks on the "+" button in the "rate override" section
+    And the user and selects 'Weekly' from the repeat dropdown
+    And the user selects the calendar 'End Date'
+    And the user clicks on the Plus button in the Rate Override section
     And the user inserts the Override Name
     And the user inserts the Override Amount
-    And the user selects “Rate” from dropdown
-    And the user removes override by name
-    And the user clicks on the "+" button in the "rate override" section
+    And the user selects Rate from dropdown
+    And the user removes override by Name
+    And the user clicks on the Plus button in the Rate Override section
     And the user inserts the Override Name
     And the user inserts the Override Amount
-    And the user selects “Rate” from dropdown
+    And the user selects Rate from dropdown
     And the user clicks the Save button for Schedule Modal
     Then the current schedule is successfully updated
-
-        # deleting
+    # deleting
     And the user clicks on the newly edited schedule
     And the user clicks on 'Delete' button
     And the user clicks on 'Continue' button

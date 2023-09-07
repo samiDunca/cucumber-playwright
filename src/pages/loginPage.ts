@@ -3,6 +3,7 @@ import { Locator } from "@playwright/test";
 import { BasePage } from "./basePage";
 
 export class LoginPage extends BasePage {
+  private todayLocator: Locator = this.page.getByText('TODAY')
   private emailInput: Locator = this.page.locator("input[placeholder='Email Address']");
   private passwordInput: Locator = this.page.locator("input[placeholder='Password']");
   private loginButton: Locator = this.page.locator("button[type='submit']");
@@ -21,9 +22,9 @@ export class LoginPage extends BasePage {
     await this.loginButton.click();
   }
 
-  async checkForSuccess(): Promise<string | null> {
-    const text = await this.paragraphUserName.textContent();
-    return text;
+  async checkForSuccess() {
+    await this.todayLocator.waitFor()
+    await this.paragraphUserName.textContent();
   }
 
 }

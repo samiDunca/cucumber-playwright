@@ -6,7 +6,6 @@ import {BookingRulesCheckboxes, BookingRulesInputs} from "../suport/enums/bookin
 
 export class BookingEnginePage extends BasePage {
 
-  private todayLocator: Locator = this.page.getByText('TODAY')
   private generalSettingsButton: Locator = this.page.locator(".menu-items-container > div:last-of-type");
   private bookingEngineButton: Locator = this.page.locator(".settings-menu button:nth-of-type(3)");
   private bookingUrlInput: Locator = this.page.locator(".input-container .flex .input");
@@ -39,7 +38,6 @@ export class BookingEnginePage extends BasePage {
 
 
   async userNavigatesToSettingsPage(): Promise<void> {
-    await this.todayLocator.waitFor()
     await this.generalSettingsButton.click();
   }
 
@@ -68,8 +66,7 @@ export class BookingEnginePage extends BasePage {
     }
   }
 
-  
-  //--- Open modal booking group
+  // Open modal booking group
 
   async openNewBookingGroupModal(): Promise<void> {
     await this.plusButton.click();
@@ -79,9 +76,6 @@ export class BookingEnginePage extends BasePage {
     await this.groupNameInput.fill(name);
   }
 
-  
-  //--- booking window
-
   async enterDaysInAdvance(daysInAdvance: string): Promise<void> {
     await this.daysInAdvanceInput.fill(daysInAdvance);
   }
@@ -90,9 +84,6 @@ export class BookingEnginePage extends BasePage {
     await this.timePicker.click();
     await this.hoursTimePicker.click();
   }
-
-  
-  //--- booking rules
 
   async checkTheCheckbox(checkboxName: BookingRulesCheckboxes) {
     switch (checkboxName) {
@@ -187,7 +178,7 @@ export class BookingEnginePage extends BasePage {
   }
 
 
-  //--- booking rates
+  // Booking rates
 
   async selectPublicRate() {
     await this.publicRate.click();
@@ -195,9 +186,7 @@ export class BookingEnginePage extends BasePage {
   }
 
   async checkGroupIsUpdated(updateGroupName: string) {
-    const userEmail = await this.page
-      .locator(`//table/tbody/tr/td[text()='${updateGroupName}']`)
-      .textContent();
+    let userEmail = await this.page.locator(`//table/tbody/tr/td[text()='${updateGroupName}']`).textContent();
     if (userEmail !== updateGroupName) {
       throw new Error("the update has not been done");
     }

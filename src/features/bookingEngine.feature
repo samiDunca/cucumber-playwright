@@ -11,13 +11,13 @@ Scenario: Verify that the admin user can edit Booking Url
     Then the Url should be saved successfully
 
 Scenario: Verify that the admin user can add, edit, and delete a Booking Group
-        # adding
+    # adding
     Given that the user is on the Booking Engine page
-    When the user clicks on "+" button in the top-right side above the table
-    And the user inserts “name” input
-    And the user inserts number for “days in advance”
+    When the user clicks on the plus button in the top-right side above the table
+    And the user inserts in Name input
+    And the user inserts number for Days in Advance input
     And the user selects time
-    And the user checks the following check-box: 
+    And the user checks the following check-boxes: 
         |   checkbox                   |
         |   Limit Concurrent Bookings  |
         |   Limit Concurrent Hours     |
@@ -29,26 +29,24 @@ Scenario: Verify that the admin user can add, edit, and delete a Booking Group
         |   Max Hours per Day              |
         |   Max Hours per Month            |
         |   Limit Monthly Play             |
-    And the user selects booking rate from Rates dropdown 
+    And the user selects Booking Rate from Rates dropdown 
     And the user clicks the save button for modal
     Then the booking should be successfully created
-
-        # editing
+    # editing
     When the user clicks on the three dots button of the newly created booking group
     And the user press on edit button
-    And the user modifies the “newName” input
-    And the user modifies the “days in advance” input
+    And the user modifies the New Name input
+    And the user modifies the Days in Advance input
     And the user selects another time
-    And the user checks the following check-box: 
-        | checkbox                     |
+    And the user checks the following check-boxes: 
+        |   checkbox                   |
         |   Limit Concurrent Bookings  |
         |   Limit Concurrent Hours     |
         |   Limit Daily Play           |
         |   Limit Monthly Play         |
     And the user clicks the save button for modal after update
     Then the current booking group should be successfully updated
-
-        # deleting
+    # deleting
     When the user clicks on the three dots button of the current updated booking group
     And the user click on delete button
     And the user clicks on Continue button on the confirmation modal
