@@ -34,7 +34,7 @@ export class BookingEnginePage extends BasePage {
   private publicRate: Locator = this.page.locator(".text-displayFive input");
   private firstPublicRateOption: Locator = this.page.locator("div:nth-child(1) > .user-option:nth-child(1)");
   
-
+  public bookingGroupName: string = '';
 
 
   async userNavigatesToSettingsPage(): Promise<void> {
@@ -73,6 +73,7 @@ export class BookingEnginePage extends BasePage {
   }
 
   async enterBookingGroupName(name: string): Promise<void> {
+    this.bookingGroupName = name;
     await this.groupNameInput.fill(name);
   }
 

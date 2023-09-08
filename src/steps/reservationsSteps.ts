@@ -143,6 +143,10 @@ Then('the current schedule is successfully updated', async function () {
   await reservationsPage.assertSuccessfullyCreatedSchedule()
 });
 
+When('the user checks the checkbox corresponding to the newly created Booking Group', async function (this: ICustomWorld) {
+    let bookingGroupName =  this.pagesObj.bookingEnginePage.bookingGroupName;
+    await reservationsPage.checkBookingGroupByName(bookingGroupName)
+});
 
 // Delete Schedule 
 
