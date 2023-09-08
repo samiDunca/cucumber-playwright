@@ -2,7 +2,8 @@ import { Given, When, Then } from "@cucumber/cucumber";
 
 import { MemberPage } from "../pages/memberPage";
 import { ICustomWorld } from "../world/customWorld";
-import { StringUtils, memberData } from "../utils/stringUtils";
+import { StringUtils } from "../suport/utils/stringUtils";
+import { memberData } from "../suport/types/member.type";
 
 let memberPage: MemberPage;
 let memberData: memberData;
@@ -12,7 +13,6 @@ Given(
   async function (this: ICustomWorld) {
     memberData = StringUtils.generateRandomUserData();
     memberPage = this.pagesObj.memberPage;
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     await memberPage.clickMembersPageButton();
   }
 );
@@ -30,15 +30,11 @@ Given("user insert personal data", async function () {
   );
 });
 
-When("the user clicks on {string} button", async function (string) {
-  await memberPage.clickSaveButton();
-});
-
 Then("the member should be created", async function () {
   await memberPage.clickTotalMembers();
 });
 
-// --------Edit Member Steps
+// Edit Member Steps
 
 When("the user clicks on an existing Member", async function () {
   await memberPage.clickAnExistingMember();

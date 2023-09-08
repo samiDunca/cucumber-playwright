@@ -11,11 +11,10 @@ let invalidUsers: TestData.UserCredentials[];
 
 Given("User navigates to the application", async function (this: CustomWorld) {
   const url = this.env.getUrl();
-  loginPage = this.pagesObj.loginPage;
-  await loginPage.page.goto(url);
-
   validUsers = this.env.getValidUsers();
   invalidUsers = this.env.getInvalidUsers();
+  loginPage = this.pagesObj.loginPage;
+  await loginPage.page.goto(url);
 });
 
 Given("User enter the username", async function () {
@@ -27,19 +26,16 @@ Given("User enter the password", async function () {
 });
 
 When("User click on the signIn button", async function () {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
   await loginPage.clickLoginButton();
 });
 
 Then("Login should be success", async function () {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  const text = await loginPage.checkForSuccess();
+  await loginPage.checkForSuccess();
 });
 
 Given("User logs in", async function () {
   await loginPage.enterEmail(validUsers[0]?.email);
   await loginPage.enterPassword(validUsers[0]?.password);
   await loginPage.clickLoginButton();
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  const text = await loginPage.checkForSuccess();
+  await loginPage.checkForSuccess();
 });

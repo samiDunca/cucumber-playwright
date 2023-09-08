@@ -7,15 +7,11 @@ module.exports = {
     dryRun: false,
     require: [
       "src/steps/*.ts",
-      "src/setup/hooks.ts",
+      "./hooks.ts",
       "src/world/customWorld.ts",
-      "/playwright.config.ts"
+      "./playwright.config.ts"
     ],
     requireModule: ["ts-node/register"],
-    format: [
-      "progress-bar",
-      "html:./src/test-result/cucumber-report.html",
-    ],
   },
   globals: {
     "ts-jest": {

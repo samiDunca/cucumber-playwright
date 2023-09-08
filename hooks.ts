@@ -1,11 +1,9 @@
 import { chromium, Page, Browser, BrowserContext } from "@playwright/test";
-import { Before, setDefaultTimeout } from "@cucumber/cucumber";
+import { Before } from "@cucumber/cucumber";
 
-import { EnvironmentHandler } from "../env/models/environmentHandler";
-import { ICustomWorld } from "../world/customWorld";
-import { AppPages } from "../pages/appPages";
-
-setDefaultTimeout(3 * 5000);
+import { EnvironmentHandler } from "./src/env/models/environmentHandler";
+import { ICustomWorld } from "./src/world/customWorld";
+import { AppPages } from "./src/pages/appPages";
 
 let browser: Browser;
 let page: Page;
