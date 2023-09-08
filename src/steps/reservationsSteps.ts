@@ -105,7 +105,7 @@ Given("the user clicks on the newly created schedule", async function () {
 
 // Add Rate Override
 
-When('the user clicks on the Plus button in the Rate Override section', async function (string, string2) {
+When('the user clicks on the Plus button in the Rate Override section', async function () {
   await reservationsPage.openOverideSection()
 });
 
