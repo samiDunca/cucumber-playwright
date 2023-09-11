@@ -1,4 +1,4 @@
-Feature: Booking Management
+Feature: Membership Management
 
 Background:
     Given User navigates to the application

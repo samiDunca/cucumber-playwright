@@ -368,9 +368,9 @@ export class BookingPage extends BasePage {
 
     async selectMembershipPlan() {
         await this.membershipPlan.click()
-        await this.selectMembershipPlanOption.isVisible()
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         this.membershipPlanName = await this.selectMembershipPlanOption.textContent()
-        await this.selectMembershipPlanOption.click({timeout: 10000})
+        await this.selectMembershipPlanOption.click({timeout: 1000})
     }
     
     async selectMembershipPlanStartDate(){
