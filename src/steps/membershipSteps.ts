@@ -11,7 +11,6 @@ let membershipName: string;
   Given('that the user is on the Memberships page', async function (this: ICustomWorld) {
     membershipPage = this.pagesObj.membershipPage;
     membershipName = faker.internet.userName()
-    console.log(membershipName)
     await membershipPage.userNavigatesToMembershipPage()
   });
 
@@ -19,12 +18,12 @@ let membershipName: string;
     await membershipPage.openNewMembershipPlanModal()
   });
 
-  When('the user inserts name in Membership Name input', async function (this: ICustomWorld) {
+  When('the user inserts name in Membership Name input', async function () {
     await membershipPage.insertMembershipName(membershipName)
   });
 
   When('the user selects a Booking Group from member dropdown', async function () {
-    await membershipPage.selectBookingGroup('sdfglkjndsfg')
+    await membershipPage.selectBookingGroup()
   });
 
   When('the user clicks the save button for Membership Plan modal', async function () {       
@@ -32,6 +31,12 @@ let membershipName: string;
   });
 
   Then('the membership should be created', async function () {
-await membershipPage.assertMembershipCreation(membershipName)
+    await membershipPage.assertMembershipCreation(membershipName)
   });
+
+  When('the user selects the newly created Booking Group from the dropdown', async function (this: ICustomWorld) {
+    await membershipPage.selectBookingGroupByName(this.pagesObj.bookingEnginePage.bookingGroupName)
+  });
+
+
 

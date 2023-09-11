@@ -26,5 +26,4 @@ export class LoginPage extends BasePage {
     await this.todayLocator.waitFor()
     await this.paragraphUserName.textContent();
   }
-
 }

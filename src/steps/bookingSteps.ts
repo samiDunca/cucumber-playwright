@@ -1,4 +1,4 @@
-import {  When, Then } from "@cucumber/cucumber";
+import {  Given, When, Then } from "@cucumber/cucumber";
 import {  expect } from "@playwright/test";
 
 import { BookingPage } from "../pages/bookingPage";
@@ -34,7 +34,7 @@ When("the user selects a random slot by given Time and Random Column", async fun
 });
 
 When('the user selects a random slot by given Column and Random Time', async function () {
-    await bookingPage.selectBayByGivenColumnAndRandomTime('b')
+    await bookingPage.selectBayByGivenColumnAndRandomTime('bah')
 });
     
 Then('the user is let to continue based on the slot availability', async function () {
@@ -170,3 +170,18 @@ When('the user clicks on {string}', async function (string) {
 Then('the membership is deactivated', async function () {
     await bookingPage.assertionDeactivateMembership()
 });
+
+// Part of a bigger flow test
+
+When('the user selects the newly created Membership Plan from dropdown', async function (this: ICustomWorld) {
+    await bookingPage.selectMembershipPlanByName(this.pagesObj.membershipPage.newMembershipPlanName)
+});
+
+Given('that the user is on the First page', async function (this: ICustomWorld) {
+    bookingPage = this.pagesObj.bookingPage
+    await bookingPage.navigateToMainPage()
+});
+
+Then('the Current Membership is displayed in the Membership History table', async function () {
+    await bookingPage.assertAssignedMembershipPlan()
+  });
