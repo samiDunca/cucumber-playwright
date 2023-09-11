@@ -3,7 +3,7 @@ module.exports = {
     formatOptions: {
       snippetInterface: "async-await",
     },
-    paths: ["src/features/bookingEngine.feature"],
+    paths: ["src/features/membership.feature"],
     dryRun: false,
     require: [
       "src/steps/*.ts",

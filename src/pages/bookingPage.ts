@@ -170,13 +170,12 @@ export class BookingPage extends BasePage {
         }
     }
 
-    async   saveMemberName() {
+    async saveMemberName() {
         let confirmationMessage = await this.popUpConfirmationMessageContainer.textContent()
         let pattern = /for\s(.*?)\sat/  
         let match = confirmationMessage?.match(pattern)
         if(match){
             this.memberName = match[1].replace(/\s+/g, ', ')
-    
         }
     }
 
