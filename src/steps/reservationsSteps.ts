@@ -1,5 +1,4 @@
 import { Given, When, Then } from "@cucumber/cucumber";
-import { expect } from "@playwright/test";
 
 import { ICustomWorld } from "../world/customWorld";
 import { ReservationsPage } from "../pages/reservationsPage";

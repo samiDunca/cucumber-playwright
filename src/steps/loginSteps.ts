@@ -17,15 +17,15 @@ Given("User navigates to the application", async function (this: CustomWorld) {
   await loginPage.page.goto(url);
 });
 
-Given("User enter the username", async function () {
+Given("User enters the username", async function () {
   await loginPage.enterEmail(validUsers[0]?.email);
 });
 
-Given("User enter the password", async function () {
+Given("User enters the password", async function () {
   await loginPage.enterPassword(validUsers[0]?.password);
 });
 
-When("User click on the signIn button", async function () {
+When("User clicks on the signIn button", async function () {
   await loginPage.clickLoginButton();
 });
 
@@ -38,4 +38,20 @@ Given("User logs in", async function () {
   await loginPage.enterPassword(validUsers[0]?.password);
   await loginPage.clickLoginButton();
   await loginPage.checkForSuccess();
+});
+
+Given('user press on Down Arrow button', async function () {
+  await loginPage.clickDownArrow()
+});
+
+Given('user clicks on Logout button', async function () {
+    await loginPage.clickLogoutButton()
+});
+
+Given('user clicks on confirmation Logout button', async function () {
+  await loginPage.confirmLogout()
+});
+
+Then('user is loged out', async function () {
+  await loginPage.assertLogout()
 });
