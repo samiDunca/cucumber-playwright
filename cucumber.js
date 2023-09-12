@@ -3,7 +3,7 @@ module.exports = {
     formatOptions: {
       snippetInterface: "async-await",
     },
-    paths: ["src/features/login.feature"],
+    paths: ["src/features/authentication.feature"],
     dryRun: false,
     require: [
       "src/steps/*.ts",

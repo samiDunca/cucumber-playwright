@@ -5,8 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js test",
-    "posttest": "npx ts-node src/helper/report.ts"
+    "posttest": "npx ts-node src/helper/report.ts",
+    "tests:api": "npx playwright test --config=api.config.ts"
   },
+  "runArgs": [
+    "--env-file",
+    "env"
+  ],
   "compilerOptions": {
     "resolveJsonModule": true
   },
@@ -24,6 +29,7 @@
   },
   "dependencies": {
     "@cucumber/language-service": "^1.4.1",
-    "@jest/globals": "^29.6.2"
+    "@jest/globals": "^29.6.2",
+    "dotenv": "^16.3.1"
   }
 }
