@@ -5,7 +5,7 @@ require("dotenv").config();
 export default defineConfig({
   timeout: 60000,
   retries: 0,
-  testDir: "src/api-test/schedules",
+  testDir: "src/api-test/bookingSettings",
   use: {
     baseURL: "https://tq-golf-dev-api.azurewebsites.net",
     extraHTTPHeaders: {

@@ -174,7 +174,7 @@ test.describe.parallel('Verify all DELETE endpoints for schedules', () => {
         expect(_response.ok()).toBeTruthy();
     })
 
-    test.only('Verify that a schedule with valid endpoit returns an error', async ({request}) => {
+    test('Verify that a schedule with valid endpoit returns an error', async ({request}) => {
         const _response = await request.delete(`/schedules/invalid-endpoint`)
         expect(_response.status()).toBe(404);
     expect(_response.ok()).toBeFalsy();
