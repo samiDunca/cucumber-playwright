@@ -6,7 +6,7 @@ let bookingGroupId = "78b0b183-30cf-4357-b687-88b2403de00e";
 const bookingGroupIdForDelete = "9869903f-181b-46bd-aa2d-28775f7b34e21"
 // POST Booking Group
 test.describe.parallel("Verify all POST endpoints for Booking Group", () => {
-  test("Create a booking Group", async ({ request }) => {
+  test("Verify that a booking group can be created", async ({ request }) => {
     const _response = await request.post(`/bookingGroups`, {
       data: {
         color: "#C1ECC0",
@@ -26,7 +26,7 @@ test.describe.parallel("Verify all POST endpoints for Booking Group", () => {
     expect(_response.ok()).toBeTruthy();
   });
 
-  test("Create a booking Group with bad data", async ({ request }) => {
+  test("Verify that a booking group can not be created with bad data", async ({ request }) => {
     const _response = await request.post(`/bookingGroups`, {
       data: {
         color: "#C1ECC0",
@@ -40,7 +40,7 @@ test.describe.parallel("Verify all POST endpoints for Booking Group", () => {
     expect(_response.ok()).toBeFalsy();
   });
 
-  test("Create a booking group without rateId", async ({ request }) => {
+  test("Verify that a booking group can not be created without rateId", async ({ request }) => {
     const _response = await request.post(`/bookingGroups`, {
       data: {
         color: "#C1ECC0",
@@ -64,13 +64,13 @@ test.describe.parallel("Verify all POST endpoints for Booking Group", () => {
 
 // GET Booking Groups/{id}
 test.describe.parallel("Verify all GET endpoints for Booking Groups/{id}", () => {
-  test("Get booking group by Id", async ({ request }) => {
+  test("Verify get booking group by Id", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/${bookingGroupId}`);
     expect(_response.status()).toBe(200);
     expect(_response.ok()).toBeTruthy();
   });
 
-  test("Get booking group by False Id", async ({ request }) => {
+  test("Verify that you can not retrieve booking group by false ID", async ({ request }) => {
     const _response = await request.get(
       `/bookingGroups/${faker.finance.accountNumber(7)}`
     );
@@ -81,7 +81,7 @@ test.describe.parallel("Verify all GET endpoints for Booking Groups/{id}", () =>
 
 // "PUT Booking Groups/{id}
 test.describe.parallel("Verify all PUT endpoints for Booking Groups/{id}", () => {
-  test("PUT booking group by Id", async ({ request }) => {
+  test("Verify edit booking group by id", async ({ request }) => {
     const _response = await request.put(`/bookingGroups/${bookingGroupId}`, {
       data: {
         id: `${bookingGroupId}`,
@@ -95,7 +95,7 @@ test.describe.parallel("Verify all PUT endpoints for Booking Groups/{id}", () =>
     expect(_response.ok()).toBeTruthy();
   });
 
-  test("PUT booking group by Id without rateId", async ({ request }) => {
+  test("Verify you can not edit booking group without providing rateId", async ({ request }) => {
     const _response = await request.put(`/bookingGroups/${bookingGroupId}`, {
       data: {
         id: `${bookingGroupId}`,
@@ -108,7 +108,7 @@ test.describe.parallel("Verify all PUT endpoints for Booking Groups/{id}", () =>
     expect(_response.ok()).toBeFalsy();
   });
 
-  test("PUT booking group by Id with incorect data type", async ({ request }) => {
+  test("Verify you can not edit booking group with incorect data type", async ({ request }) => {
     const _response = await request.put(`/bookingGroups/${bookingGroupId}`, {
       data: {
        rateId: "asdf"
@@ -121,13 +121,13 @@ test.describe.parallel("Verify all PUT endpoints for Booking Groups/{id}", () =>
 
 // GET Booking Groups/{id}/mebershipPlans
 test.describe.parallel("Verify all GET endpoints for Booking Groups/{id}/mebershipPlans", () => {
-  test("GET Membership Plans assigned for given booking Group Id", async ({ request }) => {
+  test("Verify get Membership Plans assigned for given booking Group Id", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/${bookingGroupId}/membershipPlans`);
     expect(_response.status()).toBe(200);
     expect(_response.ok()).toBeTruthy();
   });
 
-  test("GET Membership Plans assigned for given booking Group Id - Assert Invalid Endpoint ", async ({ request }) => {
+  test("Verify get Membership Plans assigned for given booking Group Id - Assert Invalid Endpoint ", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/${bookingGroupId}/non-valid-endpoint`);
     expect(_response.status()).toBe(404);
     expect(_response.ok()).toBeFalsy();
@@ -135,14 +135,14 @@ test.describe.parallel("Verify all GET endpoints for Booking Groups/{id}/mebersh
 })
 
 // GET Booking Groups/{id}/public-status
-test("GET Public-status ", async ({ request }) => {
+test("Verify if booking group public-status can be retrieved", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/public-status`);
     expect(_response.status()).toBe(200);
     expect(_response.ok()).toBeTruthy();
 });
 
 // DELETE BookingGroups/{id}
-test.skip("DELETE Booking Group ", async ({ request }) => {
+test.skip("Verify delete Booking Group works", async ({ request }) => {
     const _response = await request.delete(`/bookingGroups/${bookingGroupIdForDelete}`);
     expect(_response.status()).toBe(200);
     expect(_response.ok()).toBeTruthy();
