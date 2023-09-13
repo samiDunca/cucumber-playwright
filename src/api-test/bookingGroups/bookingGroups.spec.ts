@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker";
 let bookingGroupId = "78b0b183-30cf-4357-b687-88b2403de00e";
 const bookingGroupIdForDelete = "9869903f-181b-46bd-aa2d-28775f7b34e21"
 // POST Booking Group
-test.describe.parallel("POST Booking Group", () => {
+test.describe.parallel("Verify all POST endpoints for Booking Group", () => {
   test("Create a booking Group", async ({ request }) => {
     const _response = await request.post(`/bookingGroups`, {
       data: {
@@ -63,7 +63,7 @@ test.describe.parallel("POST Booking Group", () => {
 
 
 // GET Booking Groups/{id}
-test.describe.parallel("GET Booking Groups/{id}", () => {
+test.describe.parallel("Verify all GET endpoints for Booking Groups/{id}", () => {
   test("Get booking group by Id", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/${bookingGroupId}`);
     expect(_response.status()).toBe(200);
@@ -80,7 +80,7 @@ test.describe.parallel("GET Booking Groups/{id}", () => {
 });
 
 // "PUT Booking Groups/{id}
-test.describe.parallel("PUT Booking Groups/{id}", () => {
+test.describe.parallel("Verify all PUT endpoints for Booking Groups/{id}", () => {
   test("PUT booking group by Id", async ({ request }) => {
     const _response = await request.put(`/bookingGroups/${bookingGroupId}`, {
       data: {
@@ -120,7 +120,7 @@ test.describe.parallel("PUT Booking Groups/{id}", () => {
 });
 
 // GET Booking Groups/{id}/mebershipPlans
-test.describe.parallel("GET Booking Groups/{id}/mebershipPlans", () => {
+test.describe.parallel("Verify all GET endpoints for Booking Groups/{id}/mebershipPlans", () => {
   test("GET Membership Plans assigned for given booking Group Id", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/${bookingGroupId}/membershipPlans`);
     expect(_response.status()).toBe(200);
@@ -135,19 +135,15 @@ test.describe.parallel("GET Booking Groups/{id}/mebershipPlans", () => {
 })
 
 // GET Booking Groups/{id}/public-status
-test.describe.parallel("GET Booking Groups/{id}/public-status", () => {
-  test("GET Public-status ", async ({ request }) => {
+test("GET Public-status ", async ({ request }) => {
     const _response = await request.get(`/bookingGroups/public-status`);
     expect(_response.status()).toBe(200);
     expect(_response.ok()).toBeTruthy();
-  });
-})
+});
 
 // DELETE BookingGroups/{id}
-// test.describe.parallel("DELETE Booking Groups/{id}/public-status", () => {
-//   test("DELETE Booking Group ", async ({ request }) => {
-//     const _response = await request.delete(`/bookingGroups/${bookingGroupIdForDelete}`);
-//     expect(_response.status()).toBe(200);
-//     expect(_response.ok()).toBeTruthy();
-//   });
-// })
+test.skip("DELETE Booking Group ", async ({ request }) => {
+    const _response = await request.delete(`/bookingGroups/${bookingGroupIdForDelete}`);
+    expect(_response.status()).toBe(200);
+    expect(_response.ok()).toBeTruthy();
+});
