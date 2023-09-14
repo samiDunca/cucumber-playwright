@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { faker } from "@faker-js/faker";
 
 let firstServicePointId = "341c919d-1913-47a4-9259-015ec992f978"
 let secondServicePointId = "252e4a31-04a9-4066-b625-26e467214df3"
