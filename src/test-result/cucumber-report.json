@@ -4,17 +4,17 @@
     "elements": [
       {
         "description": "",
-        "id": "reservation-management;editing-the-\"no-shows\"-settings",
+        "id": "membership-management;verify-that-the-user-can-create-a-membership-plan",
         "keyword": "Scenario",
         "line": 7,
-        "name": "Editing the \"No-Shows\" Settings",
+        "name": "Verify that the user can create a Membership Plan",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 517439899
+              "duration": 569746999
             }
           },
           {
@@ -27,7 +27,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1614212599
+              "duration": 1790361800
             }
           },
           {
@@ -40,72 +40,85 @@
             },
             "result": {
               "status": "passed",
-              "duration": 10334973799
+              "duration": 11823878600
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
             "line": 8,
-            "name": "that the user is on the reservation page",
+            "name": "that the user is on the Memberships page",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:10"
+              "location": "src\\steps\\membershipSteps.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 282678299
+              "duration": 1125119700
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 9,
-            "name": "the user clicks on the \"Automatically Mark No-Show\" checkbox",
+            "name": "the user clicks on the plus button for new Membership Plan",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:18"
+              "location": "src\\steps\\membershipSteps.ts:12"
             },
             "result": {
               "status": "passed",
-              "duration": 69591399
+              "duration": 137290199
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 10,
-            "name": "the user adjusts the time duration in the checkbox",
+            "name": "the user inserts name in Membership Name input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:21"
+              "location": "src\\steps\\membershipSteps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 250400
+              "duration": 55167700
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 11,
-            "name": "the user clicks on 'Save' button",
+            "name": "the user selects a Booking Group from member dropdown",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:140"
+              "location": "src\\steps\\membershipSteps.ts:18"
             },
             "result": {
               "status": "passed",
-              "duration": 86415800
+              "duration": 297800699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "the user clicks the save button for Membership Plan modal",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 122700700
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 12,
-            "name": "the modified data should be saved",
+            "line": 13,
+            "name": "the membership should be created",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:24"
+              "location": "src\\steps\\membershipSteps.ts:24"
             },
             "result": {
               "status": "passed",
-              "duration": 9854300
+              "duration": 900808700
             }
           }
         ],
@@ -113,18 +126,18 @@
         "type": "scenario"
       },
       {
-        "description": "",
-        "id": "reservation-management;verify-that-the-admin-user-can-add,-edit,-and-delete-a-schedule",
-        "keyword": "Scenario Outline",
+        "description": "create a Membership Plan assigning the booking group created on the previous step,\nand then create a reservation assigning the membership created on the second step.",
+        "id": "membership-management;verify-that-the-following-flow-works:-create-a-booking-group,",
+        "keyword": "Scenario",
         "line": 15,
-        "name": "Verify that the admin user can add, edit, and delete a Schedule",
+        "name": "Verify that the following flow works: create a booking group,",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 373897700
+              "duration": 488698599
             }
           },
           {
@@ -137,7 +150,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1854851399
+              "duration": 1579962699
             }
           },
           {
@@ -150,137 +163,72 @@
             },
             "result": {
               "status": "passed",
-              "duration": 10288424700
+              "duration": 11646811899
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 17,
-            "name": "that the user is on the reservation page",
+            "line": 19,
+            "name": "that the user is on the Booking Engine page",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:10"
+              "location": "src\\steps\\bookingEngineSteps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 281150299
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "Then ",
-            "line": 18,
-            "name": "the user clicks on the Plus button within the Schedule section",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:28"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 134669500
+              "duration": 262231699
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 19,
-            "name": "the user fills in the required Name input",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:31"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 52104400
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
             "line": 20,
-            "name": "the user selects the calendar 'Start Date'",
+            "name": "the user clicks on the plus button in the top-right side above the table",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:34"
+              "location": "src\\steps\\bookingEngineSteps.ts:37"
             },
             "result": {
               "status": "passed",
-              "duration": 476995399
+              "duration": 139180900
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 21,
-            "name": "the user selects the calendar 'End Date'",
+            "name": "the user inserts in Name input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:34"
+              "location": "src\\steps\\bookingEngineSteps.ts:42"
             },
             "result": {
               "status": "passed",
-              "duration": 129900
+              "duration": 57210000
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 22,
-            "name": "the user clicks on the \"Start when course opens\" checkbox",
+            "name": "the user inserts number for Days in Advance input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:18"
+              "location": "src\\steps\\bookingEngineSteps.ts:46"
             },
             "result": {
               "status": "passed",
-              "duration": 105025599
+              "duration": 39832200
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 23,
-            "name": "the user clicks on the \"End when course closes\" checkbox",
+            "name": "the user selects time",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:18"
+              "location": "src\\steps\\bookingEngineSteps.ts:50"
             },
             "result": {
               "status": "passed",
-              "duration": 95882100
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 24,
-            "name": "the user selects the \"Start Time\"",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 188030499
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 25,
-            "name": "the user selects the \"End Time\"",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 164695600
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 26,
-            "name": "the user and selects 'None' from the repeat dropdown",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:45"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 136349099
+              "duration": 514245100
             }
           },
           {
@@ -289,421 +237,643 @@
                 "rows": [
                   {
                     "cells": [
-                      "dayInitialLetter"
+                      "checkbox"
                     ]
                   },
                   {
                     "cells": [
-                      "S"
+                      "Limit Concurrent Bookings"
                     ]
                   },
                   {
                     "cells": [
-                      "M"
+                      "Limit Concurrent Hours"
                     ]
                   },
                   {
                     "cells": [
-                      "T"
+                      "Limit Daily Play"
                     ]
                   },
                   {
                     "cells": [
-                      "W"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "Th"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "F"
-                    ]
-                  },
-                  {
-                    "cells": [
-                      "Sa"
+                      "Limit Monthly Play"
                     ]
                   }
                 ]
               }
             ],
             "keyword": "And ",
-            "line": 27,
-            "name": "the user selects one or multiple week days",
+            "line": 24,
+            "name": "the user checks the following check-boxes:",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:48"
+              "location": "src\\steps\\bookingEngineSteps.ts:54"
             },
             "result": {
               "status": "passed",
-              "duration": 494800
+              "duration": 346403699
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "input"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Max Concurrently Booked hours"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Max Hours per Day"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Max Hours per Month"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Limit Monthly Play"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 30,
+            "name": "the user inserts number for the following inputs:",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74754799
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 36,
-            "name": "the user checks all checkboxes from bays section",
+            "name": "the user selects Booking Rate from Rates dropdown",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:103"
+              "location": "src\\steps\\bookingEngineSteps.ts:68"
             },
             "result": {
               "status": "passed",
-              "duration": 295972100
+              "duration": 192085899
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 37,
-            "name": "the user checks all checkboxes from the Booking Group Section",
+            "name": "the user clicks the save button for modal",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:106"
+              "location": "src\\steps\\bookingEngineSteps.ts:72"
             },
             "result": {
               "status": "passed",
-              "duration": 6345716300
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 38,
-            "name": "the user clicks the Save button for Schedule Modal",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:54"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 80023699
+              "duration": 103030400
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 39,
-            "name": "the schedule is successfully created",
+            "line": 38,
+            "name": "the booking should be successfully created",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:57"
+              "location": "src\\steps\\bookingEngineSteps.ts:76"
             },
             "result": {
               "status": "passed",
-              "duration": 1053585399
+              "duration": 141299
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
             "line": 41,
-            "name": "the user clicks on the newly created schedule",
+            "name": "that the user is on the Memberships page",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:61"
+              "location": "src\\steps\\membershipSteps.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 355627799
+              "duration": 5859740099
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
             "line": 42,
-            "name": "the user fills in the required Name input",
+            "name": "the user clicks on the plus button for new Membership Plan",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:31"
+              "location": "src\\steps\\membershipSteps.ts:12"
             },
             "result": {
               "status": "passed",
-              "duration": 416822299
+              "duration": 143645500
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 43,
-            "name": "the user selects the calendar 'Start Date'",
+            "name": "the user inserts name in Membership Name input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:34"
+              "location": "src\\steps\\membershipSteps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 123769799
+              "duration": 78537299
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 44,
-            "name": "the user clicks on the \"Start when course opens\" checkbox",
+            "name": "the user selects the newly created Booking Group from the dropdown",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:18"
+              "location": "src\\steps\\membershipSteps.ts:27"
             },
             "result": {
               "status": "passed",
-              "duration": 76851500
+              "duration": 956190500
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 45,
-            "name": "the user clicks on the \"End when course closes\" checkbox",
+            "name": "the user clicks the save button for Membership Plan modal",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:18"
+              "location": "src\\steps\\membershipSteps.ts:21"
             },
             "result": {
               "status": "passed",
-              "duration": 89320100
+              "duration": 135858999
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
+            "keyword": "Then ",
             "line": 46,
-            "name": "the user selects the \"Start Time\"",
+            "name": "the membership should be created",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:37"
+              "location": "src\\steps\\membershipSteps.ts:24"
             },
             "result": {
               "status": "passed",
-              "duration": 143800
+              "duration": 408731499
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
-            "line": 47,
-            "name": "the user selects the \"End Time\"",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:37"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 40199
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 48,
-            "name": "the user and selects 'Weekly' from the repeat dropdown",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:45"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 133058999
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
+            "keyword": "Given ",
             "line": 49,
-            "name": "the user selects the calendar 'End Date'",
+            "name": "that the user is on the First page",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:34"
+              "location": "src\\steps\\bookingSteps.ts:125"
             },
             "result": {
               "status": "passed",
-              "duration": 247649199
+              "duration": 195061300
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
+            "keyword": "When ",
             "line": 50,
-            "name": "the user clicks on the Plus button in the Rate Override section",
+            "name": "the user click on calendar icon",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:86"
+              "location": "src\\steps\\bookingSteps.ts:12"
             },
             "result": {
               "status": "passed",
-              "duration": 681699
+              "duration": 91812399
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 51,
-            "name": "the user inserts the Override Name",
+            "name": "the user selects a date one month appart from current date",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:89"
+              "location": "src\\steps\\bookingSteps.ts:19"
             },
             "result": {
               "status": "passed",
-              "duration": 1069385900
+              "duration": 187641799
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 52,
-            "name": "the user inserts the Override Amount",
+            "name": "the user selects a random slot by given Column and Random Time",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:92"
+              "location": "src\\steps\\bookingSteps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 88383700
+              "duration": 451909600
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
+            "keyword": "Then ",
             "line": 53,
-            "name": "the user selects Rate from dropdown",
+            "name": "the user is let to continue based on the slot availability",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:95"
+              "location": "src\\steps\\bookingSteps.ts:28"
             },
             "result": {
               "status": "passed",
-              "duration": 131269700
+              "duration": 9671599
             }
           },
           {
             "arguments": [],
-            "keyword": "And ",
+            "keyword": "When ",
             "line": 54,
-            "name": "the user removes override by Name",
+            "name": "the user selects reservation type",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:99"
+              "location": "src\\steps\\bookingSteps.ts:31"
             },
             "result": {
               "status": "passed",
-              "duration": 85528100
+              "duration": 44615500
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 55,
-            "name": "the user clicks on the Plus button in the Rate Override section",
+            "name": "the user clicks on 'Create New Customer' Reservation button",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:86"
+              "location": "src\\steps\\bookingSteps.ts:43"
             },
             "result": {
               "status": "passed",
-              "duration": 496000
+              "duration": 146238800
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 56,
-            "name": "the user inserts the Override Name",
+            "name": "the user inserts in 'First Name' customer input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:89"
+              "location": "src\\steps\\bookingSteps.ts:37"
             },
             "result": {
               "status": "passed",
-              "duration": 1068224400
+              "duration": 22356699
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 57,
-            "name": "the user inserts the Override Amount",
+            "name": "the user inserts in 'Last Name' customer input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:92"
+              "location": "src\\steps\\bookingSteps.ts:37"
             },
             "result": {
               "status": "passed",
-              "duration": 71604000
+              "duration": 26774600
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 58,
-            "name": "the user selects Rate from dropdown",
+            "name": "the user inserts in 'Email' customer input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:95"
+              "location": "src\\steps\\bookingSteps.ts:37"
             },
             "result": {
               "status": "passed",
-              "duration": 129812299
+              "duration": 31535500
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 59,
-            "name": "the user clicks the Save button for Schedule Modal",
+            "name": "the user inserts in 'Phone' customer input",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:54"
+              "location": "src\\steps\\bookingSteps.ts:37"
             },
             "result": {
               "status": "passed",
-              "duration": 86622600
+              "duration": 29007600
             }
           },
           {
             "arguments": [],
-            "keyword": "Then ",
+            "keyword": "And ",
             "line": 60,
-            "name": "the current schedule is successfully updated",
+            "name": "the user clicks on 'Save Customer' Reservation button",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:109"
+              "location": "src\\steps\\bookingSteps.ts:43"
             },
             "result": {
               "status": "passed",
-              "duration": 2069018500
+              "duration": 1468464100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 61,
+            "name": "the user selects the duration",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4152299
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 62,
-            "name": "the user clicks on the newly edited schedule",
+            "name": "the user clicks on 'Save' Reservation button",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:117"
+              "location": "src\\steps\\bookingSteps.ts:43"
             },
             "result": {
-              "status": "failed",
-              "duration": 20259097199,
-              "error_message": "locator.click: Target closed\n=========================== logs ===========================\nwaiting for locator('table [role=\"row\"] td .event-title').first()\n  locator resolved to <p class=\"event-title\">aokswlds</p>\nattempting click action\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #1\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #2\n  waiting 20ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  element is not visible\nretrying click action, attempt #3\n  waiting 100ms\n  waiting for element to be visible, enabled and stable\nelement was detached from the DOM, retrying\n  locator resolved to <p class=\"event-title\">aokswlds</p>\nattempting click action\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #1\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #2\n  waiting 20ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #3\n  waiting 100ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #4\n  waiting 100ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #5\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #6\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #7\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #8\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #9\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #10\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #11\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #12\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #13\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #14\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #15\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex justify-center place-items-center h-…>…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #16\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex justify-center place-items-center h-…>…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #17\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"group\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #18\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex gap-1 items-center\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #19\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex gap-2\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #20\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #21\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <a tabindex=\"0\" class=\"fc-timegrid-event fc-v-event…>…</a> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #22\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <a tabindex=\"0\" class=\"fc-timegrid-event fc-v-event…>…</a> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #23\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex justify-center place-items-center h-…>…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #24\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex gap-2\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #25\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"group\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #26\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex gap-1 items-center\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #27\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <a tabindex=\"0\" class=\"fc-timegrid-event fc-v-event…>…</a> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #28\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex justify-center place-items-center h-…>…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #29\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"group\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #30\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <div class=\"flex gap-1 items-center\">…</div> from <div id=\"headlessui-portal-root\">…</div> subtree intercepts pointer events\nretrying click action, attempt #31\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #32\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #33\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #34\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #35\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #36\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #37\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #38\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #39\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #40\n  waiting 500ms\n  waiting for element to be visible, enabled and stable\n  element is visible, enabled and stable\n  scrolling into view if needed\n  done scrolling\n  <p class=\"event-title\">fykjfhk</p> from <div class=\"fc-timegrid-event-harness fc-timegrid-eve…>…</div> subtree intercepts pointer events\nretrying click action, attempt #41\n  waiting 500ms\n============================================================\n    at ReservationsPage.clickNewlyCreatedSchedule (C:\\Users\\SamuelDunca\\Desktop\\Dunca Samuel\\cucumber-playwright\\src\\pages\\reservationsPage.ts:162:35)\n    at CustomWorld.<anonymous> (C:\\Users\\SamuelDunca\\Desktop\\Dunca Samuel\\cucumber-playwright\\src\\steps\\reservationsSteps.ts:137:9)"
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 63,
-            "name": "the user clicks on 'Delete' button",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:140"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
-            "line": 64,
-            "name": "the user clicks on 'Continue' button",
-            "match": {
-              "location": "src\\steps\\reservationsSteps.ts:140"
-            },
-            "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 142694799
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 65,
-            "name": "the schedule is successfully deleted",
+            "line": 63,
+            "name": "a confirmation message is displayed",
             "match": {
-              "location": "src\\steps\\reservationsSteps.ts:144"
+              "location": "src\\steps\\bookingSteps.ts:46"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 896930900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 66,
+            "name": "the user clicks on the newly edited reservation",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 83439299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 67,
+            "name": "the user clicks on 'Membership' tab button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:93"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 379700500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 68,
+            "name": "the user clicks on 'Add a Membership' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 367295099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 69,
+            "name": "the user selects a membership plan from dropdown",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:103"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1165047800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 70,
+            "name": "the user clicks on 'Save' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 63336500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 71,
+            "name": "the Current Membership is displayed in the Membership History table",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:129"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1891335999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 72,
+            "name": "the user clicks on Tree Dots button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:112"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47033699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 73,
+            "name": "the user clicks on 'Edit Membership' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56426899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 74,
+            "name": "the user selects the newly created Membership Plan from dropdown",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 855414799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 75,
+            "name": "the user clicks on 'Save' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 62838999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 76,
+            "name": "the Current Membership is displayed in the Membership History table",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:129"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 898511100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 79,
+            "name": "the user clicks on Tree Dots button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:112"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39548499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 80,
+            "name": "the user clicks on 'Deactivate Membership'",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:115"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56273100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 81,
+            "name": "the user clicks on 'Deactivate Membership'",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:115"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50598299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 82,
+            "name": "the membership is deactivated",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:118"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 916404099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 85,
+            "name": "the user clicks on 'Current Reservation' tab button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:93"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37887599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 86,
+            "name": "the user click on the trash icon",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:73"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 67211199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 87,
+            "name": "the user clicks on 'Delete' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50760100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 88,
+            "name": "the reservation disappears from table",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 375047899
             }
           }
         ],
@@ -711,11 +881,11 @@
         "type": "scenario"
       }
     ],
-    "id": "reservation-management",
+    "id": "membership-management",
     "line": 1,
     "keyword": "Feature",
-    "name": "Reservation Management",
+    "name": "Membership Management",
     "tags": [],
-    "uri": "src\\features\\reservations.feature"
+    "uri": "src\\features\\membership.feature"
   }
 ]

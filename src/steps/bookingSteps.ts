@@ -34,7 +34,7 @@ When("the user selects a random slot by given Time and Random Column", async fun
 });
 
 When('the user selects a random slot by given Column and Random Time', async function () {
-    await bookingPage.selectBayByGivenColumnAndRandomTime('mar')
+    await bookingPage.selectBayByGivenColumnAndRandomTime('fly')
 });
     
 Then('the user is let to continue based on the slot availability', async function () {
