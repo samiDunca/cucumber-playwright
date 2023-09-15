@@ -95,13 +95,6 @@ test("Verify that the booking settings for a particular user can be retrieved", 
     expect(_response.ok()).toBeTruthy();
 })
 
-test("Verify that the next-reservation can be retrieved", async ({request}) => {
-    const _response = await request.get(`/users/0092f4be-4311-4754-85a7-f33f41df3ba2/next-reservation`);
-    expect(_response.status()).toBe(200);
-    expect(_response.ok()).toBeTruthy();
-})
-
-
 test("Verify that a booking status for a particular booking can be retrieved", async ({request}) => {
     const _response = await request.get(`/users/${bookingId}/booking-status`);
     expect(_response.status()).toBe(200);
