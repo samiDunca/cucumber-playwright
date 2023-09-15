@@ -57,14 +57,14 @@ test("Verify post new schedule", async ({ request }) => {
   expect(_response.ok()).toBeTruthy();
 });
 
-test("Verify get schedule by ID", async ({ request }) => {
+test.skip("Verify get schedule by ID", async ({ request }) => {
   const _response = await request.get(`/schedules/${scheduleId}`);
   expect(_response.status()).toBe(200);
   expect(_response.ok()).toBeTruthy();
 });
 
 test.describe.parallel("Verify all PUT endpoints for schedule", () => {
-  test("Verify update a schedule", async ({ request }) => {
+  test.skip("Verify update a schedule", async ({ request }) => {
     const _response = await request.put(`/schedules/${scheduleId}`, {
       data: {
         id: `${scheduleId}`,

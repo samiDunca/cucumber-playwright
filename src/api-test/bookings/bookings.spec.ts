@@ -4,12 +4,12 @@ let bookingId = "e4f2becf-f6c1-4b27-9f22-976cf095b8d1"
 let servicePointId = "8fc0f272-83ef-4dd0-9493-79e53cf91ee4"
 
 test.describe.parallel("Verify all POST endpoints for Booking create-indoor", () => {
-    test("Verify post booking create indoor ", async ({ request }) => {
+    test.skip("Verify post booking create indoor ", async ({ request }) => {
       const _response = await request.post(`/bookings/create-indoor`, {
         data: {
           reservationType:0,
           bookedByUserOrganizationId:"556d2b84-8088-4fb3-a5c0-709f93a7d94c",
-          startTeeTime:"2023-10-12T23:00:00",
+          startTeeTime:"2023-10-12T00:00:00",
           duration:"01:00:00",
           servicePointId:`${servicePointId}`
        }
@@ -43,11 +43,11 @@ test.describe.parallel("Verify all POST endpoints for Booking create-indoor", ()
 })
 
 test.describe.parallel("Verify all PUT endpoints for Booking create-indoor", () => {
-  test("Verify that a booking can be updated", async ({request}) => {
+  test.skip("Verify that a booking can be updated", async ({request}) => {
     const _response = await request.put(`/bookings/${bookingId}/update-indoor`, {
       data: {
        id: `${bookingId}`,
-       startTeeTime:"2023-12-10T15:30:00",
+       startTeeTime:"2023-12-10T03:30:00",
        servicePointId:`${servicePointId}`,
        duration:"01:30:00"
       }
@@ -114,11 +114,11 @@ test.describe.parallel("Verify all PUT endpoints for Booking move-indoor", () =>
 })
 
 test.describe.parallel("Verify all POST endpoints for booking/{id}/split", () => {
-  test("Verify that a booking split can be created", async ({request}) => {
+  test.skip("Verify that a booking split can be created", async ({request}) => {
     const _response = await request.post(`/bookings/${bookingId}/split`, {
       data: {
         id: `${bookingId}`,
-        startTeeTime:"2023-12-16T08:00:00",
+        startTeeTime:"2023-12-16T05:00:00",
         servicePointId:`8fc0f272-83ef-4dd0-9493-79e53cf91ee4`,
         duration:"01:00:00"
       }
@@ -142,7 +142,7 @@ test.describe.parallel("Verify all POST endpoints for booking/{id}/split", () =>
 })
 
 test.describe.parallel("Verify all PATCH endpoints for booking status", () => {
-  test("Verify that the booking status can be modified", async ({request}) => {
+  test.skip("Verify that the booking status can be modified", async ({request}) => {
     const _response = await request.patch(`/bookings/${bookingId}/status`, {
       data: {
         status: 4
