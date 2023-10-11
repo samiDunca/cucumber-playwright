@@ -38,5 +38,6 @@ export enum ReservationStatus {
 
 export enum CustomerRelated {
     CREATE_NEW_CUSTOMER = 'Create New Customer',
-    SAVE_CUSTOMER = 'Save Customer'
+    SAVE_CUSTOMER = 'Save Customer',
+    EDIT_MEMBERSHIP = 'Edit Membership'
 }

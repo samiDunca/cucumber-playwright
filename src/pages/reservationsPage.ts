@@ -264,6 +264,15 @@ export class ReservationsPage extends BasePage {
     }
   }
 
+  async checkBookingGroupByName(bookingGroupName: string) {
+    let groups = await this.allBookingGroups.all()
+    for(let group of groups){
+      if(await group.textContent() === bookingGroupName){
+        await group.locator('[type="checkbox"]').click()
+      }
+    }
+  }
+
   async assertSuccessfullyCreatedSchedule() {
     await this.page.getByRole('button', {name: 'month'}).click()
     await this.page.getByRole('button', {name: 'week'}).click()

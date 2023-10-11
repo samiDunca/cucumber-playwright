@@ -9,6 +9,7 @@ import { memberData } from "../suport/types/member.type";
 export class BookingPage extends BasePage {
 
     // Booking page
+    private golfBallIcon: Locator = this.page.locator('[data-icon="golf-ball-tee"]:last-child')
     private bayArrowRight: Locator = this.page.locator('.bay-arrows > div:last-child')
     private bayArrowLeft: Locator = this.page.locator('.bay-arrows button')
 
@@ -39,7 +40,7 @@ export class BookingPage extends BasePage {
     private customerLastNameInput: Locator = this.page.locator('.rates-modal-accounting-container .input-container:nth-child(2) input')
     private customerEmailInput: Locator = this.page.locator('.rates-modal-accounting-container .input-container:nth-child(3) input')
     private customerPhoneInput: Locator = this.page.locator('.rates-modal-accounting-container .input-container:nth-child(4) input')
-    private newCostumerButton: Locator = this.page.locator('#react-select-3-listbox #react-select-3-option-0')
+    private newCostumerButton: Locator = this.page.locator('.indoor-create-booking-container > div:nth-child(2) .member-information [data-icon="plus"]')
     private newCostumerSaveButton: Locator = this.page.locator('.title-container button:first-child')
     
     // Edit account data
@@ -50,10 +51,12 @@ export class BookingPage extends BasePage {
 
     // Edit membership data
     private membershipPlan: Locator = this.page.locator('.form-container .select input');
-    private membershipSelectOption: Locator = this.page.locator('#react-select-7-option-2') // #react-select-9-option-2
+    private membershipPlanList: Locator = this.page.locator('.form-container .select > div:nth-child(2) > div:last-child > div > div');
+    private selectMembershipPlanOption: Locator = this.page.locator('.details-container .select > div:nth-child(2) > div:last-child > div > div:first-child')
     private membershipCalendarIcon: Locator = this.page.locator('.form-container .react-datepicker-wrapper svg');
     private memberInfo: Locator = this.page.locator('.member-info')
     private treeDotsButton: Locator = this.page.locator('.current-membership .relative svg')
+    private membershipNameFromHistoryTable: Locator = this.page.locator('.user-memberships-table tbody tr:first-child td:last-child')
 
     // Calendar buttons
     private calendarIcon: Locator = this.page.locator('.tee-sheet-top .react-datepicker-wrapper')
@@ -79,6 +82,7 @@ export class BookingPage extends BasePage {
     public newEndTime: any;
     public startTimeIndex: number = 0;
     public endTimeIndex: number = 0;
+    public membershipPlanName: any;
 
 
     async clickCalenderIcon() {
@@ -164,19 +168,21 @@ export class BookingPage extends BasePage {
                 await this.newCostumerSaveButton.click()
                 await this.customerEmailInput.waitFor({state: "hidden"})
                 break;
+            case CustomerRelated.EDIT_MEMBERSHIP:
+                await this.page.getByText('Edit Membership').click()
+                break;
             default:
                 await this.page.getByRole('button', {name: `${buttonName}`}).click()
                 break;
         }
     }
 
-    async   saveMemberName() {
+    async saveMemberName() {
         let confirmationMessage = await this.popUpConfirmationMessageContainer.textContent()
         let pattern = /for\s(.*?)\sat/  
         let match = confirmationMessage?.match(pattern)
         if(match){
             this.memberName = match[1].replace(/\s+/g, ', ')
-    
         }
     }
 
@@ -362,8 +368,9 @@ export class BookingPage extends BasePage {
 
     async selectMembershipPlan() {
         await this.membershipPlan.click()
-        await this.membershipSelectOption.isVisible()
-        await this.membershipSelectOption.click({timeout: 10000})
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        this.membershipPlanName = await this.selectMembershipPlanOption.textContent()
+        await this.selectMembershipPlanOption.click({timeout: 1000})
     }
     
     async selectMembershipPlanStartDate(){
@@ -403,5 +410,25 @@ export class BookingPage extends BasePage {
             default:
                 break;
         }
+    }
+
+    async navigateToMainPage(){
+        await this.golfBallIcon.click()
+    }
+
+    async selectMembershipPlanByName(membershipName: string){
+        await this.membershipPlan.waitFor()
+        await this.membershipPlan.click() 
+        let membershipPlans = await this. membershipPlanList.all()
+        for(let plan of membershipPlans){
+            if(membershipName === await plan.textContent()){
+                this.membershipPlanName = membershipName
+                await plan.click()
+            }
+        }
+    }
+
+    async assertAssignedMembershipPlan() {
+       await expect(this.membershipNameFromHistoryTable).toHaveText(this.membershipPlanName)
     }
 }

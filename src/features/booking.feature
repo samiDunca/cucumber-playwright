@@ -97,7 +97,7 @@ Scenario: Add, Edit (reservation, account and membership data) and Delete a Rese
     And the user clicks on 'Add a Membership' Reservation button
     And the user selects a membership plan from dropdown
     And the user clicks on 'Save' Reservation button
-    Then a message is displayed in the modal
+    Then the Current Membership is displayed in the Membership History table
     # delete membership data
     When the user clicks on Tree Dots button
     And the user clicks on 'Deactivate Membership'  

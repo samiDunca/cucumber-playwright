@@ -1,0 +1,891 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "membership-management;verify-that-the-user-can-create-a-membership-plan",
+        "keyword": "Scenario",
+        "line": 7,
+        "name": "Verify that the user can create a Membership Plan",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 569746999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "User navigates to the application",
+            "match": {
+              "location": "src\\steps\\loginSteps.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1790361800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "User logs in",
+            "match": {
+              "location": "src\\steps\\loginSteps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11823878600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 8,
+            "name": "that the user is on the Memberships page",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1125119700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "the user clicks on the plus button for new Membership Plan",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 137290199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 10,
+            "name": "the user inserts name in Membership Name input",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55167700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "the user selects a Booking Group from member dropdown",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 297800699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "the user clicks the save button for Membership Plan modal",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 122700700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "the membership should be created",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 900808700
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "create a Membership Plan assigning the booking group created on the previous step,\nand then create a reservation assigning the membership created on the second step.",
+        "id": "membership-management;verify-that-the-following-flow-works:-create-a-booking-group,",
+        "keyword": "Scenario",
+        "line": 15,
+        "name": "Verify that the following flow works: create a booking group,",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 488698599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "User navigates to the application",
+            "match": {
+              "location": "src\\steps\\loginSteps.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1579962699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "User logs in",
+            "match": {
+              "location": "src\\steps\\loginSteps.ts:26"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 11646811899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 19,
+            "name": "that the user is on the Booking Engine page",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 262231699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 20,
+            "name": "the user clicks on the plus button in the top-right side above the table",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 139180900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "the user inserts in Name input",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:42"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 57210000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "the user inserts number for Days in Advance input",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39832200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "the user selects time",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 514245100
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "checkbox"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Limit Concurrent Bookings"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Limit Concurrent Hours"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Limit Daily Play"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Limit Monthly Play"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 24,
+            "name": "the user checks the following check-boxes:",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 346403699
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "input"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Max Concurrently Booked hours"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Max Hours per Day"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Max Hours per Month"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "Limit Monthly Play"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 30,
+            "name": "the user inserts number for the following inputs:",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74754799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "the user selects Booking Rate from Rates dropdown",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:68"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 192085899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the user clicks the save button for modal",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:72"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 103030400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 38,
+            "name": "the booking should be successfully created",
+            "match": {
+              "location": "src\\steps\\bookingEngineSteps.ts:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 141299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 41,
+            "name": "that the user is on the Memberships page",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5859740099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 42,
+            "name": "the user clicks on the plus button for new Membership Plan",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 143645500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 43,
+            "name": "the user inserts name in Membership Name input",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 78537299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 44,
+            "name": "the user selects the newly created Booking Group from the dropdown",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 956190500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 45,
+            "name": "the user clicks the save button for Membership Plan modal",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 135858999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 46,
+            "name": "the membership should be created",
+            "match": {
+              "location": "src\\steps\\membershipSteps.ts:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 408731499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 49,
+            "name": "that the user is on the First page",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:125"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 195061300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 50,
+            "name": "the user click on calendar icon",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91812399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 51,
+            "name": "the user selects a date one month appart from current date",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 187641799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "the user selects a random slot by given Column and Random Time",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 451909600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 53,
+            "name": "the user is let to continue based on the slot availability",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9671599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 54,
+            "name": "the user selects reservation type",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44615500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 55,
+            "name": "the user clicks on 'Create New Customer' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 146238800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 56,
+            "name": "the user inserts in 'First Name' customer input",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22356699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 57,
+            "name": "the user inserts in 'Last Name' customer input",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26774600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 58,
+            "name": "the user inserts in 'Email' customer input",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31535500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 59,
+            "name": "the user inserts in 'Phone' customer input",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 29007600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 60,
+            "name": "the user clicks on 'Save Customer' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1468464100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 61,
+            "name": "the user selects the duration",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4152299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 62,
+            "name": "the user clicks on 'Save' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 142694799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 63,
+            "name": "a confirmation message is displayed",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 896930900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 66,
+            "name": "the user clicks on the newly edited reservation",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 83439299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 67,
+            "name": "the user clicks on 'Membership' tab button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:93"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 379700500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 68,
+            "name": "the user clicks on 'Add a Membership' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 367295099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 69,
+            "name": "the user selects a membership plan from dropdown",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:103"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1165047800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 70,
+            "name": "the user clicks on 'Save' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 63336500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 71,
+            "name": "the Current Membership is displayed in the Membership History table",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:129"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1891335999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 72,
+            "name": "the user clicks on Tree Dots button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:112"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 47033699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 73,
+            "name": "the user clicks on 'Edit Membership' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56426899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 74,
+            "name": "the user selects the newly created Membership Plan from dropdown",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:122"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 855414799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 75,
+            "name": "the user clicks on 'Save' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 62838999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 76,
+            "name": "the Current Membership is displayed in the Membership History table",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:129"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 898511100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 79,
+            "name": "the user clicks on Tree Dots button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:112"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39548499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 80,
+            "name": "the user clicks on 'Deactivate Membership'",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:115"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 56273100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 81,
+            "name": "the user clicks on 'Deactivate Membership'",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:115"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50598299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 82,
+            "name": "the membership is deactivated",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:118"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 916404099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 85,
+            "name": "the user clicks on 'Current Reservation' tab button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:93"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 37887599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 86,
+            "name": "the user click on the trash icon",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:73"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 67211199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 87,
+            "name": "the user clicks on 'Delete' Reservation button",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:43"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50760100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 88,
+            "name": "the reservation disappears from table",
+            "match": {
+              "location": "src\\steps\\bookingSteps.ts:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 375047899
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "membership-management",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Membership Management",
+    "tags": [],
+    "uri": "src\\features\\membership.feature"
+  }
+]
